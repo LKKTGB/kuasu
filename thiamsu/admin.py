@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from meta.models.song import Song
+from thiamsu.models.song import Song
+
 
 class SongAdmin(admin.ModelAdmin):
     list_display = ('original_title', 'singer')

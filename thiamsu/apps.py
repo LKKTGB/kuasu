@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class MetaConfig(AppConfig):
-    name = 'meta'
+class ThiamsuConfig(AppConfig):
+    name = 'thiamsu'

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # local
-from meta.models.song import Song
+from thiamsu.models.song import Song
 
 
 class Translation(models.Model):
