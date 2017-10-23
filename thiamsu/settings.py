@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'social_django',
     # local
-    'meta.apps.MetaConfig'
+    'thiamsu.apps.ThiamsuConfig'
 ]
 
 MIDDLEWARE = [

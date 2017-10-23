@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # local
-from meta.models.song import Song
-from meta.models.translation import Translation
+from thiamsu.models.song import Song
+from thiamsu.models.translation import Translation
 
 
 class ApprovedTranslation(models.Model):
