@@ -2,10 +2,10 @@ from thiamsu.settings.base import *
 import dj_database_url
 
 '''
-Settings for staging environment deployed on Heroku
+Settings for testing environment deployed on Heroku
 '''
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['thiamsu-testing.herokuapp.com']
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
