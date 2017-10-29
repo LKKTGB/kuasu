@@ -6,12 +6,22 @@ pip install -r requirements.txt
 python manage.py migrate
 ```
 
-## Run
+## Develop
+
+### Setup Env
+
+Add .env file to project root with following variables
+```
+SOCIAL_AUTH_FACEBOOK_KEY=<App ID from Facebook>
+SOCIAL_AUTH_FACEBOOK_SECRET=<App Secret from Facebook>
+```
+
+### Run server
 ```
 python manage.py runserver
 ```
 
-## Login
+Then you can login at
 ```
 http://localhost:8000/login
 ```
