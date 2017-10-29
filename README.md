@@ -12,8 +12,8 @@ python manage.py migrate
 
 Add .env file to project root with following variables
 ```
-SOCIAL_AUTH_FACEBOOK_KEY=<App ID from Facebook>
-SOCIAL_AUTH_FACEBOOK_SECRET=<App Secret from Facebook>
+SOCIAL_AUTH_FACEBOOK_KEY=<App ID from Facebook app thiamsu-development>
+SOCIAL_AUTH_FACEBOOK_SECRET=<App Secret from Facebook app thiamsu-development>
 ```
 
 ### Run server
