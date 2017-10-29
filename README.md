@@ -12,8 +12,8 @@ python manage.py migrate
 
 Add .env file to project root with following variables
 ```
-SOCIAL_AUTH_FACEBOOK_KEY=<App ID from Facebook>
-SOCIAL_AUTH_FACEBOOK_SECRET=<App Secret from Facebook>
+SOCIAL_AUTH_FACEBOOK_KEY=<App ID from Facebook app thiamsu-development>
+SOCIAL_AUTH_FACEBOOK_SECRET=<App Secret from Facebook app thiamsu-development>
 ```
 
 ### Run server
@@ -27,21 +27,28 @@ http://localhost:8000/login
 ```
 
 ## Deploy
-### Staging (Heroku)
 
 * setup
 ```shell
 brew install heroku
+```
+
+### Testing (Heroku)
+```
 heroku login
-heroku git:remote -a thiamsu-tw
+heroku git:remote -a thiamsu-testing
+git push heroku-testing <local_branch>:master
 ```
 
-* deploy
+### Staging (Heroku)
 ```
-git push heroku <local_branch>:master
+heroku login
+heroku git:remote -a thiamsu-staging
+git push heroku-staging <local_branch>:master
 ```
 
-* other commands
+### Heroku Notes
+* other useful commands
 ```
 heroku ps
 heroku ps:scale web=1
