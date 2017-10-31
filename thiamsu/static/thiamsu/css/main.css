@@ -1,0 +1,53 @@
+#searchForm .form-control,
+#searchForm .btn
+{
+    border: solid 1px #cccccc;
+}
+
+#searchForm .btn-search > i
+{
+    width: 1.5rem;
+}
+
+#searchForm.focus .form-control,
+#searchForm.focus .btn,
+#searchForm.focus .dropdown-menu
+{
+    border: solid 1px #00ae7b;
+}
+
+#searchForm.focus .form-control:not(:first-child),
+#searchForm.focus .input-group-btn:not(:first-child) .btn
+{
+    border-left: solid 1px #cccccc;
+}
+
+#searchForm.focus .form-control:not(:last-child),
+#searchForm.focus .input-group-btn:not(:last-child) .btn
+{
+    border-right: solid 1px #cccccc;
+}
+
+#searchForm.focus .btn-search-type
+{
+    background-color: white;
+    color: black;
+}
+
+#searchForm.focus .btn-search
+{
+    background-color: #00ae7b;
+    color: white;
+}
+
+.btn-login,
+.btn-login:hover
+{
+    border: solid 1px #00ae7b;
+    background-color: #00ae7b;
+    color: white;
+}
+
+.avatar {
+    width: 48px; height: 48px; overflow: hidden; border-radius: 50%;
+}
