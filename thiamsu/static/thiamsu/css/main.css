@@ -49,5 +49,29 @@
 }
 
 .avatar {
-    width: 48px; height: 48px; overflow: hidden; border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+#pager a {
+    color: #444444;
+}
+
+#pager .page {
+    width: 1.5em;
+    height: 1.5em;
+    text-align: center;
+}
+
+#pager .current {
+    background-color: #00ae7b;
+    border-radius: 50%;
+    color: white;
+}
+
+#pager .page:not(.current):hover {
+    background-color: #f5f5f5;
+    border-radius: 50%;
 }
