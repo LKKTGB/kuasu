@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 def home(request):
@@ -6,4 +6,10 @@ def home(request):
 
 
 def search(request):
-    return render(request, 'thiamsu/search_result.html')
+    query = request.GET.get('q', '')
+    if query == '':
+        return redirect('/')
+
+    return render(request, 'thiamsu/search_result.html', {
+        'query': query,
+    })

@@ -44,7 +44,7 @@
 
                 <form id="searchForm" method="get" action="/search" class="form-inline m-4">
                     <div class="input-group">
-                        <input id="searchText" name="q" class="form-control" type="text" placeholder="搜尋歌曲">
+                        <input id="searchText" name="q" class="form-control" type="text" placeholder="搜尋歌曲" value="{{ query }}">
                         <input id="searchType" name="type" type="hidden" value="performer">
 
                         <span class="input-group-btn">
@@ -72,6 +72,24 @@
                 </div>
             </div>
 
+        </div>
+
+        <div class="row align-items-center justify-content-between py-3 px-5" style="font-size: 20px; background-color: #eaeaea;">
+            <div>
+                {% if query|length > 0 %}
+                    <span style="font-weight: 600; color: #00ae7b;">{{ query }}</span>
+                    的搜尋結果：
+                {% endif %}
+            </div>
+            <div class="form-inline">
+                <label class="mr-2">排序依</label>
+                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">歌名（原文）</button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item">歌名（原文）</a>
+                    <a class="dropdown-item">歌名（全羅）</a>
+                    <a class="dropdown-item">完成度</a>
+                </div>
+            </div>
         </div>
 
         {% block content %}{% endblock %}
