@@ -64,7 +64,13 @@ def search(request):
     if query == '':
         return redirect('/')
 
+    filtered_songs = (s for s in songs if (
+        query in s['original_title'] or
+        query in s['tailo_title'] or
+        query in s['singer']
+    ))
+
     return render(request, 'thiamsu/search_result.html', {
         'query': query,
-        'songs': songs,
+        'songs': filtered_songs,
     })

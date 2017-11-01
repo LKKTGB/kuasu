@@ -111,6 +111,12 @@
                     <p class="song-singer">演唱人：{{ song.singer }}</p>
                     </a>
                 </div>
+            {% empty %}
+                <div class="col d-table" style="min-height: 400px;">
+                    <div class="align-middle text-center d-table-cell">
+                        <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
+                    </div>
+                </div>
             {% endfor %}
         </div>
         {% block content %}{% endblock %}
