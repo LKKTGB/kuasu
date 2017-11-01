@@ -74,6 +74,7 @@
 
         </div>
 
+
         <div class="row align-items-center justify-content-between py-3 px-5" style="font-size: 20px; background-color: #eaeaea;">
             <div>
                 {% if query|length > 0 %}
@@ -92,6 +93,26 @@
             </div>
         </div>
 
+        <div class="row song-list mt-4">
+            {% for song in songs %}
+                <div class="col-4 song">
+                    <a href="#">
+                    <div class="song-cover-container">
+                        {%  if song.progress > 0 %}
+                        <div class="song-translation-progress">
+                            <i class="material-icons">mode_edit</i>
+                            <span>{{ song.progress|stringformat:".1f" }}%</span>
+                        </div>
+                        {% endif %}
+                        <img src="{{ song.cover_url }}" class="song-cover">
+                    </div>
+                    <p class="song-original-title">{{ song.original_title }}</p>
+                    <p class="song-tailo-title">{{ song.tailo_title }}</p>
+                    <p class="song-singer">演唱人：{{ song.singer }}</p>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
         {% block content %}{% endblock %}
 
         <div class="row justify-content-center py-3 px-5" style="font-size: 20px; background-color: #eaeaea;">
