@@ -74,64 +74,7 @@
 
         </div>
 
-
-        <div class="row align-items-center justify-content-between py-3 px-5" style="font-size: 20px; background-color: #eaeaea;">
-            <div>
-                {% if query|length > 0 %}
-                    <span style="font-weight: 600; color: #00ae7b;">{{ query }}</span>
-                    的搜尋結果：
-                {% endif %}
-            </div>
-            <div class="form-inline">
-                <label class="mr-2">排序依</label>
-                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">歌名（原文）</button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item">歌名（原文）</a>
-                    <a class="dropdown-item">歌名（全羅）</a>
-                    <a class="dropdown-item">完成度</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="row song-list mt-4">
-            {% for song in songs %}
-                <div class="col-4 song">
-                    <a href="#">
-                    <div class="song-cover-container">
-                        {%  if song.progress > 0 %}
-                        <div class="song-translation-progress">
-                            <i class="material-icons">mode_edit</i>
-                            <span>{{ song.progress|stringformat:".1f" }}%</span>
-                        </div>
-                        {% endif %}
-                        <img src="{{ song.cover_url }}" class="song-cover">
-                    </div>
-                    <p class="song-original-title">{{ song.original_title }}</p>
-                    <p class="song-tailo-title">{{ song.tailo_title }}</p>
-                    <p class="song-singer">演唱人：{{ song.singer }}</p>
-                    </a>
-                </div>
-            {% empty %}
-                <div class="col d-table" style="min-height: 400px;">
-                    <div class="align-middle text-center d-table-cell">
-                        <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
         {% block content %}{% endblock %}
-
-        <div class="row justify-content-center py-3 px-5" style="font-size: 20px; background-color: #eaeaea;">
-            <div id="pager" class="col-6 d-flex justify-content-between">
-                <a href="#">上一頁</a>
-                <a href="#" class="page current"><div>1</div></a>
-                <a href="#" class="page"><div>2</div></a>
-                <a href="#" class="page"><div>3</div></a>
-                <a href="#" class="page"><div>4</div></a>
-                <a href="#" class="page"><div>5</div></a>
-                <a href="#">下一頁</a>
-            </div>
-        </div>
 
     </div>
 </body>
