@@ -1,11 +1,16 @@
+from django.conf import settings
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 
 from .sample_data import songs, lyrics
+from thiamsu.models.song import Song
 
 
 def home(request):
+    songs = Song.objects.order_by('original_title')
+    paginator = Paginator(songs, settings.PAGINATION_MAX_ITMES_PER_PAGE)
     return render(request, 'thiamsu/song_list.html', {
-        'songs': songs,
+        'songs': paginator.page(1),
     })
 
 
