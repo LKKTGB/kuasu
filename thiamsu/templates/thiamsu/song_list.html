@@ -22,7 +22,7 @@
 <div class="row song-list mt-4">
     {% for song in songs %}
         <div class="col-4 song">
-            <a href="{% url 'song_detail' id=song.youtube_id %}">
+            <a href="{% url 'song_detail' id=song.id %}">
             <div class="song-cover-container">
                 {%  if song.progress > 0 %}
                 <div class="song-translation-progress">

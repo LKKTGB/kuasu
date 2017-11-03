@@ -1,9 +1,9 @@
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
-from .sample_data import songs, lyrics
 from thiamsu.models.song import Song
 
 
@@ -42,12 +42,15 @@ def search(request):
 
 
 def song_detail(request, id):
-    matched_songs = [s for s in songs if (
-        s['youtube_id'] == id
-    )]
-    song = matched_songs[0] if len(matched_songs) > 0 else None
+    try:
+        song = Song.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return redirect('/')
 
     return render(request, 'thiamsu/song_detail.html', {
         'song': song,
-        'lyrics': lyrics,
+        'lyrics': [{
+            'original': lyric,
+            'translation': 'siâ-khì，si-tshàu，môo-sîn-á'
+        } for lyric in song.original_lyrics.split('\n')],
     })
