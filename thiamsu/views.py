@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.shortcuts import render, redirect
 
 from .sample_data import songs, lyrics
@@ -19,15 +20,24 @@ def search(request):
     if query == '':
         return redirect('/')
 
-    filtered_songs = (s for s in songs if (
-        query in s['original_title'] or
-        query in s['tailo_title'] or
-        query in s['singer']
-    ))
+    query_type = request.GET.get('type', '')
+    if query_type not in ['song-title', 'performer']:
+        return redirect('/')
 
+    if query_type == 'song-title':
+        filtered_songs = Song.objects.filter(
+            Q(original_title__contains=query) |
+            Q(hanzi_title__contains=query) |
+            Q(tailo_title__contains=query))
+    else:  # performer
+        filtered_songs = Song.objects.filter(
+            Q(singer__contains=query))
+
+    paginator = Paginator(
+        filtered_songs, settings.PAGINATION_MAX_ITMES_PER_PAGE)
     return render(request, 'thiamsu/song_list.html', {
         'query': query,
-        'songs': filtered_songs,
+        'songs': paginator.page(1),
     })
 
 
