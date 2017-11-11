@@ -13,6 +13,7 @@ class Song(models.Model):
     lyricist = models.CharField(max_length=100, help_text='作詞人')
     youtube_url = models.CharField(max_length=100, help_text='Youtube 網址')
     original_lyrics = models.TextField(default='', help_text='原文歌詞')
+    readonly = models.BooleanField(default=False, help_text='鎖定編修')
 
     @property
     def youtube_id(self):
