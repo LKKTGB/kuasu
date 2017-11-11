@@ -6,8 +6,13 @@ from django.contrib import admin
 
 from thiamsu.forms import SongAdminForm
 from thiamsu.models.approved_translation import ApprovedTranslation
+from thiamsu.models.new_word import NewWord
 from thiamsu.models.song import Song
 from thiamsu.models.translation import Translation
+
+
+class NewWordInline(admin.StackedInline):
+    model = NewWord
 
 
 class SongAdmin(admin.ModelAdmin):
@@ -18,6 +23,9 @@ class SongAdmin(admin.ModelAdmin):
 
     list_display = ('original_title', 'performer')
     form = SongAdminForm
+    inlines = [
+        NewWordInline,
+    ]
 
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
