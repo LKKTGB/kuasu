@@ -6,9 +6,12 @@
       "original_title": "鬼扮仙",
       "tailo_title": "kuí pān-sian",
       "performer": "濁水溪公社",
+      "lyricist": "柯仁堅",
+      "composer": "柯仁堅",
       "hanzi_title": "鬼扮仙",
       "hanlo_title": "鬼扮sián",
-      "youtube_url": "https://www.youtube.com/watch?v=6nfRTnCSL-E"
+      "youtube_url": "https://www.youtube.com/watch?v=6nfRTnCSL-E",
+      "readonly": true
     }
   },
   {
@@ -18,9 +21,12 @@
       "original_title": "人生",
       "tailo_title": "Jîn-sing",
       "performer": "黃妃",
+      "lyricist": "呂金守",
+      "composer": "市川昭介",
       "hanzi_title": "人生",
       "hanlo_title": "人生",
-      "youtube_url": "https://www.youtube.com/watch?v=hrExrKOqu6U"
+      "youtube_url": "https://www.youtube.com/watch?v=hrExrKOqu6U",
+      "readonly": false
     }
   },
   {
@@ -30,9 +36,12 @@
       "original_title": "中壇元帥",
       "tailo_title": "Tiong-tuânn guân-suè",
       "performer": "濁水溪公社",
+      "lyricist": "柯仁堅",
+      "composer": "柯仁堅",
       "hanzi_title": "中壇元帥",
       "hanlo_title": "中壇元帥",
-      "youtube_url": "https://www.youtube.com/watch?v=pSRVX808K0Y"
+      "youtube_url": "https://www.youtube.com/watch?v=pSRVX808K0Y",
+      "readonly": true
     }
   },
   {
@@ -42,9 +51,12 @@
       "original_title": "晚安台灣",
       "tailo_title": "àm-an Tâi-uân",
       "performer": "濁水溪公社",
+      "lyricist": "柯仁堅",
+      "composer": "柯仁堅",
       "hanzi_title": "晚安台灣",
       "hanlo_title": "晚安台灣",
-      "youtube_url": "https://www.youtube.com/watch?v=9CqHgzYv4nw"
+      "youtube_url": "https://www.youtube.com/watch?v=9CqHgzYv4nw",
+      "readonly": true
     }
   },
   {
@@ -54,9 +66,12 @@
       "original_title": "寂寞的島",
       "tailo_title": "siok-bo̍k ê tó",
       "performer": "王昭華",
+      "lyricist": "王昭華",
+      "composer": "王昭華",
       "hanzi_title": "寂寞的島",
       "hanlo_title": "寂寞ê島",
-      "youtube_url": "https://www.youtube.com/watch?v=mZGB5cE7EMw"
+      "youtube_url": "https://www.youtube.com/watch?v=mZGB5cE7EMw",
+      "readonly": false
     }
   },
   {
@@ -66,9 +81,12 @@
       "original_title": "暮沉武德殿",
       "tailo_title": "Bōo-tîm Bú-tik-tiān",
       "performer": "閃靈",
+      "lyricist": "林昶佐",
+      "composer": "林昶佐、劉笙彙",
       "hanzi_title": "暮沉武德殿",
       "hanlo_title": "暮沉武德殿",
-      "youtube_url": "https://www.youtube.com/watch?v=NVzmek3PqNs"
+      "youtube_url": "https://www.youtube.com/watch?v=NVzmek3PqNs",
+      "readonly": true
     }
   },
   {
@@ -78,9 +96,12 @@
       "original_title": "向前走",
       "tailo_title": "Hiòng-tsiân Kiânn",
       "performer": "林強",
+      "lyricist": "林強",
+      "composer": "林強",
       "hanzi_title": "向前行",
       "hanlo_title": "向前行",
-      "youtube_url": "https://www.youtube.com/watch?v=gD14iiXq7Xw"
+      "youtube_url": "https://www.youtube.com/watch?v=gD14iiXq7Xw",
+      "readonly": false
     }
   },
   {
@@ -90,9 +111,12 @@
       "original_title": "無詞的歌",
       "tailo_title": "Bô-sû ê Kua",
       "performer": "秀蘭瑪雅 ",
+      "lyricist": "方文良",
+      "composer": "徐偉銘",
       "hanzi_title": "無詞的歌",
       "hanlo_title": "無詞ê歌",
-      "youtube_url": "https://www.youtube.com/watch?v=OHjPWMS216Q"
+      "youtube_url": "https://www.youtube.com/watch?v=OHjPWMS216Q",
+      "readonly": false
     }
   },
   {
@@ -102,9 +126,12 @@
       "original_title": "釘子花",
       "tailo_title": "Ting-á-hue",
       "performer": "伍佰 & China Blue",
+      "lyricist": "伍佰",
+      "composer": "伍佰",
       "hanzi_title": "釘子花",
       "hanlo_title": "釘子花",
-      "youtube_url": "https://www.youtube.com/watch?v=3MHVNxd130E"
+      "youtube_url": "https://www.youtube.com/watch?v=3MHVNxd130E",
+      "readonly": true
     }
   },
   {
@@ -114,9 +141,12 @@
       "original_title": "島嶼天光",
       "tailo_title": "tó-sū thinn-kng",
       "performer": "滅火器",
+      "lyricist": "楊大正",
+      "composer": "楊大正",
       "hanzi_title": "島嶼天光",
       "hanlo_title": "島嶼天光",
-      "youtube_url": "https://www.youtube.com/watch?v=iV8JDbtXZm4"
+      "youtube_url": "https://www.youtube.com/watch?v=iV8JDbtXZm4",
+      "readonly": false
     }
   }
 ]
