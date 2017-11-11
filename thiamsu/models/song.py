@@ -1,6 +1,6 @@
 from django.db import models
 
-from thiamsu.utils import get_youtube_id_from_url
+from thiamsu.utils import get_youtube_id_from_url, translate_hanzi_to_hanlo
 
 
 class Song(models.Model):
@@ -21,3 +21,41 @@ class Song(models.Model):
         return 'https://img.youtube.com/vi/{id}/hqdefault.jpg'.format(
             id=self.youtube_id
         )
+
+    def get_lyrics_with_translations(self):
+        from thiamsu.models.translation import Translation
+
+        def query_translations(lang):
+            latest_translation_times = (
+                Translation.objects
+                .filter(song=self.id)
+                .filter(lang=lang)
+                .values('line_no')
+                .annotate(models.Max('created_at'))
+                .order_by()
+            )
+
+            q_statement = models.Q()
+            for pair in latest_translation_times:
+                q_statement |= (models.Q(line_no__exact=pair['line_no']) &
+                                models.Q(created_at__exact=pair['created_at__max']))
+            translations = (
+                Translation.objects
+                .filter(song=self.id)
+                .filter(lang=lang)
+                .filter(q_statement)
+            )
+            return {t.line_no: t.content for t in translations}
+
+        hanzi_lyrics = query_translations('HZ')
+        tailo_lyrics = query_translations('TL')
+
+        lyrics_with_translations = []
+        for i, lyric in enumerate(self.original_lyrics.split('\n')):
+            lyrics_with_translations.append({
+                'original': lyric,
+                'hanzi': hanzi_lyrics.get(i),
+                'tailo': tailo_lyrics.get(i),
+                'hanlo': translate_hanzi_to_hanlo(hanzi_lyrics.get(i))
+            })
+        return lyrics_with_translations
