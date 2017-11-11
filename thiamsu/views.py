@@ -31,7 +31,7 @@ def search(request):
             Q(tailo_title__contains=query))
     else:  # performer
         filtered_songs = Song.objects.filter(
-            Q(singer__contains=query))
+            Q(performer__contains=query))
 
     paginator = Paginator(
         filtered_songs, settings.PAGINATION_MAX_ITMES_PER_PAGE)

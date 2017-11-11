@@ -7,7 +7,7 @@ from thiamsu.models.translation import Translation
 
 
 class SongAdmin(admin.ModelAdmin):
-    list_display = ('original_title', 'singer')
+    list_display = ('original_title', 'performer')
     form = SongAdminForm
 
 
