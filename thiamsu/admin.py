@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from thiamsu.forms import SongAdminForm
 from thiamsu.models.approved_translation import ApprovedTranslation
 from thiamsu.models.song import Song
 from thiamsu.models.translation import Translation
@@ -7,6 +8,7 @@ from thiamsu.models.translation import Translation
 
 class SongAdmin(admin.ModelAdmin):
     list_display = ('original_title', 'singer')
+    form = SongAdminForm
 
 
 class TranslationAdmin(admin.ModelAdmin):

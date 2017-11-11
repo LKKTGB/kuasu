@@ -24,7 +24,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^search/$', views.search, name='search'),
-    url(r'^song/(?P<id>[A-Za-z0-9\-]{11})/$', views.song_detail, name='song_detail'),
+    url(r'^song/(?P<id>[0-9]*)/$', views.song_detail, name='song_detail'),
     url(r'^profile/$', user_views.profile, name='profile'),
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
