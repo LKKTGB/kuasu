@@ -28,7 +28,7 @@ http://localhost:8000/login
 
 ### Import sample data to local db
 ```
-python tools/import_sample_data.py
+python manage.py loaddata samples/sample_data.json
 ```
 
 ## Deploy

@@ -1,0 +1,122 @@
+[
+  {
+    "model": "thiamsu.Song",
+    "pk": "1",
+    "fields": {
+      "original_title": "鬼扮仙",
+      "tailo_title": "kuí pān-sian",
+      "performer": "濁水溪公社",
+      "hanzi_title": "鬼扮仙",
+      "hanlo_title": "鬼扮sián",
+      "youtube_url": "https://www.youtube.com/watch?v=6nfRTnCSL-E"
+    }
+  },
+  {
+    "model": "thiamsu.Song",
+    "pk": "2",
+    "fields": {
+      "original_title": "人生",
+      "tailo_title": "Jîn-sing",
+      "performer": "黃妃",
+      "hanzi_title": "人生",
+      "hanlo_title": "人生",
+      "youtube_url": "https://www.youtube.com/watch?v=hrExrKOqu6U"
+    }
+  },
+  {
+    "model": "thiamsu.Song",
+    "pk": "3",
+    "fields": {
+      "original_title": "中壇元帥",
+      "tailo_title": "Tiong-tuânn guân-suè",
+      "performer": "濁水溪公社",
+      "hanzi_title": "中壇元帥",
+      "hanlo_title": "中壇元帥",
+      "youtube_url": "https://www.youtube.com/watch?v=pSRVX808K0Y"
+    }
+  },
+  {
+    "model": "thiamsu.Song",
+    "pk": "4",
+    "fields": {
+      "original_title": "晚安台灣",
+      "tailo_title": "àm-an Tâi-uân",
+      "performer": "濁水溪公社",
+      "hanzi_title": "晚安台灣",
+      "hanlo_title": "晚安台灣",
+      "youtube_url": "https://www.youtube.com/watch?v=9CqHgzYv4nw"
+    }
+  },
+  {
+    "model": "thiamsu.Song",
+    "pk": "5",
+    "fields": {
+      "original_title": "寂寞的島",
+      "tailo_title": "siok-bo̍k ê tó",
+      "performer": "王昭華",
+      "hanzi_title": "寂寞的島",
+      "hanlo_title": "寂寞ê島",
+      "youtube_url": "https://www.youtube.com/watch?v=mZGB5cE7EMw"
+    }
+  },
+  {
+    "model": "thiamsu.Song",
+    "pk": "6",
+    "fields": {
+      "original_title": "暮沉武德殿",
+      "tailo_title": "Bōo-tîm Bú-tik-tiān",
+      "performer": "閃靈",
+      "hanzi_title": "暮沉武德殿",
+      "hanlo_title": "暮沉武德殿",
+      "youtube_url": "https://www.youtube.com/watch?v=NVzmek3PqNs"
+    }
+  },
+  {
+    "model": "thiamsu.Song",
+    "pk": "7",
+    "fields": {
+      "original_title": "向前走",
+      "tailo_title": "Hiòng-tsiân Kiânn",
+      "performer": "林強",
+      "hanzi_title": "向前行",
+      "hanlo_title": "向前行",
+      "youtube_url": "https://www.youtube.com/watch?v=gD14iiXq7Xw"
+    }
+  },
+  {
+    "model": "thiamsu.Song",
+    "pk": "8",
+    "fields": {
+      "original_title": "無詞的歌",
+      "tailo_title": "Bô-sû ê Kua",
+      "performer": "秀蘭瑪雅 ",
+      "hanzi_title": "無詞的歌",
+      "hanlo_title": "無詞ê歌",
+      "youtube_url": "https://www.youtube.com/watch?v=OHjPWMS216Q"
+    }
+  },
+  {
+    "model": "thiamsu.Song",
+    "pk": "9",
+    "fields": {
+      "original_title": "釘子花",
+      "tailo_title": "Ting-á-hue",
+      "performer": "伍佰 & China Blue",
+      "hanzi_title": "釘子花",
+      "hanlo_title": "釘子花",
+      "youtube_url": "https://www.youtube.com/watch?v=3MHVNxd130E"
+    }
+  },
+  {
+    "model": "thiamsu.Song",
+    "pk": "10",
+    "fields": {
+      "original_title": "島嶼天光",
+      "tailo_title": "tó-sū thinn-kng",
+      "performer": "滅火器",
+      "hanzi_title": "島嶼天光",
+      "hanlo_title": "島嶼天光",
+      "youtube_url": "https://www.youtube.com/watch?v=iV8JDbtXZm4"
+    }
+  }
+]
