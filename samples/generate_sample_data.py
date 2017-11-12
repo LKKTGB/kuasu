@@ -46,7 +46,7 @@ class SampleDataGenerator:
                 song['fields']['original_lyrics'] = fp.read().strip()
 
     def load_translations(self, lang):
-        today = date.today()
+        today = date(2017, 10, 1)
         for song in self.songs:
             title = song['fields']['hanzi_title']
             lyric_file = os.path.join(self.root, title, '%s.txt' % lang)
@@ -66,7 +66,7 @@ class SampleDataGenerator:
                         'lang': lang,
                         'content': translations[i],
                         'contributor': self.users[i % 2]['pk'],
-                        'created_at': (today - timedelta(hours=-len(self.translations))).strftime('%Y-%m-%d %H:%M')
+                        'created_at': (today - timedelta(hours=len(self.translations))).strftime('%Y-%m-%d %H:%M')
                     }
                 })
 
