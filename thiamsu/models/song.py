@@ -50,8 +50,8 @@ class Song(models.Model):
             )
             return {t.line_no: t.content for t in translations}
 
-        hanzi_lyrics = query_translations('HZ')
-        tailo_lyrics = query_translations('TL')
+        hanzi_lyrics = query_translations('hanzi')
+        tailo_lyrics = query_translations('tailo')
 
         lyrics_with_translations = []
         for i, lyric in enumerate(self.original_lyrics.split('\n')):
