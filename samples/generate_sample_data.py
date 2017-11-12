@@ -63,7 +63,7 @@ class SampleDataGenerator:
                     'fields': {
                         'song': song['pk'],
                         'line_no': i,
-                        'lang': {'hanzi': 'HZ', 'tailo': 'TL'}[lang],
+                        'lang': lang,
                         'content': translations[i],
                         'contributor': self.users[i % 2]['pk'],
                         'created_at': (today - timedelta(hours=-len(self.translations))).strftime('%Y-%m-%d %H:%M')
