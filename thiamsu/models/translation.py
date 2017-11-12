@@ -18,6 +18,6 @@ class Translation(models.Model):
         max_length=5,
         choices=LANG_CHOICES)
     content = models.CharField(max_length=1000)
-    contributor = models.ForeignKey(User)
+    contributor = models.ForeignKey(User, blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
