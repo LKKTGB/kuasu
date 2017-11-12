@@ -157,7 +157,7 @@
                                list-style-type: none;
                                padding-top: 1rem;
 ">
-                        <form method='post'>
+                        <form action='/song/{{ song.id }}/translation/' method='post'>
                             {% csrf_token %}
                             {{ forms.hanzi }}
                             <input type="submit" value="送出">
