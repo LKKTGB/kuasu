@@ -1,6 +1,8 @@
 from urllib.parse import urlparse, parse_qs
 import re
 
+from thiamsu import constants
+
 
 def is_valid_youtube_id(youtube_id):
     pattern = r'[A-Za-z0-9\-\_]{11}'
@@ -32,3 +34,14 @@ def get_youtube_id_from_url(url):
     # validate youtube_id
     if youtube_id and is_valid_youtube_id(youtube_id):
         return youtube_id
+
+
+def translate_hanzi_to_hanlo(hanzi):
+    if not hanzi:
+        return hanzi
+    hanlo = hanzi
+    for word in sorted(constants.HANZI_TO_TAILO.keys(), key=lambda k: len(k), reverse=True):
+        hanlo = hanlo.replace(word, ' %s ' % constants.HANZI_TO_TAILO[word])
+    hanlo = re.sub('\s\s+', ' ', hanlo)
+    hanlo = hanlo.replace(' --', '--')
+    return hanlo
