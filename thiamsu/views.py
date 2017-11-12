@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
+from thiamsu.forms import TranslationFormSet
 from thiamsu.models.song import Song
 
 
@@ -53,4 +54,28 @@ def song_detail(request, id):
             'original': lyric,
             'translation': 'siâ-khì，si-tshàu，môo-sîn-á'
         } for lyric in song.original_lyrics.split('\n')],
+    })
+
+
+def song_edit(request, id):
+    try:
+        song = Song.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return redirect('/')
+
+    lyrics = song.get_lyrics_with_translations()
+
+    forms = {}
+    for lang in ['tailo', 'hanzi']:
+        forms[lang] = TranslationFormSet(
+            original_lyrics=[lyric['original'] for lyric in lyrics if lyric['original']],
+            initial=[{
+                'line_no': line_no,
+                'lang': lang,
+                'content': lyric[lang]
+            } for line_no, lyric in enumerate(lyrics) if lyric['original']])
+
+    return render(request, 'thiamsu/song_edit.html', {
+        'song': song,
+        'forms': forms
     })
