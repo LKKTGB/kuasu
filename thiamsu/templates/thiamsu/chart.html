@@ -1,0 +1,29 @@
+{% extends 'thiamsu/base.html' %}
+
+{% block content %}
+<div>
+    {% for contributer in top_song_contributors %}
+        <p>{{ contributer.username }}</p>
+        <p>{{ contributer.song_count }}</p>
+    {% empty %}
+        <div class="col d-table" style="min-height: 400px;">
+            <div class="align-middle text-center d-table-cell">
+                <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<div>
+    {% for contributer in top_line_contributors %}
+        <p>{{ contributer.username }}</p>
+        <p>{{ contributer.line_count }}</p>
+    {% empty %}
+        <div class="col d-table" style="min-height: 400px;">
+            <div class="align-middle text-center d-table-cell">
+                <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
