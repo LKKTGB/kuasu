@@ -57,10 +57,7 @@ def song_detail(request, id):
 
     return render(request, 'thiamsu/song_detail.html', {
         'song': song,
-        'lyrics': [{
-            'original': lyric,
-            'translation': 'siâ-khì，si-tshàu，môo-sîn-á'
-        } for lyric in song.original_lyrics.split('\n')],
+        'lyrics': song.get_lyrics_with_translations()
     })
 
 
