@@ -1,7 +1,11 @@
+from collections import defaultdict
+
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
+from django.db import models
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -128,3 +132,38 @@ def song_translation_post(request, id):
             new_translation.save()
 
     return HttpResponseRedirect(reverse('song_edit', kwargs={'id': id}))
+
+
+def chart(request):
+    # FIXME: improve performance
+
+    # get top song contributors
+    top_song_contributors = (
+        User.objects
+        .annotate(song_count=models.Count('translation__song'))
+        .order_by('-song_count')[:10]
+    )
+
+    # get top line contributors
+    top_line_contributors_per_song = (
+        Translation.objects
+        .values('contributor', 'song')
+        .annotate(line_count_per_song=models.Count('line_no'))
+    )
+
+    contributors = defaultdict(int)
+    for top_line_contributor_per_song in top_line_contributors_per_song:
+        contributor = top_line_contributor_per_song['contributor']
+        contributors[contributor] += top_line_contributor_per_song['line_count_per_song']
+
+    top_line_contributors = [{
+        'username': User.objects.get(id=contributor).username,
+        'contributor': contributor,
+        'line_count': line_count
+    } for contributor, line_count in contributors.items() if contributor]
+    top_line_contributors = sorted(top_line_contributors, key=lambda c: c['line_count'], reverse=True)[:10]
+
+    return render(request, 'thiamsu/chart.html', {
+        'top_song_contributors': top_song_contributors,
+        'top_line_contributors': top_line_contributors
+    })
