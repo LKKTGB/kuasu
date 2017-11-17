@@ -207,7 +207,6 @@ def chart(request):
 
     top_line_contributors = [{
         'username': User.objects.get(id=contributor).get_full_name(),
-        'contributor': contributor,
         'line_count': line_count
     } for contributor, line_count in contributors.items() if contributor]
     top_line_contributors = sorted(top_line_contributors, key=lambda c: c['line_count'], reverse=True)[:10]
