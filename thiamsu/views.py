@@ -206,7 +206,7 @@ def chart(request):
         contributors[contributor] += top_line_contributor_per_song['line_count_per_song']
 
     top_line_contributors = [{
-        'username': User.objects.get(id=contributor).username,
+        'username': User.objects.get(id=contributor).get_full_name(),
         'contributor': contributor,
         'line_count': line_count
     } for contributor, line_count in contributors.items() if contributor]
