@@ -188,6 +188,10 @@ def chart(request):
         .annotate(song_count=models.Count('translation__song'))
         .order_by('-song_count')[:10]
     )
+    top_song_contributors = [{
+        'username': User.objects.get(id=c.id).get_full_name(),
+        'song_count': c.song_count
+    } for c in top_song_contributors]
 
     # get top line contributors
     top_line_contributors_per_song = (
