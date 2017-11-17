@@ -55,8 +55,32 @@ def song_detail(request, id):
     except ObjectDoesNotExist:
         return redirect('/')
 
+    def get_contributors(lang):
+        contributors = (
+            Translation.objects
+            .filter(song=song)
+            .filter(lang=lang)
+            .values('contributor')
+            .annotate(count=models.Count('contributor'))
+        )
+        return sorted(contributors, key=lambda c: c['count'], reverse=True)
+
+    def get_full_name(contributors):
+        contributors_with_full_name = [{
+            'username': User.objects.get(id=c['contributor']).get_full_name(),
+            'count':c['count']
+        } for c in contributors if c['contributor']]
+        return contributors_with_full_name
+
+    def format_contributors(contributors):
+        return ' '.join(['{username} ({count})'.format(**c) for c in contributors])
+
     return render(request, 'thiamsu/song_detail.html', {
         'song': song,
+        'contributors': {
+            'tailo': format_contributors(get_full_name(get_contributors('tailo'))),
+            'hanzi': format_contributors(get_full_name(get_contributors('hanzi')))
+        },
         'lyrics': song.get_lyrics_with_translations()
     })
 
