@@ -185,9 +185,14 @@ def chart(request):
     # get top song contributors
     top_song_contributors = (
         User.objects
-        .annotate(song_count=models.Count('translation__song'))
-        .order_by('-song_count')[:10]
+        .annotate(count=models.Count('translation__song'))
+        .order_by('-count')[:10]
     )
+    top_song_contributors = [{
+        'username': User.objects.get(id=c.id).get_full_name(),
+        'count': c.count
+    } for c in top_song_contributors]
+    top_song_contributors = [c for c in top_song_contributors if c['username']]
 
     # get top line contributors
     top_line_contributors_per_song = (
@@ -202,11 +207,10 @@ def chart(request):
         contributors[contributor] += top_line_contributor_per_song['line_count_per_song']
 
     top_line_contributors = [{
-        'username': User.objects.get(id=contributor).username,
-        'contributor': contributor,
-        'line_count': line_count
+        'username': User.objects.get(id=contributor).get_full_name(),
+        'count': line_count
     } for contributor, line_count in contributors.items() if contributor]
-    top_line_contributors = sorted(top_line_contributors, key=lambda c: c['line_count'], reverse=True)[:10]
+    top_line_contributors = sorted(top_line_contributors, key=lambda c: c['count'], reverse=True)[:10]
 
     return render(request, 'thiamsu/chart.html', {
         'top_song_contributors': top_song_contributors,

@@ -4,7 +4,7 @@
 <div>
     {% for contributer in top_song_contributors %}
         <p>{{ contributer.username }}</p>
-        <p>{{ contributer.song_count }}</p>
+        <p>{{ contributer.count }}</p>
     {% empty %}
         <div class="col d-table" style="min-height: 400px;">
             <div class="align-middle text-center d-table-cell">
@@ -17,7 +17,7 @@
 <div>
     {% for contributer in top_line_contributors %}
         <p>{{ contributer.username }}</p>
-        <p>{{ contributer.line_count }}</p>
+        <p>{{ contributer.count }}</p>
     {% empty %}
         <div class="col d-table" style="min-height: 400px;">
             <div class="align-middle text-center d-table-cell">
