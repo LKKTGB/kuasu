@@ -196,25 +196,26 @@ def chart(request):
         top_song_contributors = [c for c in top_song_contributors if c['username']]
         return top_song_contributors
 
-    # get top line contributors
-    top_line_contributors_per_song = (
-        Translation.objects
-        .values('contributor', 'song')
-        .annotate(line_count_per_song=models.Count('line_no'))
-    )
+    def get_top_line_contributors():
+        top_line_contributors_per_song = (
+            Translation.objects
+            .values('contributor', 'song')
+            .annotate(line_count_per_song=models.Count('line_no'))
+        )
 
-    contributors = defaultdict(int)
-    for top_line_contributor_per_song in top_line_contributors_per_song:
-        contributor = top_line_contributor_per_song['contributor']
-        contributors[contributor] += top_line_contributor_per_song['line_count_per_song']
+        contributors = defaultdict(int)
+        for top_line_contributor_per_song in top_line_contributors_per_song:
+            contributor = top_line_contributor_per_song['contributor']
+            contributors[contributor] += top_line_contributor_per_song['line_count_per_song']
 
-    top_line_contributors = [{
-        'username': User.objects.get(id=contributor).get_full_name(),
-        'count': line_count
-    } for contributor, line_count in contributors.items() if contributor]
-    top_line_contributors = sorted(top_line_contributors, key=lambda c: c['count'], reverse=True)[:10]
+        top_line_contributors = [{
+            'username': User.objects.get(id=contributor).get_full_name(),
+            'count': line_count
+        } for contributor, line_count in contributors.items() if contributor]
+        top_line_contributors = sorted(top_line_contributors, key=lambda c: c['count'], reverse=True)[:10]
+        return top_line_contributors
 
     return render(request, 'thiamsu/chart.html', {
         'top_song_contributors': get_top_song_contributors(),
-        'top_line_contributors': top_line_contributors
+        'top_line_contributors': get_top_line_contributors()
     })
