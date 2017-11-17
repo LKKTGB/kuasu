@@ -41,3 +41,7 @@ class BaseTranslationFormSet(BaseFormSet):
 
 
 TranslationFormSet = formset_factory(TranslationForm, formset=BaseTranslationFormSet, extra=0)
+
+
+class SongReadonlyForm(forms.Form):
+    readonly = forms.BooleanField(required=False)

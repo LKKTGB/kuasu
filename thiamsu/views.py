@@ -10,7 +10,7 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
-from thiamsu.forms import TranslationFormSet
+from thiamsu.forms import SongReadonlyForm, TranslationFormSet
 from thiamsu.models.song import Song
 from thiamsu.models.translation import Translation
 
@@ -49,7 +49,27 @@ def search(request):
     })
 
 
+def update_song(request, id):
+    if request.method != 'POST':
+        return redirect('/')
+    try:
+        song = Song.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return redirect('/')
+
+    form = SongReadonlyForm(data=request.POST)
+
+    if form.is_valid():
+        song.readonly = form.cleaned_data['readonly']
+        song.save()
+        return redirect('/song/%s' % id)
+    else:
+        return redirect('/')
+
+
 def song_detail(request, id):
+    if request.method == 'POST':
+        return update_song(request, id)
     try:
         song = Song.objects.get(id=id)
     except ObjectDoesNotExist:
@@ -82,7 +102,8 @@ def song_detail(request, id):
             'hanzi': format_contributors(get_full_name(get_contributors('hanzi')))
         },
         'lyrics': song.get_lyrics_with_translations(),
-        'new_words': song.get_new_words()
+        'new_words': song.get_new_words(),
+        'readonly_form': SongReadonlyForm(initial={'readonly': song.readonly})
     })
 
 
@@ -91,6 +112,8 @@ def song_edit(request, id):
         song = Song.objects.get(id=id)
     except ObjectDoesNotExist:
         return redirect('/')
+    if song.readonly:
+        return redirect('/song/%s' % id)
 
     lyrics = song.get_lyrics_with_translations()
 
