@@ -3,6 +3,7 @@
 {% block content %}
 <div>
     {% for contributer in top_song_contributors %}
+        <a href="/profile"><img src="{{ contributer.avatar_url }}" class="avatar"></a>
         <p>{{ contributer.username }}</p>
         <p>{{ contributer.count }}</p>
     {% empty %}
@@ -16,6 +17,7 @@
 
 <div>
     {% for contributer in top_line_contributors %}
+        <a href="/profile"><img src="{{ contributer.avatar_url }}" class="avatar"></a>
         <p>{{ contributer.username }}</p>
         <p>{{ contributer.count }}</p>
     {% empty %}
