@@ -62,3 +62,7 @@ class Song(models.Model):
                 'hanlo': translate_hanzi_to_hanlo(hanzi_lyrics.get(i))
             })
         return lyrics_with_translations
+
+    def get_new_words(self):
+        from thiamsu.models.new_word import NewWord
+        return NewWord.objects.filter(song=self)

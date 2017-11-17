@@ -81,7 +81,8 @@ def song_detail(request, id):
             'tailo': format_contributors(get_full_name(get_contributors('tailo'))),
             'hanzi': format_contributors(get_full_name(get_contributors('hanzi')))
         },
-        'lyrics': song.get_lyrics_with_translations()
+        'lyrics': song.get_lyrics_with_translations(),
+        'new_words': song.get_new_words()
     })
 
 
