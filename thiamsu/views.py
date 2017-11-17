@@ -183,37 +183,35 @@ def chart(request):
     # FIXME: improve performance
 
     def get_top_song_contributors():
-
-        top_song_contributors = (
+        contributors = (
             User.objects
             .annotate(count=models.Count('translation__song'))
             .order_by('-count')[:10]
         )
-        top_song_contributors = [{
+        contributors = [{
             'username': User.objects.get(id=c.id).get_full_name(),
             'count': c.count
-        } for c in top_song_contributors]
-        top_song_contributors = [c for c in top_song_contributors if c['username']]
-        return top_song_contributors
+        } for c in contributors]
+        contributors = [c for c in contributors if c['username']]
+        return contributors
 
     def get_top_line_contributors():
-        top_line_contributors_per_song = (
+        contributor_song_line_count = (
             Translation.objects
             .values('contributor', 'song')
-            .annotate(line_count_per_song=models.Count('line_no'))
+            .annotate(count=models.Count('line_no'))
         )
 
-        contributors = defaultdict(int)
-        for top_line_contributor_per_song in top_line_contributors_per_song:
-            contributor = top_line_contributor_per_song['contributor']
-            contributors[contributor] += top_line_contributor_per_song['line_count_per_song']
+        contributor_line_count = defaultdict(int)
+        for c in contributor_song_line_count:
+            contributor_line_count[c['contributor']] += c['count']
 
-        top_line_contributors = [{
+        contributors = [{
             'username': User.objects.get(id=contributor).get_full_name(),
-            'count': line_count
-        } for contributor, line_count in contributors.items() if contributor]
-        top_line_contributors = sorted(top_line_contributors, key=lambda c: c['count'], reverse=True)[:10]
-        return top_line_contributors
+            'count': count
+        } for contributor, count in contributor_line_count.items() if contributor]
+        contributors = sorted(contributors, key=lambda c: c['count'], reverse=True)[:10]
+        return contributors
 
     return render(request, 'thiamsu/chart.html', {
         'top_song_contributors': get_top_song_contributors(),
