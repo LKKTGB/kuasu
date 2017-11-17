@@ -189,7 +189,8 @@ def chart(request):
             .order_by('-count')[:10]
         )
         contributors = [{
-            'username': User.objects.get(id=c.id).get_full_name(),
+            'username': c.get_full_name(),
+            'avatar_url': c.profile.avatar_url,
             'count': c.count
         } for c in contributors]
         contributors = [c for c in contributors if c['username']]
@@ -206,10 +207,15 @@ def chart(request):
         for c in contributor_song_line_count:
             contributor_line_count[c['contributor']] += c['count']
 
-        contributors = [{
-            'username': User.objects.get(id=contributor).get_full_name(),
-            'count': count
-        } for contributor, count in contributor_line_count.items() if contributor]
+        contributors = []
+        for contributor, count in contributor_line_count.items():
+            if not contributor:
+                continue
+            user = User.objects.get(id=contributor)
+            contributors.append({
+                'username': user.get_full_name(),
+                'avatar_url': user.profile.avatar_url,
+                'count': count})
         contributors = sorted(contributors, key=lambda c: c['count'], reverse=True)[:10]
         return contributors
 
