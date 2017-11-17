@@ -97,11 +97,16 @@
         <div class="col d-flex align-items-center justify-content-end mb-2">
             <button class="btn btn-outline-secondary mr-2 btn-action">收藏</button>
             <button class="btn btn-outline-secondary mr-2 btn-action">分享</button>
+            <form action='/song/{{ song.id }}/' method='post'>
+                {% csrf_token %}
+                {{ readonly_form }}
+                <input type="submit" value="送出">
+            </form>
         </div>
         <div class="col d-flex align-items-center justify-content-between mb-2">
             <div>
-                <p class="contributors">全羅編修人：Mary (10), 王大明 (3)</p>
-                <p class="contributors">全漢編修人：Amy (7)</p>
+                <p class="contributors">全羅編修人：{{ contributors.tailo }}</p>
+                <p class="contributors">全漢編修人：{{ contributors.hanzi }}</p>
             </div>
             <button class="btn btn-success btn-action" onclick="location.href ='/song/{{ song.id }}/edit'">鬥編修</button>
         </div>
@@ -176,6 +181,14 @@
                     </ul>
                 </div>
 
+            </div>
+
+            <div>
+                <ul>
+                    {% for word in new_words %}
+                    <a href={{ word.reference_url }}>{{ word.content }}</a>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>
