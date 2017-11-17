@@ -182,17 +182,19 @@ def song_translation_post(request, id):
 def chart(request):
     # FIXME: improve performance
 
-    # get top song contributors
-    top_song_contributors = (
-        User.objects
-        .annotate(count=models.Count('translation__song'))
-        .order_by('-count')[:10]
-    )
-    top_song_contributors = [{
-        'username': User.objects.get(id=c.id).get_full_name(),
-        'count': c.count
-    } for c in top_song_contributors]
-    top_song_contributors = [c for c in top_song_contributors if c['username']]
+    def get_top_song_contributors():
+
+        top_song_contributors = (
+            User.objects
+            .annotate(count=models.Count('translation__song'))
+            .order_by('-count')[:10]
+        )
+        top_song_contributors = [{
+            'username': User.objects.get(id=c.id).get_full_name(),
+            'count': c.count
+        } for c in top_song_contributors]
+        top_song_contributors = [c for c in top_song_contributors if c['username']]
+        return top_song_contributors
 
     # get top line contributors
     top_line_contributors_per_song = (
@@ -213,6 +215,6 @@ def chart(request):
     top_line_contributors = sorted(top_line_contributors, key=lambda c: c['count'], reverse=True)[:10]
 
     return render(request, 'thiamsu/chart.html', {
-        'top_song_contributors': top_song_contributors,
+        'top_song_contributors': get_top_song_contributors(),
         'top_line_contributors': top_line_contributors
     })
