@@ -192,6 +192,7 @@ def chart(request):
         'username': User.objects.get(id=c.id).get_full_name(),
         'count': c.count
     } for c in top_song_contributors]
+    top_song_contributors = [c for c in top_song_contributors if c['username']]
 
     # get top line contributors
     top_line_contributors_per_song = (
