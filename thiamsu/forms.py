@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import formset_factory
 from django.forms.formsets import BaseFormSet
+from django.forms.widgets import HiddenInput
 
 from thiamsu.utils import get_youtube_id_from_url
 
@@ -45,3 +46,13 @@ TranslationFormSet = formset_factory(TranslationForm, formset=BaseTranslationFor
 
 class SongReadonlyForm(forms.Form):
     readonly = forms.BooleanField(required=False)
+
+
+class UserFavoriteSongForm(forms.Form):
+    method = forms.ChoiceField(choices=[(m, m) for m in ('POST', 'DELETE')])
+    song_id = forms.IntegerField()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['method'].widget = HiddenInput()
+        self.fields['song_id'].widget = HiddenInput()
