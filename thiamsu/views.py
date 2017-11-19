@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -246,4 +246,26 @@ def chart(request):
     return render(request, 'thiamsu/chart.html', {
         'top_song_contributors': get_top_song_contributors(),
         'top_line_contributors': get_top_line_contributors()
+    })
+
+
+def profile(request):
+    def get_contributions(user):
+        latest_translations = (
+            Translation.objects
+            .filter(contributor=user)
+            .values('song')
+            .annotate(contribute_at=models.Max('created_at'))
+        )
+        contribute_time = {t['song']: t['contribute_at'] for t in latest_translations}
+        songs = list(Song.objects.filter(id__in=contribute_time.keys()))
+        songs = sorted(songs, key=lambda s: contribute_time[s.id], reverse=True)
+        return songs
+
+    return render(request, 'thiamsu/profile.html', {
+        'user': request.user,
+        'full_name': request.user.get_full_name(),
+        'bg_color': '#444444',
+        'favorite_songs': request.user.profile.favorite_songs.all(),
+        'contributions': get_contributions(request.user),
     })
