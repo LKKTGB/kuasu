@@ -3,10 +3,13 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from thiamsu.models.song import Song
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar_url = models.CharField(max_length=100, blank=True)
+    favorite_songs = models.ManyToManyField(Song, related_name='+')
 
 
 @receiver(post_save, sender=User)

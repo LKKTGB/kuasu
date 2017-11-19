@@ -95,7 +95,19 @@
 
     <div class="row">
         <div class="col d-flex align-items-center justify-content-end mb-2">
-            <button class="btn btn-outline-secondary mr-2 btn-action">收藏</button>
+            {% if is_favorite_song %}
+                <form action='/api/user/favorite_song/' method='post'>
+                    {% csrf_token %}
+                    {{ favorite_form }}
+                    <input type="submit" value="取消收藏">
+                </form>
+            {% else %}
+                <form action='/api/user/favorite_song/' method='post'>
+                    {% csrf_token %}
+                    {{ favorite_form }}
+                    <input type="submit" value="收藏">
+                </form>
+            {% endif %}
             <button class="btn btn-outline-secondary mr-2 btn-action">分享</button>
             <form action='/song/{{ song.id }}/' method='post'>
                 {% csrf_token %}

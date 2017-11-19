@@ -27,10 +27,11 @@ urlpatterns = [
     url(r'^song/(?P<id>[0-9]*)/$', views.song_detail, name='song_detail'),
     url(r'^song/(?P<id>[0-9]*)/edit/$', views.song_edit, name='song_edit'),
     url(r'^song/(?P<id>[0-9]*)/translation/$', views.song_translation_post, name='song_translation_post'),
-    url(r'^profile/$', user_views.profile, name='profile'),
+    url(r'^profile/$', views.profile, name='profile'),
     url(r'^chart/$', views.chart, name='chart'),
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
+    url(r'^api/user/favorite_song/$', views.api_user_favorite_song, name='api_user_favorite_song'),
 ]

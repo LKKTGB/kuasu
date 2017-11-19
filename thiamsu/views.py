@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -10,7 +10,7 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
-from thiamsu.forms import SongReadonlyForm, TranslationFormSet
+from thiamsu.forms import SongReadonlyForm, TranslationFormSet, UserFavoriteSongForm
 from thiamsu.models.song import Song
 from thiamsu.models.translation import Translation
 
@@ -47,6 +47,24 @@ def search(request):
         'query': query,
         'songs': paginator.page(1),
     })
+
+
+def api_user_favorite_song(request):
+    if request.method != 'POST':
+        return redirect('/')
+
+    form = UserFavoriteSongForm(data=request.POST)
+
+    if not form.is_valid():
+        return redirect('/')
+
+    method = form.cleaned_data['method']
+    song_id = form.cleaned_data['song_id']
+    if method == 'POST':
+        request.user.profile.favorite_songs.add(song_id)
+    elif method == 'DELETE':
+        request.user.profile.favorite_songs.remove(song_id)
+    return redirect('/song/%s' % song_id)
 
 
 def update_song(request, id):
@@ -95,6 +113,7 @@ def song_detail(request, id):
     def format_contributors(contributors):
         return ' '.join(['{username} ({count})'.format(**c) for c in contributors])
 
+    is_favorite_song = request.user.profile.favorite_songs.filter(id=song.id).exists()
     return render(request, 'thiamsu/song_detail.html', {
         'song': song,
         'contributors': {
@@ -103,7 +122,12 @@ def song_detail(request, id):
         },
         'lyrics': song.get_lyrics_with_translations(),
         'new_words': song.get_new_words(),
-        'readonly_form': SongReadonlyForm(initial={'readonly': song.readonly})
+        'readonly_form': SongReadonlyForm(initial={'readonly': song.readonly}),
+        'is_favorite_song': is_favorite_song,
+        'favorite_form': UserFavoriteSongForm(initial={
+            'method': 'DELETE' if is_favorite_song else 'POST',
+            'song_id': song.id
+        })
     })
 
 
@@ -222,4 +246,26 @@ def chart(request):
     return render(request, 'thiamsu/chart.html', {
         'top_song_contributors': get_top_song_contributors(),
         'top_line_contributors': get_top_line_contributors()
+    })
+
+
+def profile(request):
+    def get_contributions(user):
+        latest_translations = (
+            Translation.objects
+            .filter(contributor=user)
+            .values('song')
+            .annotate(contribute_at=models.Max('created_at'))
+        )
+        contribute_time = {t['song']: t['contribute_at'] for t in latest_translations}
+        songs = list(Song.objects.filter(id__in=contribute_time.keys()))
+        songs = sorted(songs, key=lambda s: contribute_time[s.id], reverse=True)
+        return songs
+
+    return render(request, 'thiamsu/profile.html', {
+        'user': request.user,
+        'full_name': request.user.get_full_name(),
+        'bg_color': '#444444',
+        'favorite_songs': request.user.profile.favorite_songs.all(),
+        'contributions': get_contributions(request.user),
     })
