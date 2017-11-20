@@ -1,21 +1,21 @@
 $.when( $.ready ).then(function() {
-    $('#searchForm input, #searchForm .btn')
+    $('#search-form input, #search-form .btn')
         .focus(function () {
-            $('#searchForm').addClass('focus');
-            $('#searchText').attr('placeholder', '可輸入中文或漢羅');
+            $('#search-form').addClass('focus');
+            $('#search-text').attr('placeholder', '可輸入中文或漢羅');
         })
         .blur(function () {
-            $('#searchForm').removeClass('focus');
-            $('#searchText').attr('placeholder', '搜尋歌曲');
+            $('#search-form').removeClass('focus');
+            $('#search-text').attr('placeholder', '搜尋歌曲');
         });
 
-    $('#searchForm')
+    $('#search-form')
         .find('.dropdown-item')
         .click(function (e) {
             var target = $(e.target);
             var value = target.data('value');
-            $('#searchType').val(value);
+            $('#search-type').val(value);
             var text = target.text();
-            $('#searchTypeSelect').text(text);
+            $('#search-type-select').text(text);
         });
 });

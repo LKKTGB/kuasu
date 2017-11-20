@@ -1,58 +1,107 @@
-#searchForm .form-control,
-#searchForm .btn
+/* Navigation Bar */
+
+.navbar-thiamsu a {
+    color: #444444;
+}
+
+.navbar-item {
+    /* .d-flex */
+    display: flex;
+    /* .align-items-center */
+    align-items: center!important;
+
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+/* Navigation Bar - Title & Subtitle*/
+
+.navbar-brand-title {
+	font-size: 30px;
+	font-weight: 500;
+	letter-spacing: 1.7px;
+    text-decoration: none;
+    color: #444444;
+}
+
+.navbar-brand-subtitle {
+	font-size: 14px;
+	letter-spacing: 1.4px;
+	color: #666666;
+    margin-bottom: 0;
+}
+
+/* Navigation Bar - Chart Link*/
+
+.navbar-chart-link {
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 1.75;
+	letter-spacing: 1px;
+}
+
+/* Navigation Bar - Search Form */
+
+#search-form .form-control,
+#search-form .btn
 {
     border: solid 1px #cccccc;
 }
 
-#searchForm .btn-search > i
+#search-form .btn-search > i
 {
-    width: 1.5rem;
+    width: 1em;
 }
 
-#searchForm.focus .form-control,
-#searchForm.focus .btn,
-#searchForm.focus .dropdown-menu
+#search-form.focus .form-control,
+#search-form.focus .btn,
+#search-form.focus .dropdown-menu
 {
     border: solid 1px #00ae7b;
 }
 
-#searchForm.focus .form-control:not(:first-child),
-#searchForm.focus .input-group-btn:not(:first-child) .btn
+#search-form.focus .form-control:not(:first-child),
+#search-form.focus .input-group-btn:not(:first-child) .btn
 {
     border-left: solid 1px #cccccc;
 }
 
-#searchForm.focus .form-control:not(:last-child),
-#searchForm.focus .input-group-btn:not(:last-child) .btn
+#search-form.focus .form-control:not(:last-child),
+#search-form.focus .input-group-btn:not(:last-child) .btn
 {
     border-right: solid 1px #cccccc;
 }
 
-#searchForm.focus .btn-search-type
+#search-form.focus .btn-search-type
 {
     background-color: white;
     color: black;
 }
 
-#searchForm.focus .btn-search
+#search-form.focus .btn-search
 {
     background-color: #00ae7b;
     color: white;
 }
+
+/* Navigation Bar - Login Button */
 
 .btn-login,
 .btn-login:hover
 {
     border: solid 1px #00ae7b;
     background-color: #00ae7b;
-    color: white;
+    color: white !important;
 }
 
-.avatar {
+/* Navigation Bar - Avatar */
+
+.navbar .avatar {
     width: 48px;
     height: 48px;
     overflow: hidden;
     border-radius: 50%;
+    margin-left: 10px;
 }
 
 .song-list .song {
