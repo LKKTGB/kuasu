@@ -1,3 +1,22 @@
+/* Global */
+
+.container.theme-thiamsu {
+    padding-left: 0;
+    padding-right: 0;
+    background-color: #f5f5f5;
+}
+
+.theme-thiamsu .row,
+.theme-thiamsu .navbar {
+    padding-left: 70px;
+    padding-right: 70px;
+}
+
+.theme-thiamsu .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
 /* Navigation Bar */
 
 .navbar-thiamsu a {
@@ -12,6 +31,10 @@
 
     margin-right: 15px;
     margin-left: 15px;
+}
+
+.navbar-item:last-child {
+    margin-right: 0;
 }
 
 /* Navigation Bar - Title & Subtitle*/
