@@ -46,7 +46,7 @@
                     <div class="navbar-item">
                         <form class="form-inline" id="search-form" method="get" action="/search">
                             <div class="input-group">
-                                <input id="search-text" name="q" class="form-control" type="text" placeholder="搜尋歌曲" value="{{ query }}">
+                                <input id="search-text" name="keyword" class="form-control" type="text" placeholder="搜尋歌曲" value="{{ query|default_if_none:"" }}">
                                 <input id="search-type" name="type" type="hidden" value="performer">
 
                                 <span class="input-group-btn">
