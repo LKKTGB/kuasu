@@ -23,32 +23,29 @@
         </div>
     </div>
 
-<div class="row song-list mt-4">
-    {% for song in songs %}
-        <div class="col-4 song">
-            <a href="{% url 'song_detail' id=song.id %}">
-            <div class="song-cover-container">
-                {%  if song.progress > 0 %}
-                <div class="song-translation-progress">
-                    <i class="material-icons">mode_edit</i>
-                    <span>{{ song.progress|stringformat:".1f" }}%</span>
+    <div class="row song-list">
+        {% for song in songs %}
+            <div class="col-4 song">
+                {% url 'song_detail' id=song.id as song_url %}
+                <img src="{{ song.cover_url }}" class="preview">
+                <a href="{{ song_url }}" class="title-link"><div class="original-title">{{ song.original_title }}</div></a>
+                <a href="{{ song_url }}" class="title-link"><div class="tailo-title">{{ song.tailo_title }}</div></a>
+                <div class="performer">{{ song.performer }}</div>
+                {% with progress=song.progress|default:0|floatformat:0 %}
+                <div class="translation-progress{% if progress == "0" %} invisible{% endif %}">
+                    <div class="progress-bar" style="width: {{ progress }}%"></div>
+                    <div class="description">編修進度：{{ progress }}%</div>
                 </div>
-                {% endif %}
-                <img src="{{ song.cover_url }}" class="song-cover">
+                {% endwith %}
             </div>
-            <p class="song-original-title">{{ song.original_title }}</p>
-            <p class="song-tailo-title">{{ song.tailo_title }}</p>
-            <p class="song-performer">演唱人：{{ song.performer }}</p>
-            </a>
-        </div>
-    {% empty %}
-        <div class="col d-table" style="min-height: 400px;">
-            <div class="align-middle text-center d-table-cell">
-                <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
+        {% empty %}
+            <div class="col d-table" style="min-height: 400px;">
+                <div class="align-middle text-center d-table-cell">
+                    <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
+                </div>
             </div>
-        </div>
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
 
     <div class="row song-list-pagination">
         <ul class="paginator">
