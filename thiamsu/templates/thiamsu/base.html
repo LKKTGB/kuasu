@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles song_search %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,10 +50,12 @@
                                 <input id="search-type" name="type" type="hidden" value="performer">
 
                                 <span class="input-group-btn">
-                                    <button id="search-type-select" class="btn btn-search-type dropdown-toggle" type="button" data-toggle="dropdown">演唱人</button>
+                                    <button id="search-type-select" class="btn btn-search-type dropdown-toggle" type="button" data-toggle="dropdown">{% current_search_type_label %}</button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" data-value="performer">演唱人</a>
-                                        <a class="dropdown-item" data-value="song-title">歌名　</a>
+                                        {% all_search_types as search_types %}
+                                        {% for st in search_types %}
+                                            <a class="dropdown-item" data-value="{{ st }}">{% search_type_label_of st %}</a>
+                                        {% endfor %}
                                     </div>
                                 </span>
 
