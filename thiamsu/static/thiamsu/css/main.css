@@ -127,6 +127,58 @@
     margin-left: 10px;
 }
 
+/* Song List */
+
+/* Song List - Controls */
+
+.song-list-controls {
+    align-items: center;
+    justify-content: space-between;
+    background-color: #eaeaea;
+    font-size: 13px;
+    height: 70px;
+}
+
+/* Song List - Controls - Serch Info. */
+
+.song-list-controls .search-info {
+	letter-spacing: 1px;
+	color: #444444;
+}
+
+.song-list-controls .search-info .search-keyword {
+    font-weight: 600;
+    color: #00ae7b;
+    margin-right: 1em;
+}
+
+/* Song List - Controls - Ordering Info. */
+
+.song-list-controls .ordering-info {
+    letter-spacing: 0.6px;
+}
+
+.song-list-controls .ordering-info label {
+    margin-right: 21px;
+}
+
+.song-list-controls .ordering-info .btn,
+.song-list-controls .ordering-info .dropdown-menu {
+    font-size: 13px;
+}
+
+.song-list-controls .ordering-info .btn > span {
+    width: 75px;
+    display: inline-block;
+    text-align: left;
+}
+
+.song-list-controls .ordering-info .dropdown-menu {
+    min-width: 0;
+}
+
+/* Song List - List Items */
+
 .song-list .song {
     padding: 0 1.5rem;
     margin-bottom: 1.5rem;
