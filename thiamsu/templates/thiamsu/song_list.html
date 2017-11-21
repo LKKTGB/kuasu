@@ -1,5 +1,5 @@
 {% extends 'thiamsu/base.html' %}
-{% load list_sorting %}
+{% load list_sorting pagination %}
 
 {% block content %}
 
@@ -50,15 +50,42 @@
     {% endfor %}
 </div>
 
-<div class="row justify-content-center py-3 px-5" style="font-size: 20px; background-color: #eaeaea;">
-    <div id="pager" class="col-6 d-flex justify-content-between">
-        <a href="#">上一頁</a>
-        <a href="#" class="page current"><div>1</div></a>
-        <a href="#" class="page"><div>2</div></a>
-        <a href="#" class="page"><div>3</div></a>
-        <a href="#" class="page"><div>4</div></a>
-        <a href="#" class="page"><div>5</div></a>
-        <a href="#">下一頁</a>
+    <div class="row song-list-pagination">
+        <ul class="paginator">
+
+            {% if songs.has_previous %}
+                <li class="prev-page">
+                    <a href="{% page_url_of songs.previous_page_number %}">上一頁</a>
+                </li>
+            {% endif %}
+
+            {% if 1 < songs.leftmost_page_number %}
+                <li class="page"><a href="{% page_url_of 1 %}">1</a></li>
+                {% if 2 < songs.leftmost_page_number %}
+                    <li class="placeholder">&hellip;</li>
+                {% endif %}
+            {% endif %}
+
+            {% for i in songs.visible_page_range %}
+                <li class="page{% if songs.number == i %} current{% endif %}">
+                    <a href="{% page_url_of i %}">{{ i }}</a>
+                </li>
+            {% endfor %}
+
+            {% if songs.rightmost_page_number < songs.paginator.num_pages %}
+                {% if songs.rightmost_page_number|add:"1" < songs.paginator.num_pages %}
+                    <li class="placeholder">&hellip;</li>
+                {% endif %}
+                <li class="page"><a href="{% page_url_of songs.paginator.num_pages %}">{{ songs.paginator.num_pages }}</a></li>
+            {% endif %}
+
+            {% if songs.has_next %}
+                <li class="next-page">
+                    <a href="{% page_url_of songs.next_page_number %}">下一頁</a>
+                </li>
+            {% endif %}
+
+        </ul>
     </div>
-</div>
+
 {% endblock %}

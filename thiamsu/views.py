@@ -3,7 +3,7 @@ from collections import defaultdict, OrderedDict
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
@@ -13,13 +13,25 @@ from django.shortcuts import render, redirect
 from thiamsu.forms import SongReadonlyForm, TranslationFormSet, UserFavoriteSongForm
 from thiamsu.models.song import Song
 from thiamsu.models.translation import Translation
+from thiamsu.paginator import Paginator
 
 
 def home(request):
+    # TODO: Honor "sort" parameter
+
     songs = Song.objects.order_by('original_title')
     paginator = Paginator(songs, settings.PAGINATION_MAX_ITMES_PER_PAGE)
+
+    page = request.GET.get('page', 1)
+    try:
+        songs = paginator.page(page)
+    except PageNotAnInteger:
+        songs = paginator.page(1)
+    except EmptyPage:
+        songs = paginator.page(paginator.num_pages)
+
     return render(request, 'thiamsu/song_list.html', {
-        'songs': paginator.page(1),
+        'songs': songs,
     })
 
 

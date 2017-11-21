@@ -243,23 +243,56 @@
     color: #666666;
 }
 
-#pager a {
+/* Song List - Pagination */
+
+.song-list-pagination {
+    background-color: #eaeaea;
+    font-size: 13px;
+    height: 100px;
+}
+
+.paginator {
+    display: flex;
+    list-style: none;
+    margin: 0 auto;
+}
+
+.paginator a {
     color: #444444;
 }
 
-#pager .page {
+.paginator > li {
+    margin: auto 7px;
+}
+
+.paginator .prev-page {
+    margin-right: 33px;
+}
+
+.paginator .next-page {
+    margin-left: 33px;
+}
+
+.paginator .page,
+.paginator .placeholder {
     width: 1.5em;
     height: 1.5em;
     text-align: center;
+    border-radius: 50%;
 }
 
-#pager .current {
+.paginator .page a {
+    display: block;
+}
+
+.paginator .page.current {
     background-color: #00ae7b;
-    border-radius: 50%;
+}
+
+.paginator .page.current > a {
     color: white;
 }
 
-#pager .page:not(.current):hover {
+.paginator .page:not(.current):hover {
     background-color: #f5f5f5;
-    border-radius: 50%;
 }
