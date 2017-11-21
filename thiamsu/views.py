@@ -3,7 +3,7 @@ from collections import defaultdict, OrderedDict
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
@@ -13,18 +13,16 @@ from django.shortcuts import render, redirect
 from thiamsu.forms import SongReadonlyForm, TranslationFormSet, UserFavoriteSongForm
 from thiamsu.models.song import Song
 from thiamsu.models.translation import Translation
+from thiamsu.paginator import Paginator
 
 
 def home(request):
-    songs = Song.objects.order_by('original_title')
-    paginator = Paginator(songs, settings.PAGINATION_MAX_ITMES_PER_PAGE)
-    return render(request, 'thiamsu/song_list.html', {
-        'songs': paginator.page(1),
-    })
+    songs = Song.objects
+    return _render_song_list(request, songs)
 
 
 def search(request):
-    query = request.GET.get('q', '')
+    query = request.GET.get('keyword', '')
     if query == '':
         return redirect('/')
 
@@ -33,19 +31,40 @@ def search(request):
         return redirect('/')
 
     if query_type == 'song-title':
-        filtered_songs = Song.objects.filter(
+        songs = Song.objects.filter(
             Q(original_title__contains=query) |
             Q(hanzi_title__contains=query) |
             Q(tailo_title__contains=query))
     else:  # performer
-        filtered_songs = Song.objects.filter(
+        songs = Song.objects.filter(
             Q(performer__contains=query))
 
-    paginator = Paginator(
-        filtered_songs, settings.PAGINATION_MAX_ITMES_PER_PAGE)
+    return _render_song_list(request, songs, query)
+
+
+def _render_song_list(request, songs, query=None):
+    # Sorting
+    sorting_type = request.GET.get('sort', 'original')
+    if sorting_type == 'original':
+        songs = songs.order_by('-original_title')
+    elif sorting_type == 'tailo':
+        songs = songs.order_by('tailo_title')
+    else:  # progress
+        pass  # TODO
+
+    # Pagination
+    page = request.GET.get('page', 1)
+    paginator = Paginator(songs, settings.PAGINATION_MAX_ITMES_PER_PAGE)
+    try:
+        songs = paginator.page(page)
+    except PageNotAnInteger:
+        songs = paginator.page(1)
+    except EmptyPage:
+        songs = paginator.page(paginator.num_pages)
+
     return render(request, 'thiamsu/song_list.html', {
         'query': query,
-        'songs': paginator.page(1),
+        'songs': songs,
     })
 
 
