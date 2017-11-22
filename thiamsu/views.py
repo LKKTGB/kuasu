@@ -78,7 +78,7 @@ def _render_song_list(request, songs, query=None, headline=None):
     return render(request, 'thiamsu/song_list.html', {
         'query': query,
         'songs': songs,
-        'headline': headline,
+        'headline': headline.song if headline else None,
     })
 
 

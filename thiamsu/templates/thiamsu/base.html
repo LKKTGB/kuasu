@@ -19,67 +19,96 @@
 <body>
     <div class="container theme-thiamsu">
 
-        {# Navigation Bar #}
-        <nav class="navbar navbar-expand-lg navbar-thiamsu">
+        <div class="header{% if headline is not None %} has-headline"{% endif %}">
 
-            {# Title & Subtitle #}
-            <div class="navbar-brand">
-                <a class="navbar-brand-title" href="/">歌詞好正</a>
-                <p class="navbar-brand-subtitle">台語歌詞開放編修平台</p>
-            </div>
+            {# Background of Headline #}
+            {% if headline is not None  %}
+                <div class="headline-background">
+                    <img src="{{ headline.cover_url }}">
+                </div>
+            {% endif %}
 
-            {# TODO: Toggle Collapsed Navigation Bar Items #}
+            {# Navigation Bar #}
+            <nav class="row">
 
-            {# Navigation links & serch form #}
-            <div class="collapse navbar-collapse">
-                <div class="mr-auto">{# empty space #}</div>
+                {# Title & Subtitle #}
+                <div>
+                    <a class="header-title" href="/">歌詞好正</a>
+                    <p class="header-subtitle">台語歌詞開放編修平台</p>
+                </div>
 
-                <div class="navbar-nav">
-
-                    <div class="navbar-item">
-                        <img src="{% static "thiamsu/img/ico-chart.png" %}"
-                             srcset="{% static "thiamsu/img/ico-chart@2x.png" %} 2x,
-                                     {% static "thiamsu/img/ico-chart@3x.png" %} 3x">
-                        <a class="navbar-chart-link ml-2" href="/chart">排行榜</a>
-                    </div>
-
-                    <div class="navbar-item">
-                        <form class="form-inline" id="search-form" method="get" action="/search">
-                            <div class="input-group">
-                                <input id="search-text" name="keyword" class="form-control" type="text" placeholder="搜尋歌曲" value="{{ query|default_if_none:"" }}">
-                                <input id="search-type" name="type" type="hidden" value="performer">
-
-                                <span class="input-group-btn">
-                                    <button id="search-type-select" class="btn btn-search-type dropdown-toggle" type="button" data-toggle="dropdown">{% current_search_type_label %}</button>
-                                    <div class="dropdown-menu">
-                                        {% all_search_types as search_types %}
-                                        {% for st in search_types %}
-                                            <a class="dropdown-item" data-value="{{ st }}">{% search_type_label_of st %}</a>
-                                        {% endfor %}
-                                    </div>
-                                </span>
-
-                                <span class="input-group-btn">
-                                    <button class="btn btn-search" type="submit">
-                                        <i class="material-icons align-middle">search</i>
-                                    </button>
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-
-                    <span class="navbar-item">
+                {# Avatar / Login Button #}
+                <div class="order-lg-3" style="margin-left: 30px;">
                     {% if user.is_authenticated %}
                         <a href="/profile"><img src="{{ user.profile.avatar_url }}" class="avatar"></a>
                     {% else %}
                         <a href="/login" class="btn btn-login" role="button">登入 / 註冊</a>
                     {% endif %}
-                    </span>
-
                 </div>
-            </div>
 
-        </nav>
+                {# Chart Link & Search Form #}
+                <div class="nav-secondary">
+                    <div class="nav-chart">
+                        {% if headline %}
+                            <img src="{% static "thiamsu/img/ico-chart-w.png" %}"
+                                 srcset="{% static "thiamsu/img/ico-chart-w@2x.png" %} 2x,
+                                         {% static "thiamsu/img/ico-chart-w@3x.png" %} 3x">
+                        {% else %}
+                            <img src="{% static "thiamsu/img/ico-chart-b.png" %}"
+                                 srcset="{% static "thiamsu/img/ico-chart-b@2x.png" %} 2x,
+                                         {% static "thiamsu/img/ico-chart-b@3x.png" %} 3x">
+                        {% endif %}
+                        <a href="/chart">排行榜</a>
+                    </div>
+
+                    <form id="search-form" method="get" action="/search">
+                        <div class="input-group">
+                            <input id="search-text" name="keyword" class="form-control" type="text" placeholder="搜尋歌曲" value="{{ query|default_if_none:"" }}">
+                            <input id="search-type" name="type" type="hidden" value="performer">
+
+                            <span class="input-group-btn">
+                                <button id="search-type-select" class="btn btn-search-type dropdown-toggle" type="button" data-toggle="dropdown">{% current_search_type_label %}</button>
+                                <div class="dropdown-menu">
+                                    {% all_search_types as search_types %}
+                                    {% for st in search_types %}
+                                        <a class="dropdown-item" data-value="{{ st }}">{% search_type_label_of st %}</a>
+                                    {% endfor %}
+                                </div>
+                            </span>
+
+                            <span class="input-group-btn">
+                                <button class="btn btn-search" type="submit">
+                                    <i class="material-icons align-middle">search</i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+
+            </nav>
+
+            {# Headline #}
+            {% if headline is not None %}
+                <div class="row headline">
+                    <div class="col-4 col-lg-6">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item"
+                                    src="https://www.youtube.com/embed/{{ headline.youtube_id }}"
+                                    frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-8 col-lg-6">
+                        <div class="headline-label">最新消息</div>
+                        <a href="{% url 'song_detail' id=headline.id %}" class="title-link">
+                            <div class="title">{{ headline.original_title }}</div>
+                            <div class="title">{{ headline.tailo_title }}</div>
+                        </a>
+                        <div class="performer">{{ headline.performer }}</div>
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
 
         {% block content %}{% endblock %}
 
