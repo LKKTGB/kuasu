@@ -1,6 +1,37 @@
 {% extends 'thiamsu/base.html' %}
 
 {% block content %}
+    <div class="row context-header charts-header">
+        {# Toggle Chart Rules Dialog #}
+        <a href="#chart-rules" data-toggle="modal">排行榜規則</a>
+    </div>
+
+    {# Chart Rules #}
+    <div class="modal fade" id="chart-rules">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+              <h5>排行榜規則</h5>
+              <section>
+                  <h6>編修歌曲排行榜</h6>
+                  <ol>
+                      <li>編修任一行歌詞送出並審核通過，即視為編修一行，單首歌曲編修超過五行歌詞即視為已編輯該歌曲，列入一首計算，單首歌曲編修五行、六行、七行歌詞等，以此類推，皆視為同一首歌曲，列入一首計算，單首歌曲編修四行、三行、二行歌詞等，以此類推，則不列入一首計算。</li>
+                      <li>排行榜以三個月內（從今天算至前 90 天）編修的歌曲列入計算。</li>
+                  </ol>
+              </section>
+              <section>
+                  <h6>編修歌詞排行榜</h6>
+                  <ol>
+                      <li>編修任一行歌詞送出並審核通過，即列入一行計算，不論是否為同一首歌曲。</li>
+                      <li>排行榜以三個月內（從今天算至前 90 天）編修的歌曲列入計算。</li>
+                  </ol>
+              </section>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">我瞭解了</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 <div>
     {% for contributer in top_song_contributors %}
         <a href="/profile"><img src="{{ contributer.avatar_url }}" class="avatar"></a>
