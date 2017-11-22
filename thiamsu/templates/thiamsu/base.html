@@ -37,9 +37,15 @@
                 <div class="navbar-nav">
 
                     <div class="navbar-item">
-                        <img src="{% static "thiamsu/img/ico-chart.png" %}"
-                             srcset="{% static "thiamsu/img/ico-chart@2x.png" %} 2x,
-                                     {% static "thiamsu/img/ico-chart@3x.png" %} 3x">
+                        {% if headline %}
+                            <img src="{% static "thiamsu/img/ico-chart-w.png" %}"
+                                 srcset="{% static "thiamsu/img/ico-chart-w@2x.png" %} 2x,
+                                         {% static "thiamsu/img/ico-chart-w@3x.png" %} 3x">
+                        {% else %}
+                            <img src="{% static "thiamsu/img/ico-chart-b.png" %}"
+                                 srcset="{% static "thiamsu/img/ico-chart-b@2x.png" %} 2x,
+                                         {% static "thiamsu/img/ico-chart-b@3x.png" %} 3x">
+                        {% endif %}
                         <a class="navbar-chart-link ml-2" href="/chart">排行榜</a>
                     </div>
 
