@@ -6,9 +6,19 @@ from django.contrib import admin
 
 from thiamsu.forms import SongAdminForm
 from thiamsu.models.approved_translation import ApprovedTranslation
+from thiamsu.models.headline import Headline
 from thiamsu.models.new_word import NewWord
 from thiamsu.models.song import Song
 from thiamsu.models.translation import Translation
+
+
+class HeadlineAdmin(admin.ModelAdmin):
+    list_display = ('song', 'start_time', 'end_time')
+
+    raw_id_fields = ('song',)
+    autocomplete_lookup_fields = {
+        'fk': ['song'],
+    }
 
 
 class NewWordInline(admin.StackedInline):
@@ -94,6 +104,7 @@ class ApprovedTranslationAdmin(admin.ModelAdmin):
     pass
 
 
+admin.site.register(Headline, HeadlineAdmin)
 admin.site.register(Song, SongAdmin)
 admin.site.register(Translation, TranslationAdmin)
 admin.site.register(ApprovedTranslation, ApprovedTranslationAdmin)

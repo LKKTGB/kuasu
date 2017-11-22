@@ -16,6 +16,13 @@ class Song(models.Model):
     original_lyrics = models.TextField(default='', help_text='原文歌詞')
     readonly = models.BooleanField(default=False, help_text='鎖定編修')
 
+    @staticmethod
+    def autocomplete_search_fields():
+        return ('id__iexact', 'original_title__icontains',)
+
+    def __str__(self):
+        return u"%s (%s)" % (self.original_title, self.performer)
+
     @property
     def youtube_id(self):
         return get_youtube_id_from_url(self.youtube_url)
