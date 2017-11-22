@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^song/(?P<id>[0-9]*)/translation/$', views.song_translation_post, name='song_translation_post'),
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^chart/$', views.chart, name='chart'),
+    url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
