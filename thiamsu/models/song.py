@@ -9,6 +9,7 @@ class Song(models.Model):
     tailo_title = models.CharField(max_length=100, help_text='全羅歌名')
     hanlo_title = models.CharField(max_length=100, help_text='漢羅歌名')
     performer = models.CharField(max_length=100, help_text='演唱人')
+    hanlo_performer = models.CharField(max_length=100, help_text='演唱人（台文）')
     composer = models.CharField(max_length=100, help_text='作曲人')
     lyricist = models.CharField(max_length=100, help_text='作詞人')
     youtube_url = models.CharField(max_length=100, help_text='Youtube 網址')
