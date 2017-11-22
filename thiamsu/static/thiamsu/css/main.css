@@ -17,7 +17,13 @@
     margin-right: 0;
 }
 
-/* Navigation Bar */
+/* Header */
+
+.header {
+    position: relative;
+}
+
+/* Header - Navigation Bar */
 
 .navbar-thiamsu a {
     color: #444444;
@@ -37,7 +43,7 @@
     margin-right: 0;
 }
 
-/* Navigation Bar - Title & Subtitle*/
+/* Header - Navigation Bar - Title & Subtitle*/
 
 .navbar-brand-title {
 	font-size: 30px;
@@ -54,7 +60,7 @@
     margin-bottom: 0;
 }
 
-/* Navigation Bar - Chart Link*/
+/* Header - Navigation Bar - Chart Link*/
 
 .navbar-chart-link {
 	font-size: 16px;
@@ -63,7 +69,7 @@
 	letter-spacing: 1px;
 }
 
-/* Navigation Bar - Search Form */
+/* Header - Navigation Bar - Search Form */
 
 #search-form .form-control,
 #search-form .btn
@@ -125,6 +131,57 @@
     overflow: hidden;
     border-radius: 50%;
     margin-left: 10px;
+}
+
+/* Header - Headline */
+
+.has-headline .header-title,
+.has-headline .header-subtitle,
+.has-headline .nav-chart > a {
+	color: #ffffff !important;
+}
+
+.headline-background {
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.headline-background > img {
+    width: calc(100% + 44.2px);
+    height: calc(100% + 44.2px);
+    filter: blur(22.1px);
+    margin: -22.1px;
+}
+
+.headline {
+    padding: 28px 0 40px;
+}
+
+.headline-label {
+    font-size: 20px;
+	font-weight: 600;
+	letter-spacing: 1px;
+	color: #00ae7b;
+	margin-bottom: 20px;
+}
+
+.headline .title-link {
+	color: #ffffff;
+}
+
+.headline .title {
+    font-size: 30px;
+	letter-spacing: 1px;
+	color: #ffffff;
+}
+
+.headline .performer {
+	margin-top: 10px;
+    font-size: 13px;
+	letter-spacing: 0.6px;
+	color: #ffffff;
 }
 
 /* Song List */

@@ -19,6 +19,15 @@
 <body>
     <div class="container theme-thiamsu">
 
+        <div class="header {% if headline is not None %}has-headline"{% endif %}">
+
+            {# Background of Headline #}
+            {% if headline is not None  %}
+                <div class="headline-background">
+                    <img src="{{ headline.cover_url }}">
+                </div>
+            {% endif %}
+
         {# Navigation Bar #}
         <nav class="navbar navbar-expand-lg navbar-thiamsu">
 
@@ -86,6 +95,28 @@
             </div>
 
         </nav>
+
+            {# Headline #}
+            {% if headline is not None %}
+                <div class="row headline">
+                    <div class="col-6">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item"
+                                    src="https://www.youtube.com/embed/{{ headline.youtube_id }}"
+                                    frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="headline-label">最新消息</div>
+                        <a href="{% url 'song_detail' id=headline.id %}" class="title-link">
+                            <div class="title">{{ headline.original_title }}</div>
+                            <div class="title">{{ headline.tailo_title }}</div>
+                        </a>
+                        <div class="performer">{{ headline.performer }}</div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
 
         {% block content %}{% endblock %}
 
