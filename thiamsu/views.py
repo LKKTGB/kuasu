@@ -1,4 +1,5 @@
 from collections import defaultdict, OrderedDict
+from datetime import datetime
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -11,6 +12,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 from thiamsu.forms import SongReadonlyForm, TranslationFormSet, UserFavoriteSongForm
+from thiamsu.models.headline import Headline
 from thiamsu.models.song import Song
 from thiamsu.models.translation import Translation
 from thiamsu.paginator import Paginator
@@ -18,7 +20,18 @@ from thiamsu.paginator import Paginator
 
 def home(request):
     songs = Song.objects
-    return _render_song_list(request, songs)
+
+    now = datetime.now()
+    try:
+        headline = (
+            Headline.objects
+            .filter(start_time__lte=now, end_time__gte=now)
+            .latest('start_time')
+        )
+    except ObjectDoesNotExist:
+        headline = None
+
+    return _render_song_list(request, songs, headline=headline)
 
 
 def search(request):
@@ -42,7 +55,7 @@ def search(request):
     return _render_song_list(request, songs, query)
 
 
-def _render_song_list(request, songs, query=None):
+def _render_song_list(request, songs, query=None, headline=None):
     # Sorting
     sorting_type = request.GET.get('sort', 'original')
     if sorting_type == 'original':
@@ -65,6 +78,7 @@ def _render_song_list(request, songs, query=None):
     return render(request, 'thiamsu/song_list.html', {
         'query': query,
         'songs': songs,
+        'headline': headline,
     })
 
 
