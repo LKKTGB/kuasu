@@ -36,12 +36,14 @@
     <div class="row charts">
 
         <div class="col chart chart-by-songs">
-            <div class="title">
-                <img src="{% static "thiamsu/img/img-chart-by-songs.png" %}"
-                     srcset="{% static "thiamsu/img/img-chart-by-songs@2x.png" %} 2x,
-                             {% static "thiamsu/img/img-chart-by-songs@3x.png" %} 3x">
-                編修歌曲排行榜
-            </div>
+            {% if top_song_contributors %}
+                <div class="title">
+                    <img src="{% static "thiamsu/img/img-chart-by-songs.png" %}"
+                         srcset="{% static "thiamsu/img/img-chart-by-songs@2x.png" %} 2x,
+                                 {% static "thiamsu/img/img-chart-by-songs@3x.png" %} 3x">
+                    編修歌曲排行榜
+                </div>
+            {% endif %}
 
             <ol>
             {% for contributer in top_song_contributors %}
@@ -55,7 +57,6 @@
                     </div>
                 </li>
             {% empty %}
-                {# TODO: empty state #}
                 <div class="col d-table" style="min-height: 400px;">
                     <div class="align-middle text-center d-table-cell">
                         <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
@@ -66,12 +67,14 @@
         </div>
 
         <div class="col chart chart-by-lines">
-            <div class="title">
-                <img src="{% static "thiamsu/img/img-chart-by-lines.png" %}"
-                     srcset="{% static "thiamsu/img/img-chart-by-lines@2x.png" %} 2x,
-                             {% static "thiamsu/img/img-chart-by-lines@3x.png" %} 3x">
-                編修歌詞排行榜
-            </div>
+            {% if top_line_contributors %}
+                <div class="title">
+                    <img src="{% static "thiamsu/img/img-chart-by-lines.png" %}"
+                         srcset="{% static "thiamsu/img/img-chart-by-lines@2x.png" %} 2x,
+                                 {% static "thiamsu/img/img-chart-by-lines@3x.png" %} 3x">
+                    編修歌詞排行榜
+                </div>
+            {% endif %}
 
             <ol>
             {% for contributer in top_line_contributors %}
@@ -85,7 +88,6 @@
                     </div>
                 </li>
             {% empty %}
-                {# TODO: empty state #}
                 <div class="col d-table" style="min-height: 400px;">
                     <div class="align-middle text-center d-table-cell">
                         <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
