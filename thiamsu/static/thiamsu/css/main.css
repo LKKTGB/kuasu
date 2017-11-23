@@ -1,4 +1,4 @@
-/* Global */
+/* Global (Customized Theme) - Layout */
 
 .container.theme-thiamsu {
     padding-left: 0;
@@ -11,6 +11,71 @@
     padding-right: 70px;
     margin-left: 0;
     margin-right: 0;
+}
+
+/* Global (Customized Theme) - Modal Dialog */
+
+.theme-thiamsu .modal-dialog {
+    width: 400px;
+}
+
+.theme-thiamsu .modal-body {
+    padding: 40px;
+    font-size: 13px;
+	line-height: 1.54;
+	letter-spacing: 1px;
+	color: #444444;
+}
+
+.theme-thiamsu .modal-body h5 {
+    margin: 0;
+    font-size: 18px;
+	font-weight: 600;
+	line-height: 1.56;
+}
+
+.theme-thiamsu .modal-body h6 {
+    margin-bottom: 6px;
+    font-size: 14px;
+	font-weight: 600;
+	line-height: 1.71;
+}
+
+.theme-thiamsu .modal-body section {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.theme-thiamsu .modal-body ol,
+.theme-thiamsu .modal-body ul {
+    padding-left: 30px;
+    margin-bottom: 20px;
+}
+
+.theme-thiamsu .modal-body li {
+    padding-left: 15px;
+}
+
+.theme-thiamsu .modal-body .btn {
+    display: block;
+    margin-top: 30px;
+    width: calc(100% - 20px);
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 48px;
+	border-radius: 4px;
+    border: 0;
+    font-size: 13px;
+	font-weight: 500;
+	letter-spacing: 1px;
+	text-align: center;
+	color: #ffffff;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.theme-thiamsu .modal-body .btn-primary,
+.theme-thiamsu .modal-body .btn-primary:active {
+    background-color: #00ae7b;
 }
 
 /* Header */
@@ -212,16 +277,22 @@
 	color: #ffffff;
 }
 
+/* Secondary (Context) Header */
+
+.context-header {
+    height: 70px;
+    background-color: #eaeaea;
+    box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.1);
+    align-items: center;
+}
+
 /* Song List */
 
 /* Song List - Controls */
 
 .song-list-controls {
-    align-items: center;
     justify-content: space-between;
-    background-color: #eaeaea;
     font-size: 13px;
-    height: 70px;
 }
 
 /* Song List - Controls - Serch Info. */
@@ -383,4 +454,159 @@
 
 .paginator .page:not(.current):hover {
     background-color: #f5f5f5;
+}
+
+/* Charts */
+
+/* Charts - Header & Entire Block */
+
+.charts-header {
+    justify-content: flex-end;
+}
+
+.charts-header > a {
+    color: #00ae7b;
+    font-size: 13px;
+	font-weight: 500;
+	letter-spacing: 0.6px;
+}
+
+.charts {
+    margin-top: 40px;
+}
+
+.chart {
+    border-radius: 4px;
+	background-color: #ffffff;
+	border: solid 1px #cccccc;
+    margin: 0 52px 40px 0;
+    padding: 20px;
+}
+
+.chart:last-child {
+    margin-right: 0;
+}
+
+.chart .title {
+    position: absolute;
+    left: 18px;
+    top: 15px;
+    color: #ffffff;
+    font-size: 16px;
+	font-weight: 500;
+	letter-spacing: 1px;
+}
+
+.chart ol {
+    padding-left: 0;
+    list-style: none;
+}
+
+/* Chart - Normal Entries & Fields */
+
+.chart-entry {
+    background-color: #ffffff;
+	box-shadow: 0 1px 0 0 #cccccc;
+    margin-bottom: 1px;
+	color: #444444;
+}
+
+.chart-entry-wrapper {
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.chart-entry p {
+    margin: 0;
+}
+
+.chart-entry .rank {
+    width: 20px;
+    margin-right: 3px;
+    font-size: 13px;
+	letter-spacing: 1px;
+}
+
+.chart-entry .avatar {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 12px;
+	border: solid 1px #cccccc;
+}
+
+.chart-entry .username {
+    font-size: 13px;
+	letter-spacing: 1px;
+}
+
+.chart-entry .score-wrapper {
+    font-size: 14px;
+	font-weight: 600;
+	line-height: 1.71;
+	letter-spacing: 1px;
+    margin-left: auto;
+}
+
+/* Chart - First Entries & Fields */
+
+.chart-entry:first-child {
+	color: #ffffff;
+    margin: -20px -20px 0;
+    padding: 46px 20px 0;
+    box-shadow: none;
+    margin-bottom: 0;
+}
+
+.chart-by-songs .chart-entry:first-child {
+    background-image: linear-gradient(104deg, #36b59f, #00ae7b);
+}
+
+.chart-by-lines .chart-entry:first-child {
+    background-image: linear-gradient(104deg, #36a9b5, #007dae);
+}
+
+.chart-entry:first-child .chart-entry-wrapper {
+    height: 104px;
+    padding-bottom: 14px;
+}
+
+.chart-entry:first-child .rank {
+    font-size: 14px;
+	font-weight: bold;
+	letter-spacing: 0.5px;
+}
+
+.chart-entry:first-child .avatar {
+    width: 64px;
+    height: 64px;
+    margin-right: 10px;
+	border: solid 2px #ffffff;
+}
+
+.chart-entry:first-child .username {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+}
+
+.chart-entry:first-child .score-wrapper {
+    font-size: 14px;
+	font-weight: 600;
+	line-height: 1.71;
+	letter-spacing: 1px;
+    margin-left: auto;
+    align-self: flex-end;
+    position: relative;
+}
+
+.chart-entry:first-child .score {
+    font-size: 120px;
+    font-weight: 100;
+    position: absolute;
+    right: 7px;
+    bottom: 0;
+    line-height: 1;
 }

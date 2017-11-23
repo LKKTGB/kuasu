@@ -1,31 +1,99 @@
 {% extends 'thiamsu/base.html' %}
+{% load staticfiles %}
 
 {% block content %}
-<div>
-    {% for contributer in top_song_contributors %}
-        <a href="/profile"><img src="{{ contributer.avatar_url }}" class="avatar"></a>
-        <p>{{ contributer.username }}</p>
-        <p>{{ contributer.count }}</p>
-    {% empty %}
-        <div class="col d-table" style="min-height: 400px;">
-            <div class="align-middle text-center d-table-cell">
-                <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
-            </div>
-        </div>
-    {% endfor %}
-</div>
+    <div class="row context-header charts-header">
+        {# Toggle Chart Rules Dialog #}
+        <a href="#chart-rules" data-toggle="modal">排行榜規則</a>
+    </div>
 
-<div>
-    {% for contributer in top_line_contributors %}
-        <a href="/profile"><img src="{{ contributer.avatar_url }}" class="avatar"></a>
-        <p>{{ contributer.username }}</p>
-        <p>{{ contributer.count }}</p>
-    {% empty %}
-        <div class="col d-table" style="min-height: 400px;">
-            <div class="align-middle text-center d-table-cell">
-                <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
-            </div>
+    {# Chart Rules #}
+    <div class="modal fade" id="chart-rules">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+              <h5>排行榜規則</h5>
+              <section>
+                  <h6>編修歌曲排行榜</h6>
+                  <ol>
+                      <li>編修任一行歌詞送出並審核通過，即視為編修一行，單首歌曲編修超過五行歌詞即視為已編輯該歌曲，列入一首計算，單首歌曲編修五行、六行、七行歌詞等，以此類推，皆視為同一首歌曲，列入一首計算，單首歌曲編修四行、三行、二行歌詞等，以此類推，則不列入一首計算。</li>
+                      <li>排行榜以三個月內（從今天算至前 90 天）編修的歌曲列入計算。</li>
+                  </ol>
+              </section>
+              <section>
+                  <h6>編修歌詞排行榜</h6>
+                  <ol>
+                      <li>編修任一行歌詞送出並審核通過，即列入一行計算，不論是否為同一首歌曲。</li>
+                      <li>排行榜以三個月內（從今天算至前 90 天）編修的歌曲列入計算。</li>
+                  </ol>
+              </section>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">我瞭解了</button>
+          </div>
         </div>
-    {% endfor %}
-</div>
+      </div>
+    </div>
+
+    <div class="row charts">
+
+        <div class="col chart chart-by-songs">
+            <div class="title">
+                <img src="{% static "thiamsu/img/img-chart-by-songs.png" %}"
+                     srcset="{% static "thiamsu/img/img-chart-by-songs@2x.png" %} 2x,
+                             {% static "thiamsu/img/img-chart-by-songs@3x.png" %} 3x">
+                編修歌曲排行榜
+            </div>
+
+            <ol>
+            {% for contributer in top_song_contributors %}
+                <li class="chart-entry">
+                    <div class="chart-entry-wrapper">
+                        <div class="rank">{{ forloop.counter }}.</div>
+                        {# TODO: fix user URL #}
+                        <a href="#"><img src="{{ contributer.avatar_url }}" class="avatar"></a>
+                        <p class="username">{{ contributer.username }}</p>
+                        <p class="score-wrapper"><span class="score">{{ contributer.count }}</span> 首</p>
+                    </div>
+                </li>
+            {% empty %}
+                {# TODO: empty state #}
+                <div class="col d-table" style="min-height: 400px;">
+                    <div class="align-middle text-center d-table-cell">
+                        <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
+                    </div>
+                </div>
+            {% endfor %}
+            </ol>
+        </div>
+
+        <div class="col chart chart-by-lines">
+            <div class="title">
+                <img src="{% static "thiamsu/img/img-chart-by-lines.png" %}"
+                     srcset="{% static "thiamsu/img/img-chart-by-lines@2x.png" %} 2x,
+                             {% static "thiamsu/img/img-chart-by-lines@3x.png" %} 3x">
+                編修歌詞排行榜
+            </div>
+
+            <ol>
+            {% for contributer in top_line_contributors %}
+                <li class="chart-entry">
+                    <div class="chart-entry-wrapper">
+                        <div class="rank">{{ forloop.counter }}.</div>
+                        {# TODO: fix user URL #}
+                        <a href="/profile"><img src="{{ contributer.avatar_url }}" class="avatar"></a>
+                        <p class="username">{{ contributer.username }}</p>
+                        <p class="score-wrapper"><span class="score">{{ contributer.count }}</span> 行</p>
+                    </div>
+                </li>
+            {% empty %}
+                {# TODO: empty state #}
+                <div class="col d-table" style="min-height: 400px;">
+                    <div class="align-middle text-center d-table-cell">
+                        <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
+                    </div>
+                </div>
+            {% endfor %}
+            </ol>
+        </div>
+
+    </div>
 {% endblock %}
