@@ -1,4 +1,5 @@
 {% extends 'thiamsu/base.html' %}
+{% load staticfiles %}
 
 {% block content %}
     <div class="row context-header charts-header">
@@ -32,31 +33,67 @@
       </div>
     </div>
 
-<div>
-    {% for contributer in top_song_contributors %}
-        <a href="/profile"><img src="{{ contributer.avatar_url }}" class="avatar"></a>
-        <p>{{ contributer.username }}</p>
-        <p>{{ contributer.count }}</p>
-    {% empty %}
-        <div class="col d-table" style="min-height: 400px;">
-            <div class="align-middle text-center d-table-cell">
-                <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
-            </div>
-        </div>
-    {% endfor %}
-</div>
+    <div class="row charts">
 
-<div>
-    {% for contributer in top_line_contributors %}
-        <a href="/profile"><img src="{{ contributer.avatar_url }}" class="avatar"></a>
-        <p>{{ contributer.username }}</p>
-        <p>{{ contributer.count }}</p>
-    {% empty %}
-        <div class="col d-table" style="min-height: 400px;">
-            <div class="align-middle text-center d-table-cell">
-                <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
+        <div class="col chart chart-by-songs">
+            <div class="title">
+                <img src="{% static "thiamsu/img/img-chart-by-songs.png" %}"
+                     srcset="{% static "thiamsu/img/img-chart-by-songs@2x.png" %} 2x,
+                             {% static "thiamsu/img/img-chart-by-songs@3x.png" %} 3x">
+                編修歌曲排行榜
             </div>
+
+            <ol>
+            {% for contributer in top_song_contributors %}
+                <li class="chart-entry">
+                    <div class="chart-entry-wrapper">
+                        <div class="rank">{{ forloop.counter }}.</div>
+                        {# TODO: fix user URL #}
+                        <a href="#"><img src="{{ contributer.avatar_url }}" class="avatar"></a>
+                        <p class="username">{{ contributer.username }}</p>
+                        <p class="score-wrapper"><span class="score">{{ contributer.count }}</span> 首</p>
+                    </div>
+                </li>
+            {% empty %}
+                {# TODO: empty state #}
+                <div class="col d-table" style="min-height: 400px;">
+                    <div class="align-middle text-center d-table-cell">
+                        <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
+                    </div>
+                </div>
+            {% endfor %}
+            </ol>
         </div>
-    {% endfor %}
-</div>
+
+        <div class="col chart chart-by-lines">
+            <div class="title">
+                <img src="{% static "thiamsu/img/img-chart-by-lines.png" %}"
+                     srcset="{% static "thiamsu/img/img-chart-by-lines@2x.png" %} 2x,
+                             {% static "thiamsu/img/img-chart-by-lines@3x.png" %} 3x">
+                編修歌詞排行榜
+            </div>
+
+            <ol>
+            {% for contributer in top_line_contributors %}
+                <li class="chart-entry">
+                    <div class="chart-entry-wrapper">
+                        <div class="rank">{{ forloop.counter }}.</div>
+                        {# TODO: fix user URL #}
+                        <a href="/profile"><img src="{{ contributer.avatar_url }}" class="avatar"></a>
+                        <p class="username">{{ contributer.username }}</p>
+                        <p class="score-wrapper"><span class="score">{{ contributer.count }}</span> 行</p>
+                    </div>
+                </li>
+            {% empty %}
+                {# TODO: empty state #}
+                <div class="col d-table" style="min-height: 400px;">
+                    <div class="align-middle text-center d-table-cell">
+                        <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
+                    </div>
+                </div>
+            {% endfor %}
+            </ol>
+        </div>
+
+    </div>
 {% endblock %}
