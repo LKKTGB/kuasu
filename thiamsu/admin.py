@@ -28,6 +28,10 @@ class HeadlineAdmin(admin.ModelAdmin):
 class NewWordInline(admin.StackedInline):
     model = NewWord
 
+    extra = 0
+    classes = ('grp-collapse grp-open',)
+    inline_classes = ('grp-collapse grp-open',)
+
 
 class AdminVideoTextInputWidget(AdminTextInputWidget, AdminVideoWidget):
     pass
@@ -81,7 +85,8 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
             # add to form declared fields if not added
             if name not in self.form.declared_fields:
                 self.form.declared_fields[name] = forms.CharField(
-                    label=label, max_length=self.LYRIC_MAX_LENGTH, initial=lyric)
+                    label=label, max_length=self.LYRIC_MAX_LENGTH, initial=lyric,
+                    widget=AdminVideoTextInputWidget)
 
             # update field value if added
             else:
@@ -89,7 +94,7 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
 
             # disable blank line
             if not self.form.declared_fields[name].initial:
-                self.form.declared_fields[name].initial = '--'
+                self.form.declared_fields[name].initial = ''
                 self.form.declared_fields[name].disabled = True
 
         return fields

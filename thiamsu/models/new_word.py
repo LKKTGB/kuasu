@@ -13,6 +13,9 @@ class NewWord(models.Model):
 
     created_at = models.DateTimeField(_('new_word_created_at'), auto_now_add=True)
 
+    def __str__(self):
+        return self.content
+
     class Meta:
         verbose_name = _('new_word')
         verbose_name_plural = _('new_words')
