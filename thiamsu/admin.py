@@ -52,6 +52,7 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
     LYRIC_MAX_LENGTH = 100
 
     list_display = ('original_title', 'performer')
+    search_fields = ('original_title', 'performer')
     form = SongAdminForm
     inlines = [
         NewWordInline,
