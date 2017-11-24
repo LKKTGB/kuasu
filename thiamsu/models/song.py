@@ -33,6 +33,22 @@ class Song(models.Model):
             id=self.youtube_id
         )
 
+    @property
+    def progress(self):
+        from thiamsu.models.translation import Translation
+
+        translated_lines = (
+            Translation.objects
+            .filter(song=self.id)
+            .values('song', 'lang')
+            .annotate(count=models.Count('line_no', distinct=True))
+        )
+
+        translated_count = sum([t['count'] for t in translated_lines])
+        total_count = len([line for line in self.original_lyrics.split('\n') if line.strip()])
+        total_count = total_count * len(translated_lines)
+        return int(translated_count / total_count * 100)
+
     def get_lyrics_with_translations(self):
         from thiamsu.models.translation import Translation
 
