@@ -7,6 +7,7 @@ from django.contrib.admin.widgets import AdminTextInputWidget
 from django.utils.translation import ugettext_lazy as _
 from embed_video.admin import AdminVideoWidget, AdminVideoMixin
 from embed_video.fields import EmbedVideoField
+from social_django.models import Association, Nonce, UserSocialAuth
 
 from thiamsu.forms import SongAdminForm
 from thiamsu.models.approved_translation import ApprovedTranslation
@@ -120,6 +121,9 @@ class ApprovedTranslationAdmin(admin.ModelAdmin):
     pass
 
 
+admin.site.unregister(Association)
+admin.site.unregister(Nonce)
+admin.site.unregister(UserSocialAuth)
 admin.site.register(Headline, HeadlineAdmin)
 admin.site.register(Song, SongAdmin)
 admin.site.register(Translation, TranslationAdmin)
