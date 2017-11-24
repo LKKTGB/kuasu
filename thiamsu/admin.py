@@ -10,7 +10,6 @@ from embed_video.fields import EmbedVideoField
 from social_django.models import Association, Nonce, UserSocialAuth
 
 from thiamsu.forms import SongAdminForm
-from thiamsu.models.approved_translation import ApprovedTranslation
 from thiamsu.models.headline import Headline
 from thiamsu.models.new_word import NewWord
 from thiamsu.models.song import Song
@@ -117,14 +116,9 @@ class TranslationAdmin(admin.ModelAdmin):
     pass
 
 
-class ApprovedTranslationAdmin(admin.ModelAdmin):
-    pass
-
-
 admin.site.unregister(Association)
 admin.site.unregister(Nonce)
 admin.site.unregister(UserSocialAuth)
 admin.site.register(Headline, HeadlineAdmin)
 admin.site.register(Song, SongAdmin)
 admin.site.register(Translation, TranslationAdmin)
-admin.site.register(ApprovedTranslation, ApprovedTranslationAdmin)
