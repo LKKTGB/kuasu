@@ -25,6 +25,10 @@ msgstr ""
 "Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#, thiamsu app
+msgid "app_thiamsu"
+msgstr "歌詞好正"
+
 #, thiamsu model Song
 msgid "song"
 msgstr "歌曲"
