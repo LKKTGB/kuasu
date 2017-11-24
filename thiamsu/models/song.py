@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from embed_video.fields import EmbedVideoField
 
 from thiamsu.utils import get_youtube_id_from_url, translate_hanzi_to_hanlo
 
@@ -13,7 +14,7 @@ class Song(models.Model):
     hanlo_performer = models.CharField(_('song_hanlo_performer'), max_length=100)
     composer = models.CharField(_('song_composer'), max_length=100)
     lyricist = models.CharField(_('song_lyricist'), max_length=100)
-    youtube_url = models.CharField(_('song_youtube_url'), max_length=100)
+    youtube_url = EmbedVideoField(_('song_youtube_url'))
     original_lyrics = models.TextField(_('song_original_lyrics'), default='')
     readonly = models.BooleanField(_('song_readonly'), default=False)
 

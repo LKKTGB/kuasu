@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # third-party
     'user.apps.UserConfig',
     'social_django',
+    'embed_video',
     # local
     'thiamsu.apps.ThiamsuConfig'
 ]

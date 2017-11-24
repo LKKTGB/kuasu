@@ -3,7 +3,10 @@ import os
 
 from django import forms
 from django.contrib import admin
+from django.contrib.admin.widgets import AdminTextInputWidget
 from django.utils.translation import ugettext_lazy as _
+from embed_video.admin import AdminVideoWidget, AdminVideoMixin
+from embed_video.fields import EmbedVideoField
 
 from thiamsu.forms import SongAdminForm
 from thiamsu.models.approved_translation import ApprovedTranslation
@@ -26,7 +29,19 @@ class NewWordInline(admin.StackedInline):
     model = NewWord
 
 
-class SongAdmin(admin.ModelAdmin):
+class AdminVideoTextInputWidget(AdminTextInputWidget, AdminVideoWidget):
+    pass
+
+
+class AdminVideoTextInputMixin(AdminVideoMixin):
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        if isinstance(db_field, EmbedVideoField):
+            return db_field.formfield(widget=AdminVideoTextInputWidget)
+
+        return super(AdminVideoMixin, self).formfield_for_dbfield(db_field, **kwargs)
+
+
+class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
     LYRIC_FIELD_LABEL_PREFIX = _('song_original_lyrics')
     LYRIC_FIELD_NAME_PREFIX = 'original_lyrics_line_'
     LYRIC_LINE_NO_TMPL = _('line no %d')
