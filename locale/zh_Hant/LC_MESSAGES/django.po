@@ -25,6 +25,107 @@ msgstr ""
 "Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#, thiamsu model Song
+msgid "song"
+msgstr "歌曲"
+
+msgid "songs"
+msgstr "歌曲列表"
+
+msgid "song_original_title"
+msgstr "原文歌名"
+
+msgid "song_hanzi_title"
+msgstr "全漢歌名"
+
+msgid "song_tailo_title"
+msgstr "全羅歌名"
+
+msgid "song_hanlo_title"
+msgstr "漢羅歌名"
+
+msgid "song_performer"
+msgstr "演唱人"
+
+msgid "song_hanlo_performer"
+msgstr "演唱人（台文）"
+
+msgid "song_composer"
+msgstr "作曲人"
+
+msgid "song_lyricist"
+msgstr "作詞人"
+
+msgid "song_youtube_url"
+msgstr "Youtube 網址"
+
+msgid "song_original_lyrics"
+msgstr "原文歌詞"
+
+msgid "song_readonly"
+msgstr "鎖定編修"
+
+#, python-format
+msgid "line no %d"
+msgstr "第 %d 句"
+
+#, thiamsu model Translation
+msgid "translation"
+msgstr "編修"
+
+msgid "translations"
+msgstr "編修列表"
+
+msgid "translation_line_no"
+msgstr "第幾句"
+
+msgid "translation_lang"
+msgstr "文字系統"
+
+msgid "translation_lang_tailo"
+msgstr "全羅"
+
+msgid "translation_lang_hanzi"
+msgstr "全漢"
+
+msgid "translation_content"
+msgstr "編修內容"
+
+msgid "translation_contributor"
+msgstr "編修人"
+
+msgid "translation_created_at"
+msgstr "編修時間"
+
+#, thiamsu model NewWord
+msgid "new_word"
+msgstr "生難詞"
+
+msgid "new_words"
+msgstr "生難詞列表"
+
+msgid "new_word_content"
+msgstr "字詞"
+
+msgid "new_word_reference_url"
+msgstr "參考網址"
+
+msgid "new_word_created_at"
+msgstr "加入時間"
+
+#, thiamsu model Headline
+msgid "headline"
+msgstr "最新消息"
+
+msgid "headlines"
+msgstr "最新消息列表"
+
+msgid "headline_start_time"
+msgstr "開始時間"
+
+msgid "headline_end_time"
+msgstr "結束時間"
+
 #, python-format
 msgid "Successfully deleted %(count)d %(items)s."
 msgstr "成功的刪除了 %(count)d 個 %(items)s."

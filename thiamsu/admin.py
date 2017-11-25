@@ -3,6 +3,7 @@ import os
 
 from django import forms
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
 
 from thiamsu.forms import SongAdminForm
 from thiamsu.models.approved_translation import ApprovedTranslation
@@ -26,9 +27,9 @@ class NewWordInline(admin.StackedInline):
 
 
 class SongAdmin(admin.ModelAdmin):
-    LYRIC_FIELD_LABEL_PREFIX = 'Original lyrics line '
+    LYRIC_FIELD_LABEL_PREFIX = _('song_original_lyrics')
     LYRIC_FIELD_NAME_PREFIX = 'original_lyrics_line_'
-    LYRIC_LINE_NO_TMPL = '%0004d'
+    LYRIC_LINE_NO_TMPL = _('line no %d')
     LYRIC_MAX_LENGTH = 100
 
     list_display = ('original_title', 'performer')
