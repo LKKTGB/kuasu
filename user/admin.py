@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
@@ -36,5 +37,6 @@ class CustomUserAdmin(UserAdmin):
         return super().get_inline_instances(request, obj)
 
 
+admin.site.unregister(Group)
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
