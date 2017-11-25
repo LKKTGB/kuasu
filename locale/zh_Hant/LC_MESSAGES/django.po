@@ -130,6 +130,16 @@ msgstr "開始時間"
 msgid "headline_end_time"
 msgstr "結束時間"
 
+#, user model profile
+msgid "profile"
+msgstr "個人資料"
+
+msgid "profiles"
+msgstr "個人資料列表"
+
+msgid "avatar"
+msgstr "頭像"
+
 #, python-format
 msgid "Successfully deleted %(count)d %(items)s."
 msgstr "成功的刪除了 %(count)d 個 %(items)s."
