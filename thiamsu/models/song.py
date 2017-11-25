@@ -1,20 +1,26 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+from embed_video.fields import EmbedVideoField
 
 from thiamsu.utils import get_youtube_id_from_url, translate_hanzi_to_hanlo
 
 
 class Song(models.Model):
-    original_title = models.CharField(max_length=100, help_text='原文歌名')
-    hanzi_title = models.CharField(max_length=100, help_text='全漢歌名')
-    tailo_title = models.CharField(max_length=100, help_text='全羅歌名')
-    hanlo_title = models.CharField(max_length=100, help_text='漢羅歌名')
-    performer = models.CharField(max_length=100, help_text='演唱人')
-    hanlo_performer = models.CharField(max_length=100, help_text='演唱人（台文）')
-    composer = models.CharField(max_length=100, help_text='作曲人')
-    lyricist = models.CharField(max_length=100, help_text='作詞人')
-    youtube_url = models.CharField(max_length=100, help_text='Youtube 網址')
-    original_lyrics = models.TextField(default='', help_text='原文歌詞')
-    readonly = models.BooleanField(default=False, help_text='鎖定編修')
+    original_title = models.CharField(_('song_original_title'), max_length=100)
+    hanzi_title = models.CharField(_('song_hanzi_title'), max_length=100)
+    tailo_title = models.CharField(_('song_tailo_title'), max_length=100)
+    hanlo_title = models.CharField(_('song_hanlo_title'), max_length=100)
+    performer = models.CharField(_('song_performer'), max_length=100)
+    hanlo_performer = models.CharField(_('song_hanlo_performer'), max_length=100)
+    composer = models.CharField(_('song_composer'), max_length=100)
+    lyricist = models.CharField(_('song_lyricist'), max_length=100)
+    youtube_url = EmbedVideoField(_('song_youtube_url'))
+    original_lyrics = models.TextField(_('song_original_lyrics'), default='')
+    readonly = models.BooleanField(_('song_readonly'), default=False)
+
+    class Meta:
+        verbose_name = _('song')
+        verbose_name_plural = _('songs')
 
     @staticmethod
     def autocomplete_search_fields():

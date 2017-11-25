@@ -3,9 +3,13 @@ import os
 
 from django import forms
 from django.contrib import admin
+from django.contrib.admin.widgets import AdminTextInputWidget
+from django.utils.translation import ugettext_lazy as _
+from embed_video.admin import AdminVideoWidget, AdminVideoMixin
+from embed_video.fields import EmbedVideoField
+from social_django.models import Association, Nonce, UserSocialAuth
 
 from thiamsu.forms import SongAdminForm
-from thiamsu.models.approved_translation import ApprovedTranslation
 from thiamsu.models.headline import Headline
 from thiamsu.models.new_word import NewWord
 from thiamsu.models.song import Song
@@ -24,14 +28,31 @@ class HeadlineAdmin(admin.ModelAdmin):
 class NewWordInline(admin.StackedInline):
     model = NewWord
 
+    extra = 0
+    classes = ('grp-collapse grp-open',)
+    inline_classes = ('grp-collapse grp-open',)
 
-class SongAdmin(admin.ModelAdmin):
-    LYRIC_FIELD_LABEL_PREFIX = 'Original lyrics line '
+
+class AdminVideoTextInputWidget(AdminTextInputWidget, AdminVideoWidget):
+    pass
+
+
+class AdminVideoTextInputMixin(AdminVideoMixin):
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        if isinstance(db_field, EmbedVideoField):
+            return db_field.formfield(widget=AdminVideoTextInputWidget)
+
+        return super(AdminVideoMixin, self).formfield_for_dbfield(db_field, **kwargs)
+
+
+class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
+    LYRIC_FIELD_LABEL_PREFIX = _('song_original_lyrics')
     LYRIC_FIELD_NAME_PREFIX = 'original_lyrics_line_'
-    LYRIC_LINE_NO_TMPL = '%0004d'
+    LYRIC_LINE_NO_TMPL = _('line no %d')
     LYRIC_MAX_LENGTH = 100
 
     list_display = ('original_title', 'performer')
+    search_fields = ('original_title', 'performer')
     form = SongAdminForm
     inlines = [
         NewWordInline,
@@ -65,7 +86,8 @@ class SongAdmin(admin.ModelAdmin):
             # add to form declared fields if not added
             if name not in self.form.declared_fields:
                 self.form.declared_fields[name] = forms.CharField(
-                    label=label, max_length=self.LYRIC_MAX_LENGTH, initial=lyric)
+                    label=label, max_length=self.LYRIC_MAX_LENGTH, initial=lyric,
+                    widget=AdminVideoTextInputWidget)
 
             # update field value if added
             else:
@@ -73,7 +95,7 @@ class SongAdmin(admin.ModelAdmin):
 
             # disable blank line
             if not self.form.declared_fields[name].initial:
-                self.form.declared_fields[name].initial = '--'
+                self.form.declared_fields[name].initial = ''
                 self.form.declared_fields[name].disabled = True
 
         return fields
@@ -97,14 +119,12 @@ class SongAdmin(admin.ModelAdmin):
 
 
 class TranslationAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('song', 'lang', 'content', 'original_lyric', 'created_at')
 
 
-class ApprovedTranslationAdmin(admin.ModelAdmin):
-    pass
-
-
+admin.site.unregister(Association)
+admin.site.unregister(Nonce)
+admin.site.unregister(UserSocialAuth)
 admin.site.register(Headline, HeadlineAdmin)
 admin.site.register(Song, SongAdmin)
 admin.site.register(Translation, TranslationAdmin)
-admin.site.register(ApprovedTranslation, ApprovedTranslationAdmin)
