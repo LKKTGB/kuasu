@@ -8,8 +8,13 @@ from user.models.profile import Profile
 class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
-    verbose_name_plural = 'Profile'
     fk_name = 'user'
+
+    fields = ('avatar', )
+    readonly_fields = ('avatar',)
+
+    classes = ('grp-collapse grp-open',)
+    inline_classes = ('grp-collapse grp-open',)
 
 
 class CustomUserAdmin(UserAdmin):
