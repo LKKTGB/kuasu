@@ -119,7 +119,7 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
 
 
 class TranslationAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('song', 'lang', 'content', 'original_lyric', 'created_at')
 
 
 admin.site.unregister(Association)

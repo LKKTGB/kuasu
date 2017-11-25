@@ -25,6 +25,11 @@ class Translation(models.Model):
 
     created_at = models.DateTimeField(_('translation_created_at'), auto_now_add=True)
 
+    def get_original_lyric(self):
+        return self.song.original_lyrics.split('\n')[self.line_no]
+    get_original_lyric.short_description = _('song_original_lyrics')
+    original_lyric = property(get_original_lyric)
+
     class Meta:
         verbose_name = _('translation')
         verbose_name_plural = _('translations')
