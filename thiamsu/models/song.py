@@ -1,8 +1,27 @@
+from itertools import combinations
+
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 from embed_video.fields import EmbedVideoField
 
 from thiamsu.utils import get_youtube_id_from_url, translate_hanzi_to_hanlo
+from unidecode import unidecode
+
+
+def _to_alias(word):
+    return unidecode(
+        word
+        .replace('-', ' ')
+    )
+
+
+def split_to_keyword_groups(keyword):
+    segments = [k for k in keyword.split() if k.strip()]
+    groups = []
+    for n in range(len(segments) - 1, 1, -1):
+        groups += tuple(combinations(segments, n))
+    return [' '.join(g) for g in set(groups)]
 
 
 class Song(models.Model):
@@ -18,6 +37,9 @@ class Song(models.Model):
     original_lyrics = models.TextField(_('song_original_lyrics'), default='')
     readonly = models.BooleanField(_('song_readonly'), default=False)
 
+    title_alias = models.CharField(max_length=100, blank=True)
+    performer_alias = models.CharField(max_length=100, blank=True)
+
     class Meta:
         verbose_name = _('song')
         verbose_name_plural = _('songs')
@@ -28,6 +50,65 @@ class Song(models.Model):
 
     def __str__(self):
         return u"%s (%s)" % (self.original_title, self.performer)
+
+    def save(self, *args, **kwargs):
+        # remove excess whitespace to improve search result
+        for field in ['original_title',
+                      'hanzi_title',
+                      'tailo_title',
+                      'hanlo_title',
+                      'performer',
+                      'hanlo_performer']:
+            self.__dict__[field] = ' '.join(self.__dict__[field].split())
+
+        self.title_alias = _to_alias(self.tailo_title)
+        self.performer_alias = _to_alias(self.hanlo_performer)
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def search_title(cls, keyword):
+        exact_match = cls.objects.filter(
+            Q(original_title__icontains=keyword) |
+            Q(hanzi_title__icontains=keyword) |
+            Q(tailo_title__icontains=keyword) |
+            Q(title_alias__icontains=_to_alias(keyword)))
+
+        # 'a b c d' to ['a c d', 'a b c', 'b c d', 'a b d', 'b d', 'c d', 'a b', 'b c', 'a c', 'a d']
+        keyword_groups = split_to_keyword_groups(keyword)
+        multi_match = cls.objects.filter(
+            Q(original_title__icontains=keyword_groups) |
+            Q(hanzi_title__icontains=keyword_groups) |
+            Q(tailo_title__icontains=keyword_groups) |
+            Q(title_alias__icontains=[_to_alias(g) for g in keyword_groups]))
+
+        # 'a b c' to ['a', 'b', 'c']
+        single_match = cls.objects.filter(
+            Q(original_title__icontains=keyword.split()) |
+            Q(hanzi_title__icontains=keyword.split()) |
+            Q(tailo_title__icontains=keyword.split()) |
+            Q(title_alias__icontains=_to_alias(keyword).split()))
+        return (exact_match | multi_match | single_match).distinct()
+
+    @classmethod
+    def search_performer(cls, keyword):
+        exact_match = cls.objects.filter(
+            Q(performer__icontains=keyword) |
+            Q(hanlo_performer__icontains=keyword) |
+            Q(performer_alias__icontains=_to_alias(keyword)))
+
+        # 'a b c d' to ['a c d', 'a b c', 'b c d', 'a b d', 'b d', 'c d', 'a b', 'b c', 'a c', 'a d']
+        keyword_groups = split_to_keyword_groups(keyword)
+        multi_match = cls.objects.filter(
+            Q(performer__icontains=keyword_groups) |
+            Q(hanlo_performer__icontains=keyword_groups) |
+            Q(performer_alias__icontains=[_to_alias(g) for g in keyword_groups]))
+
+        # 'a b c' to ['a', 'b', 'c']
+        single_match = cls.objects.filter(
+            Q(performer__icontains=keyword.split()) |
+            Q(hanlo_performer__icontains=keyword.split()) |
+            Q(performer_alias__icontains=_to_alias(keyword).split()))
+        return (exact_match | multi_match | single_match).distinct()
 
     @property
     def youtube_id(self):

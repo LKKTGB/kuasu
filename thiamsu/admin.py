@@ -57,6 +57,7 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
     inlines = [
         NewWordInline,
     ]
+    exclude = ('title_alias', 'performer_alias')
 
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
@@ -87,6 +88,7 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
             if name not in self.form.declared_fields:
                 self.form.declared_fields[name] = forms.CharField(
                     label=label, max_length=self.LYRIC_MAX_LENGTH, initial=lyric,
+                    required=bool(lyric),
                     widget=AdminVideoTextInputWidget)
 
             # update field value if added
