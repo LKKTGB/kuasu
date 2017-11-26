@@ -50,6 +50,7 @@ git push heroku-testing <local_branch>:master
 heroku login
 heroku git:remote -a thiamsu-staging
 git push heroku-staging <local_branch>:master
+heroku run python manage.py compilemessages
 ```
 
 ### Heroku Notes
