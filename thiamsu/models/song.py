@@ -52,6 +52,15 @@ class Song(models.Model):
         return u"%s (%s)" % (self.original_title, self.performer)
 
     def save(self, *args, **kwargs):
+        # remove excess whitespace to improve search result
+        for field in ['original_title',
+                      'hanzi_title',
+                      'tailo_title',
+                      'hanlo_title',
+                      'performer',
+                      'hanlo_performer']:
+            self.__dict__[field] = ' '.join(self.__dict__[field].split())
+
         self.title_alias = _to_alias(self.tailo_title)
         self.performer_alias = _to_alias(self.hanlo_performer)
         super().save(*args, **kwargs)
