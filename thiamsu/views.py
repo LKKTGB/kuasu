@@ -44,13 +44,9 @@ def search(request):
         return redirect('/')
 
     if query_type == 'song-title':
-        songs = Song.objects.filter(
-            Q(original_title__contains=query) |
-            Q(hanzi_title__contains=query) |
-            Q(tailo_title__contains=query))
+        songs = Song.search_title(query)
     else:  # performer
-        songs = Song.objects.filter(
-            Q(performer__contains=query))
+        songs = Song.search_performer(query)
 
     return _render_song_list(request, songs, query)
 
