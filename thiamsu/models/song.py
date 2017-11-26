@@ -3,6 +3,14 @@ from django.utils.translation import ugettext_lazy as _
 from embed_video.fields import EmbedVideoField
 
 from thiamsu.utils import get_youtube_id_from_url, translate_hanzi_to_hanlo
+from unidecode import unidecode
+
+
+def _to_alias(word):
+    return unidecode(
+        word
+        .replace('-', ' ')
+    )
 
 
 class Song(models.Model):
@@ -18,6 +26,9 @@ class Song(models.Model):
     original_lyrics = models.TextField(_('song_original_lyrics'), default='')
     readonly = models.BooleanField(_('song_readonly'), default=False)
 
+    title_alias = models.CharField(max_length=100, blank=True)
+    performer_alias = models.CharField(max_length=100, blank=True)
+
     class Meta:
         verbose_name = _('song')
         verbose_name_plural = _('songs')
@@ -28,6 +39,11 @@ class Song(models.Model):
 
     def __str__(self):
         return u"%s (%s)" % (self.original_title, self.performer)
+
+    def save(self, *args, **kwargs):
+        self.title_alias = _to_alias(self.tailo_title)
+        self.performer_alias = _to_alias(self.hanlo_performer)
+        super().save(*args, **kwargs)
 
     @property
     def youtube_id(self):

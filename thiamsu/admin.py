@@ -57,6 +57,7 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
     inlines = [
         NewWordInline,
     ]
+    exclude = ('title_alias', 'performer_alias')
 
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
