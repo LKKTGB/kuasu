@@ -140,6 +140,19 @@ msgstr "個人資料列表"
 msgid "avatar"
 msgstr "頭像"
 
+#, user model
+msgid "staff status"
+msgstr "進階會員"
+
+msgid "Designates whether the user can log into this admin site."
+msgstr "進階會員可登入後台、編輯歌曲和最新消息。"
+
+msgid "superuser status"
+msgstr "管理者"
+
+msgid "Designates that this user has all permissions without explicitly assigning them."
+msgstr "管理者可登入後台，調整其他會員的權限。"
+
 #, python-format
 msgid "Successfully deleted %(count)d %(items)s."
 msgstr "成功的刪除了 %(count)d 個 %(items)s."

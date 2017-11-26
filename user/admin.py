@@ -27,7 +27,7 @@ class CustomUserAdmin(UserAdmin):
         (_('Personal info'), {'fields': ('first_name', 'last_name')}),
         (_('Permissions'), {'fields': ('is_staff', 'is_superuser')}),
     )
-    readonly_fields = ('username',)
+    readonly_fields = ('username', 'first_name', 'last_name')
 
     inlines = (ProfileInline, )
 
