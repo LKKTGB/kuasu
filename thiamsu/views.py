@@ -18,6 +18,33 @@ from thiamsu.models.translation import Translation
 from thiamsu.paginator import Paginator
 
 
+def _sorted_songs(request, songs):
+    sorting_type = request.GET.get('sort', 'original')
+
+    if sorting_type == 'original':
+        songs = songs.order_by('-original_title')
+    elif sorting_type == 'tailo':
+        songs = songs.order_by('tailo_title')
+    else:  # progress
+        pass  # TODO
+
+    return songs
+
+
+def _paginated_songs(request, songs):
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(songs, settings.PAGINATION_MAX_ITMES_PER_PAGE)
+    try:
+        songs = paginator.page(page)
+    except PageNotAnInteger:
+        songs = paginator.page(1)
+    except EmptyPage:
+        songs = paginator.page(paginator.num_pages)
+
+    return songs
+
+
 def home(request):
     songs = Song.objects
 
@@ -31,7 +58,13 @@ def home(request):
     except ObjectDoesNotExist:
         headline = None
 
-    return _render_song_list(request, songs, headline=headline)
+    songs = _sorted_songs(request, songs)
+    songs = _paginated_songs(request, songs)
+
+    return render(request, 'thiamsu/song_list.html', {
+        'songs': songs,
+        'headline': headline.song if headline else None,
+    })
 
 
 def search(request):
@@ -48,33 +81,12 @@ def search(request):
     else:  # performer
         songs = Song.search_performer(query)
 
-    return _render_song_list(request, songs, query)
-
-
-def _render_song_list(request, songs, query=None, headline=None):
-    # Sorting
-    sorting_type = request.GET.get('sort', 'original')
-    if sorting_type == 'original':
-        songs = songs.order_by('-original_title')
-    elif sorting_type == 'tailo':
-        songs = songs.order_by('tailo_title')
-    else:  # progress
-        pass  # TODO
-
-    # Pagination
-    page = request.GET.get('page', 1)
-    paginator = Paginator(songs, settings.PAGINATION_MAX_ITMES_PER_PAGE)
-    try:
-        songs = paginator.page(page)
-    except PageNotAnInteger:
-        songs = paginator.page(1)
-    except EmptyPage:
-        songs = paginator.page(paginator.num_pages)
+    songs = _sorted_songs(request, songs)
+    songs = _paginated_songs(request, songs)
 
     return render(request, 'thiamsu/song_list.html', {
         'query': query,
         'songs': songs,
-        'headline': headline.song if headline else None,
     })
 
 
@@ -242,6 +254,7 @@ def chart(request):
             .order_by('-count')[:10]
         )
         contributors = [{
+            'id': c.id,
             'username': c.get_full_name(),
             'avatar_url': c.profile.avatar_url,
             'count': c.count
@@ -266,6 +279,7 @@ def chart(request):
                 continue
             user = User.objects.get(id=contributor)
             contributors.append({
+                'id': user.id,
                 'username': user.get_full_name(),
                 'avatar_url': user.profile.avatar_url,
                 'count': count})
@@ -278,7 +292,7 @@ def chart(request):
     })
 
 
-def profile(request):
+def user_profile(request, id):
     def get_contributions(user):
         latest_translations = (
             Translation.objects
@@ -291,10 +305,28 @@ def profile(request):
         songs = sorted(songs, key=lambda s: contribute_time[s.id], reverse=True)
         return songs
 
-    return render(request, 'thiamsu/profile.html', {
-        'user': request.user,
-        'full_name': request.user.get_full_name(),
-        'bg_color': '#444444',
-        'favorite_songs': request.user.profile.favorite_songs.all(),
-        'contributions': get_contributions(request.user),
+    try:
+        viewee = User.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return redirect('/')
+
+    favorites = viewee.profile.favorite_songs.all()
+    contributions = get_contributions(viewee)
+
+    kind = request.GET.get('kind', 'favs')
+    if kind == 'favs':
+        songs = favorites
+    elif kind == 'contribs':
+        songs = contributions
+    else:
+        return redirect(reverse(user_profile, kwargs={'id': viewee.id}))
+
+    songs = _paginated_songs(request, songs)
+
+    return render(request, 'thiamsu/user_profile.html', {
+        'viewee': viewee,
+        'kind': kind,
+        'favorite_count': len(favorites),
+        'contribution_count': len(contributions),
+        'songs': songs,
     })

@@ -333,12 +333,14 @@
     min-width: 0;
 }
 
-/* Song List - Songs */
+/* Song List */
 
 .song-list {
     margin-top: 60px;
     margin-bottom: calc(60px - 26px);
 }
+
+/* Song List - Songs */
 
 .song-list .song {
     margin-bottom: 26px;
@@ -454,6 +456,22 @@
 
 .paginator .page:not(.current):hover {
     background-color: #f5f5f5;
+}
+
+/* Song List - Empty State */
+
+.song-list .empty {
+    height: 400px;
+    font-size: 24px;
+	line-height: 1.5;
+	letter-spacing: 2px;
+	text-align: center;
+	color: #888888;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: -60px auto 0px;
 }
 
 /* Charts */
@@ -609,4 +627,87 @@
     right: 7px;
     bottom: 0;
     line-height: 1;
+}
+
+/* User Profile - User Information */
+
+.user-profile {
+    height: 160px;
+    background-image:
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
+        linear-gradient(#5fa490, #5fa490);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+}
+
+.user-profile .avatar {
+    border: solid 2px #ffffff;
+    overflow: hidden;
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+    margin-right: 30px;
+}
+
+.user-profile .fullname {
+    font-size: 30px;
+	font-weight: bold;
+	letter-spacing: 1px;
+    height: 36px;
+}
+
+.user-profile .join-date {
+    font-size: 13px;
+	letter-spacing: 0.6px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    height: 18px;
+}
+
+.user-profile .ranking {
+    font-size: 20px;
+	font-weight: 500;
+	letter-spacing: 1px;
+    height: 28px;
+}
+
+/* User Profie - Navigation Tabs */
+
+.user-songs-navigation {
+    height: 70px;
+	background-color: #eaeaea;
+	box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.user-songs-navigation .kind {
+    display: inline-block;
+    color: #444444;
+    text-decoration: none;
+    margin: auto 32px 21px 0;
+    border-bottom: solid 2px #00000000;
+    display: flex;
+    align-items: flex-end;
+}
+
+.user-songs-navigation .kind.active {
+    border-bottom: solid 2px #444444;
+}
+
+.user-songs-navigation .counter {
+    font-size: 30px;
+	font-weight: 300;
+	letter-spacing: 0.8px;
+    margin-right: 10px;
+    line-height: 35px;
+    padding-bottom: 1px;
+}
+
+.user-songs-navigation .counter-description {
+    font-size: 13px;
+	letter-spacing: 1px;
+    line-height: 1;
+    padding-bottom: 4px;
 }

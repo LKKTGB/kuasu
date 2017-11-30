@@ -1,0 +1,43 @@
+{% extends 'thiamsu/song_list.html' %}
+{% load staticfiles %}
+
+{% block song-list-header %}
+    <div class="row user-profile">
+        <img src="{{ viewee.profile.avatar_url }}" class="avatar">
+        <div>
+            <div class="fullname">{{ viewee.get_full_name }}</div>
+            <div class="join-date">{{ viewee.date_joined|date:"Y/m/d" }} 加入</div>
+            <div class="ranking">編修歌詞第 ? 名</div>
+        </div>
+    </div>
+
+    <div class="row user-songs-navigation">
+        <a class="kind{% if kind == "favs" %} active{% endif %}"
+           href="?kind=favs">
+            <span class="counter">{{ favorite_count }}</span>
+            <span class="counter-description">已收藏</span>
+        </a>
+        <a class="kind{% if kind == "contribs" %} active{% endif %}"
+           href="?kind=contribs">
+            <span class="counter">{{ contribution_count }}</span>
+            <span class="counter-description">已貢獻</span>
+        </a>
+    </div>
+{% endblock %}
+
+{% block empty-content %}
+    {% if kind == "favs" %}
+        <img src="{% static "thiamsu/img/img-empty-fav.png" %}"
+             srcset="{% static "thiamsu/img/img-empty-fav@2x.png" %} 2x,
+                     {% static "thiamsu/img/img-empty-fav@3x.png" %} 3x">
+        <p>趕緊收khǹg你愛ê歌</p>
+    {% elif kind == "contribs" %}
+        <img src="{% static "thiamsu/img/img-empty-edit.png" %}"
+             srcset="{% static "thiamsu/img/img-empty-edit@2x.png" %} 2x,
+                     {% static "thiamsu/img/img-empty-edit@3x.png" %} 3x">
+        <p>趕緊來鬥編修</p>
+    {% endif %}
+{% endblock %}
+
+
+
