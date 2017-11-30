@@ -244,48 +244,50 @@ def song_translation_post(request, id):
     return HttpResponseRedirect(reverse('song_edit', kwargs={'id': id}))
 
 
-def chart(request):
+def get_top_song_contributors():
     # FIXME: improve performance
+    contributors = (
+        User.objects
+        .annotate(count=models.Count('translation__song'))
+        .order_by('-count')[:10]
+    )
+    contributors = [{
+        'id': c.id,
+        'username': c.get_full_name(),
+        'avatar_url': c.profile.avatar_url,
+        'count': c.count
+    } for c in contributors]
+    contributors = [c for c in contributors if c['username']]
+    return contributors
 
-    def get_top_song_contributors():
-        contributors = (
-            User.objects
-            .annotate(count=models.Count('translation__song'))
-            .order_by('-count')[:10]
-        )
-        contributors = [{
-            'id': c.id,
-            'username': c.get_full_name(),
-            'avatar_url': c.profile.avatar_url,
-            'count': c.count
-        } for c in contributors]
-        contributors = [c for c in contributors if c['username']]
-        return contributors
 
-    def get_top_line_contributors():
-        contributor_song_line_count = (
-            Translation.objects
-            .values('contributor', 'song')
-            .annotate(count=models.Count('line_no'))
-        )
+def get_top_line_contributors():
+    # FIXME: improve performance
+    contributor_song_line_count = (
+        Translation.objects
+        .values('contributor', 'song')
+        .annotate(count=models.Count('line_no'))
+    )
 
-        contributor_line_count = defaultdict(int)
-        for c in contributor_song_line_count:
-            contributor_line_count[c['contributor']] += c['count']
+    contributor_line_count = defaultdict(int)
+    for c in contributor_song_line_count:
+        contributor_line_count[c['contributor']] += c['count']
 
-        contributors = []
-        for contributor, count in contributor_line_count.items():
-            if not contributor:
-                continue
-            user = User.objects.get(id=contributor)
-            contributors.append({
-                'id': user.id,
-                'username': user.get_full_name(),
-                'avatar_url': user.profile.avatar_url,
-                'count': count})
-        contributors = sorted(contributors, key=lambda c: c['count'], reverse=True)[:10]
-        return contributors
+    contributors = []
+    for contributor, count in contributor_line_count.items():
+        if not contributor:
+            continue
+        user = User.objects.get(id=contributor)
+        contributors.append({
+            'id': user.id,
+            'username': user.get_full_name(),
+            'avatar_url': user.profile.avatar_url,
+            'count': count})
+    contributors = sorted(contributors, key=lambda c: c['count'], reverse=True)[:10]
+    return contributors
 
+
+def chart(request):
     return render(request, 'thiamsu/chart.html', {
         'top_song_contributors': get_top_song_contributors(),
         'top_line_contributors': get_top_line_contributors()
