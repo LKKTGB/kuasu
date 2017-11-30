@@ -2,9 +2,8 @@
 
 {% block content %}
 <div>
-    <p>{{ full_name }}</p>
-    <p>{{ bg_color }}</p>
-    <p>{{ user.date_joined|date:"Y/m/d" }} 加入</p>
+    <p>{{ viewee.get_full_name }}</p>
+    <p>{{ viewee.date_joined|date:"Y/m/d" }} 加入</p>
     <p>已收藏：{{ favorite_songs|length }}</p>
     {% for song in favorite_songs %}
         <img src="{{ song.cover_url }}">

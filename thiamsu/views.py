@@ -279,6 +279,17 @@ def chart(request):
 
 
 def profile(request):
+    # TODO: remove this view?
+
+    if not request.user.is_authenticated:
+        next_url = '/'
+    else:
+        next_url = reverse(user_profile, kwargs={'id': request.user.id})
+
+    return redirect(next_url)
+
+
+def user_profile(request, id):
     def get_contributions(user):
         latest_translations = (
             Translation.objects
@@ -291,10 +302,13 @@ def profile(request):
         songs = sorted(songs, key=lambda s: contribute_time[s.id], reverse=True)
         return songs
 
+    try:
+        viewee = User.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return redirect('/')  # TODO: 404 page?
+
     return render(request, 'thiamsu/profile.html', {
-        'user': request.user,
-        'full_name': request.user.get_full_name(),
-        'bg_color': '#444444',
-        'favorite_songs': request.user.profile.favorite_songs.all(),
-        'contributions': get_contributions(request.user),
+        'viewee': viewee,
+        'favorite_songs': viewee.profile.favorite_songs.all(),
+        'contributions': get_contributions(viewee),
     })
