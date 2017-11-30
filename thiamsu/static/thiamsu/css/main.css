@@ -124,6 +124,8 @@
     border: solid 1px #00ae7b;
     background-color: #00ae7b;
     color: white !important;
+    line-height: calc(48px - .75rem - 3px);
+    margin-top: 1.5px;
 }
 
 /* Navigation Bar - Avatar */
