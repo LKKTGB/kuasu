@@ -40,7 +40,7 @@
                 {# Avatar / Login Button #}
                 <div class="order-lg-3" style="margin-left: 30px;">
                     {% if user.is_authenticated %}
-                        <a href="/profile"><img src="{{ user.profile.avatar_url }}" class="avatar"></a>
+                        <a href="{% url "user_profile" user.id %}"><img src="{{ user.profile.avatar_url }}" class="avatar"></a>
                     {% else %}
                         <a href="/login" class="btn btn-login" role="button">登入 / 註冊</a>
                     {% endif %}

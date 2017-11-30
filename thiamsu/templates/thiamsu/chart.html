@@ -50,8 +50,7 @@
                 <li class="chart-entry">
                     <div class="chart-entry-wrapper">
                         <div class="rank">{{ forloop.counter }}.</div>
-                        {# TODO: fix user URL #}
-                        <a href="#"><img src="{{ contributer.avatar_url }}" class="avatar"></a>
+                        <a href="{% url "user_profile" contributer.id %}"><img src="{{ contributer.avatar_url }}" class="avatar"></a>
                         <p class="username">{{ contributer.username }}</p>
                         <p class="score-wrapper"><span class="score">{{ contributer.count }}</span> 首</p>
                     </div>
@@ -81,8 +80,7 @@
                 <li class="chart-entry">
                     <div class="chart-entry-wrapper">
                         <div class="rank">{{ forloop.counter }}.</div>
-                        {# TODO: fix user URL #}
-                        <a href="/profile"><img src="{{ contributer.avatar_url }}" class="avatar"></a>
+                        <a href="{% url "user_profile" contributer.id %}"><img src="{{ contributer.avatar_url }}" class="avatar"></a>
                         <p class="username">{{ contributer.username }}</p>
                         <p class="score-wrapper"><span class="score">{{ contributer.count }}</span> 行</p>
                     </div>

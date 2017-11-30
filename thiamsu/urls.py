@@ -27,7 +27,6 @@ urlpatterns = [
     url(r'^song/(?P<id>[0-9]*)/$', views.song_detail, name='song_detail'),
     url(r'^song/(?P<id>[0-9]*)/edit/$', views.song_edit, name='song_edit'),
     url(r'^song/(?P<id>[0-9]*)/translation/$', views.song_translation_post, name='song_translation_post'),
-    url(r'^profile/$', views.profile, name='profile'),
     url(r'^user/(?P<id>[0-9]+)/$', views.user_profile, name='user_profile'),
     url(r'^chart/$', views.chart, name='chart'),
     url(r'^grappelli/', include('grappelli.urls')),

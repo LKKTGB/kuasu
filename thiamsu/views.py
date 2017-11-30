@@ -254,6 +254,7 @@ def chart(request):
             .order_by('-count')[:10]
         )
         contributors = [{
+            'id': c.id,
             'username': c.get_full_name(),
             'avatar_url': c.profile.avatar_url,
             'count': c.count
@@ -278,6 +279,7 @@ def chart(request):
                 continue
             user = User.objects.get(id=contributor)
             contributors.append({
+                'id': user.id,
                 'username': user.get_full_name(),
                 'avatar_url': user.profile.avatar_url,
                 'count': count})
@@ -288,17 +290,6 @@ def chart(request):
         'top_song_contributors': get_top_song_contributors(),
         'top_line_contributors': get_top_line_contributors()
     })
-
-
-def profile(request):
-    # TODO: remove this view?
-
-    if not request.user.is_authenticated:
-        next_url = '/'
-    else:
-        next_url = reverse(user_profile, kwargs={'id': request.user.id})
-
-    return redirect(next_url)
 
 
 def user_profile(request, id):
@@ -317,7 +308,7 @@ def user_profile(request, id):
     try:
         viewee = User.objects.get(id=id)
     except ObjectDoesNotExist:
-        return redirect('/')  # TODO: 404 page?
+        return redirect('/')
 
     favorites = viewee.profile.favorite_songs.all()
     contributions = get_contributions(viewee)
@@ -332,7 +323,7 @@ def user_profile(request, id):
 
     songs = _paginated_songs(request, songs)
 
-    return render(request, 'thiamsu/profile.html', {
+    return render(request, 'thiamsu/user_profile.html', {
         'viewee': viewee,
         'kind': kind,
         'favorite_count': len(favorites),
