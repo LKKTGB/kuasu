@@ -1,9 +1,16 @@
 {% extends 'thiamsu/base.html' %}
 
 {% block content %}
+    <div class="row user-profile">
+        <img src="{{ viewee.profile.avatar_url }}" class="avatar">
+        <div>
+            <div class="fullname">{{ viewee.get_full_name }}</div>
+            <div class="join-date">{{ viewee.date_joined|date:"Y/m/d" }} 加入</div>
+            <div class="ranking">編修歌詞第 ? 名</div>
+        </div>
+    </div>
+
 <div>
-    <p>{{ viewee.get_full_name }}</p>
-    <p>{{ viewee.date_joined|date:"Y/m/d" }} 加入</p>
     <p>已收藏：{{ favorite_songs|length }}</p>
     {% for song in favorite_songs %}
         <img src="{{ song.cover_url }}">
