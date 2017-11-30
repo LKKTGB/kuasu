@@ -184,6 +184,10 @@
     }
 }
 
+#search-form .input-group {
+    height: 48px;
+}
+
 #search-form .form-control,
 #search-form .btn
 {
