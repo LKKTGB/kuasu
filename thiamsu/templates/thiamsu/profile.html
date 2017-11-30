@@ -1,5 +1,7 @@
 {% extends 'thiamsu/base.html' %}
 
+{% load pagination %}
+
 {% block content %}
     <div class="row user-profile">
         <img src="{{ viewee.profile.avatar_url }}" class="avatar">
@@ -19,6 +21,74 @@
         <a class="kind{% if kind == "contribs" %} active{% endif %}"
            href="?kind=contribs">
             <span class="counter">{{ contribution_count }}</span>
+            <span class="counter-description">已貢獻</span>
         </a>
     </div>
+
+    {# TODO: merge with "song_list.html" #}
+    <div class="row song-list">
+        {% for song in songs %}
+            <div class="col-4 song">
+                {% url 'song_detail' id=song.id as song_url %}
+                <img src="{{ song.cover_url }}" class="preview">
+                <a href="{{ song_url }}" class="title-link"><div class="original-title">{{ song.original_title }}</div></a>
+                <a href="{{ song_url }}" class="title-link"><div class="tailo-title">{{ song.tailo_title }}</div></a>
+                <div class="performer">{{ song.performer }}</div>
+                {% with progress=song.progress|default:0|floatformat:0 %}
+                <div class="translation-progress{% if progress == "0" %} invisible{% endif %}">
+                    <div class="progress-bar" style="width: {{ progress }}%"></div>
+                    <div class="description">編修進度：{{ progress }}%</div>
+                </div>
+                {% endwith %}
+            </div>
+        {% empty %}
+            {# TODO: different screens #}
+            <div class="col d-table" style="min-height: 400px;">
+                <div class="align-middle text-center d-table-cell">
+                    <p style="color: #888888;">真失禮，chhē無你beh查ê資料<br/>請改做其它方式koh查看māi</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if songs|length > 0 %}
+        <div class="row song-list-pagination">
+            <ul class="paginator">
+
+                {% if songs.has_previous %}
+                    <li class="prev-page">
+                        <a href="{% page_url_of songs.previous_page_number %}">上一頁</a>
+                    </li>
+                {% endif %}
+
+                {% if 1 < songs.leftmost_page_number %}
+                    <li class="page"><a href="{% page_url_of 1 %}">1</a></li>
+                    {% if 2 < songs.leftmost_page_number %}
+                        <li class="placeholder">&hellip;</li>
+                    {% endif %}
+                {% endif %}
+
+                {% for i in songs.visible_page_range %}
+                    <li class="page{% if songs.number == i %} current{% endif %}">
+                        <a href="{% page_url_of i %}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+
+                {% if songs.rightmost_page_number < songs.paginator.num_pages %}
+                    {% if songs.rightmost_page_number|add:"1" < songs.paginator.num_pages %}
+                        <li class="placeholder">&hellip;</li>
+                    {% endif %}
+                    <li class="page"><a href="{% page_url_of songs.paginator.num_pages %}">{{ songs.paginator.num_pages }}</a></li>
+                {% endif %}
+
+                {% if songs.has_next %}
+                    <li class="next-page">
+                        <a href="{% page_url_of songs.next_page_number %}">下一頁</a>
+                    </li>
+                {% endif %}
+
+            </ul>
+        </div>
+    {% endif %}
+
 {% endblock %}

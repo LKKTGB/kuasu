@@ -318,6 +318,16 @@ def user_profile(request, id):
     else:
         return redirect(reverse(user_profile, kwargs={'id': viewee.id}))
 
+    # Pagination
+    page = request.GET.get('page', 1)
+    paginator = Paginator(songs, settings.PAGINATION_MAX_ITMES_PER_PAGE)
+    try:
+        songs = paginator.page(page)
+    except PageNotAnInteger:
+        songs = paginator.page(1)
+    except EmptyPage:
+        songs = paginator.page(paginator.num_pages)
+
     return render(request, 'thiamsu/profile.html', {
         'viewee': viewee,
         'kind': kind,
