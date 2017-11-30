@@ -611,7 +611,7 @@
     line-height: 1;
 }
 
-/* User Profile */
+/* User Profile - User Information */
 
 .user-profile {
     height: 160px;
@@ -652,4 +652,44 @@
 	font-weight: 500;
 	letter-spacing: 1px;
     height: 28px;
+}
+
+/* User Profie - Navigation Tabs */
+
+.user-songs-navigation {
+    height: 70px;
+	background-color: #eaeaea;
+	box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.user-songs-navigation .kind {
+    display: inline-block;
+    color: #444444;
+    text-decoration: none;
+    margin: auto 32px 21px 0;
+    border-bottom: solid 2px #00000000;
+    display: flex;
+    align-items: flex-end;
+}
+
+.user-songs-navigation .kind.active {
+    border-bottom: solid 2px #444444;
+}
+
+.user-songs-navigation .counter {
+    font-size: 30px;
+	font-weight: 300;
+	letter-spacing: 0.8px;
+    margin-right: 10px;
+    line-height: 35px;
+    padding-bottom: 1px;
+}
+
+.user-songs-navigation .counter-description {
+    font-size: 13px;
+	letter-spacing: 1px;
+    line-height: 1;
+    padding-bottom: 4px;
 }

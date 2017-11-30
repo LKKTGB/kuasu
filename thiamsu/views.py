@@ -307,8 +307,21 @@ def user_profile(request, id):
     except ObjectDoesNotExist:
         return redirect('/')  # TODO: 404 page?
 
+    favorites = viewee.profile.favorite_songs.all()
+    contributions = get_contributions(viewee)
+
+    kind = request.GET.get('kind', 'favs')
+    if kind == 'favs':
+        songs = favorites
+    elif kind == 'contribs':
+        songs = contributions
+    else:
+        return redirect(reverse(user_profile, kwargs={'id': viewee.id}))
+
     return render(request, 'thiamsu/profile.html', {
         'viewee': viewee,
-        'favorite_songs': viewee.profile.favorite_songs.all(),
-        'contributions': get_contributions(viewee),
+        'kind': kind,
+        'favorite_count': len(favorites),
+        'contribution_count': len(contributions),
+        'songs': songs,
     })
