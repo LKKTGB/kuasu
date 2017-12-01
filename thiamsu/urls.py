@@ -17,8 +17,6 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
-from user import views as user_views
-
 from . import views
 
 urlpatterns = [
@@ -31,7 +29,6 @@ urlpatterns = [
     url(r'^chart/$', views.chart, name='chart'),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^api/user/favorite_song/$', views.api_user_favorite_song, name='api_user_favorite_song'),
