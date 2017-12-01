@@ -88,6 +88,11 @@
     color: #444444;
 }
 
+.header .dropdown-menu {
+    border: solid 1px #00ae7b;
+    margin-top: 5px;
+}
+
 /* Header - Navigation Bar */
 
 .header nav {
@@ -142,6 +147,10 @@
 }
 
 /* Navigation Bar - Authentication - Avatar */
+
+.header a.avatar-wrapper {
+    display: inline-block;
+}
 
 .header .avatar {
     width: 48px;
