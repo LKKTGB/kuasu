@@ -19,12 +19,16 @@
     <div class="row user-songs-navigation">
         <a class="kind{% if kind == "favs" %} active{% endif %}"
            href="?kind=favs">
-            <span class="counter">{{ favorite_count }}</span>
+            {% if favorite_count > 0 %}
+                <span class="counter">{{ favorite_count }}</span>
+            {% endif %}
             <span class="counter-description">已收藏</span>
         </a>
         <a class="kind{% if kind == "contribs" %} active{% endif %}"
            href="?kind=contribs">
-            <span class="counter">{{ contribution_count }}</span>
+            {% if contribution_count > 0 %}
+                <span class="counter">{{ contribution_count }}</span>
+            {% endif %}
             <span class="counter-description">已貢獻</span>
         </a>
     </div>
