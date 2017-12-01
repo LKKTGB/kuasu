@@ -19,6 +19,49 @@
     width: 400px;
 }
 
+.theme-thiamsu .modal-content {
+    border-radius: 4px;
+	background-color: #ffffff;
+	box-shadow: 0 24px 24px 0 rgba(0, 0, 0, 0.3), 0 0 24px 0 rgba(0, 0, 0, 0.22);
+	border-style: solid;
+	border-width: 0;
+	border-image-source: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4) 5%, rgba(255, 255, 255, 0.0) 20%, rgba(255, 255, 255, 0.0));
+	border-image-slice: 1;
+}
+
+/* Global (Customized Theme) - Modal Dialog - Header Block */
+
+.theme-thiamsu .modal-header {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom: none;
+    background-image: linear-gradient(115deg, #36b59f, #00ae7b);
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 120px;
+}
+
+.theme-thiamsu .modal-header .modal-title {
+    border-radius: 4px;
+    font-size: 30px;
+	font-weight: 500;
+	text-align: center;
+	color: #ffffff;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.theme-thiamsu .modal-header p {
+    font-size: 14px;
+	letter-spacing: 1.4px;
+	text-align: left;
+	color: #ffffff;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0;
+}
+
+/* Global (Customized Theme) - Modal Dialog - Body Block */
+
 .theme-thiamsu .modal-body {
     padding: 40px;
     font-size: 13px;
@@ -58,11 +101,11 @@
 
 .theme-thiamsu .modal-body .btn {
     display: block;
-    margin-top: 30px;
     width: calc(100% - 20px);
     margin-left: 10px;
     margin-right: 10px;
     height: 48px;
+    line-height: calc(48px - 2 * 6px);
 	border-radius: 4px;
     border: 0;
     font-size: 13px;
@@ -78,6 +121,43 @@
     background-color: #00ae7b;
 }
 
+.theme-thiamsu .modal-body .btn-facebook-login,
+.theme-thiamsu .modal-body .btn-facebook-login:active {
+	background-color: #3b5998;
+}
+
+/* Global (Customized Theme) - Modal Dialog - Specializations */
+
+.theme-thiamsu .modal.modal-simple .modal-body {
+	text-align: center;
+    padding-top: 24px;
+    padding-bottom: 30px;
+}
+
+.theme-thiamsu .modal.modal-simple .modal-body h5 {
+    margin-bottom: 24px;
+}
+
+.theme-thiamsu .modal.modal-simple .modal-body .btn {
+    margin-top: 24px;
+    margin-bottom: 18px;
+}
+
+.theme-thiamsu .modal.modal-simple a.dismiss {
+    display: block;
+    font-size: 13px;
+	line-height: 2.15;
+    height: 28px;
+	letter-spacing: 1px;
+	color: #00ae7b;
+
+    margin-top: 18px;
+}
+
+#chart-rules.modal .btn {
+    margin-top: 30px;
+}
+
 /* Header */
 
 .header {
@@ -86,6 +166,11 @@
 
 .header a {
     color: #444444;
+}
+
+.header .dropdown-menu {
+    border: solid 1px #00ae7b;
+    margin-top: 5px;
 }
 
 /* Header - Navigation Bar */
@@ -116,19 +201,36 @@
     margin-bottom: 0;
 }
 
-/* Navigation Bar - Login Button */
+/* Navigation Bar - Non-title Parts */
 
-.btn-login,
-.btn-login:hover
+.header .nav-block {
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
+/* Navigation Bar - Authentication */
+
+.nav-auth {
+    margin-left: 30px;
+    position: relative;
+}
+
+/* Navigation Bar - Authentication - Login Button */
+
+.header .btn-login,
+.header .btn-login:hover
 {
     border: solid 1px #00ae7b;
     background-color: #00ae7b;
     color: white !important;
-    line-height: calc(48px - .75rem - 3px);
-    margin-top: 1.5px;
+    line-height: calc(48px - .75rem - 2px); /* total - padding - border */
 }
 
-/* Navigation Bar - Avatar */
+/* Navigation Bar - Authentication - Avatar */
+
+.header a.avatar-wrapper {
+    display: inline-block;
+}
 
 .header .avatar {
     width: 48px;
@@ -145,8 +247,6 @@
     width: 100%;
     justify-content: space-between;
     padding: 0;
-    margin-top: 12px;
-    margin-bottom: 8px;
 }
 
 @media (min-width: 992px) {

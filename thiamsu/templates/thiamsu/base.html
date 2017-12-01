@@ -38,16 +38,41 @@
                 </div>
 
                 {# Avatar / Login Button #}
-                <div class="order-lg-3" style="margin-left: 30px;">
+                <div class="nav-auth nav-block order-lg-3">
                     {% if user.is_authenticated %}
-                        <a href="{% url "user_profile" user.id %}"><img src="{{ user.profile.avatar_url }}" class="avatar"></a>
+                        <a class="avatar-wrapper" data-toggle="dropdown"><img src="{{ user.profile.avatar_url }}" class="avatar"></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{% url "user_profile" user.id %}">個人檔案</a>
+                            {%  if user.is_staff or user.is_superuser %}
+                                <a class="dropdown-item" href="{% url "admin:index" %}">管理後台</a>
+                            {% endif %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url "logout" %}">登出</a>
+                        </div>
                     {% else %}
-                        <a href="/login" class="btn btn-login" role="button">登入 / 註冊</a>
+                        <a href="#login-confirm" class="btn btn-login" role="button" data-toggle="modal">登入／註冊</a>
+
+                        <div class="modal fade modal-simple" id="login-confirm">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">歌 詞 好 正</h5>
+                                        <p>台語歌詞開放編修平台</p>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <h5>會員註冊或登入</h5>
+                                        <a href="{% url 'social:begin' 'facebook' %}" role="button" class="btn btn-facebook-login">使用 Facebook 註冊/登入</button>
+                                        <a class="dismiss" href="#" data-dismiss="modal">下次再說</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     {% endif %}
                 </div>
 
                 {# Chart Link & Search Form #}
-                <div class="nav-secondary">
+                <div class="nav-secondary nav-block">
                     <div class="nav-chart">
                         {% if headline %}
                             <img src="{% static "thiamsu/img/ico-chart-w.png" %}"
@@ -68,7 +93,7 @@
 
                             <span class="input-group-btn">
                                 <button id="search-type-select" class="btn btn-search-type dropdown-toggle" type="button" data-toggle="dropdown">{% current_search_type_label %}</button>
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu dropdown-menu-right">
                                     {% all_search_types as search_types %}
                                     {% for st in search_types %}
                                         <a class="dropdown-item" data-value="{{ st }}">{% search_type_label_of st %}</a>
