@@ -50,7 +50,24 @@
                             <a class="dropdown-item" href="{% url "logout" %}">登出</a>
                         </div>
                     {% else %}
-                        <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-login" role="button">登入 / 註冊</a>
+                        <a href="#login-confirm" class="btn btn-login" role="button" data-toggle="modal">登入／註冊</a>
+
+                        <div class="modal fade modal-simple" id="login-confirm">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">歌 詞 好 正</h5>
+                                        <p>台語歌詞開放編修平台</p>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <h5>會員註冊或登入</h5>
+                                        <a href="{% url 'social:begin' 'facebook' %}" role="button" class="btn btn-facebook-login">使用 Facebook 註冊/登入</button>
+                                        <a class="dismiss" href="#" data-dismiss="modal">下次再說</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     {% endif %}
                 </div>
 
