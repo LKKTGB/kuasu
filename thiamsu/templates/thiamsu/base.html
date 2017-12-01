@@ -38,7 +38,7 @@
                 </div>
 
                 {# Avatar / Login Button #}
-                <div class="order-lg-3" style="margin-left: 30px;">
+                <div class="nav-auth nav-block order-lg-3">
                     {% if user.is_authenticated %}
                         <a href="{% url "user_profile" user.id %}"><img src="{{ user.profile.avatar_url }}" class="avatar"></a>
                     {% else %}
@@ -47,7 +47,7 @@
                 </div>
 
                 {# Chart Link & Search Form #}
-                <div class="nav-secondary">
+                <div class="nav-secondary nav-block">
                     <div class="nav-chart">
                         {% if headline %}
                             <img src="{% static "thiamsu/img/ico-chart-w.png" %}"
@@ -68,7 +68,7 @@
 
                             <span class="input-group-btn">
                                 <button id="search-type-select" class="btn btn-search-type dropdown-toggle" type="button" data-toggle="dropdown">{% current_search_type_label %}</button>
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu dropdown-menu-right">
                                     {% all_search_types as search_types %}
                                     {% for st in search_types %}
                                         <a class="dropdown-item" data-value="{{ st }}">{% search_type_label_of st %}</a>

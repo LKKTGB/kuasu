@@ -116,19 +116,32 @@
     margin-bottom: 0;
 }
 
-/* Navigation Bar - Login Button */
+/* Navigation Bar - Non-title Parts */
 
-.btn-login,
-.btn-login:hover
+.header .nav-block {
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
+/* Navigation Bar - Authentication */
+
+.nav-auth {
+    margin-left: 30px;
+    position: relative;
+}
+
+/* Navigation Bar - Authentication - Login Button */
+
+.header .btn-login,
+.header .btn-login:hover
 {
     border: solid 1px #00ae7b;
     background-color: #00ae7b;
     color: white !important;
-    line-height: calc(48px - .75rem - 3px);
-    margin-top: 1.5px;
+    line-height: calc(48px - .75rem - 2px); /* total - padding - border */
 }
 
-/* Navigation Bar - Avatar */
+/* Navigation Bar - Authentication - Avatar */
 
 .header .avatar {
     width: 48px;
@@ -145,8 +158,6 @@
     width: 100%;
     justify-content: space-between;
     padding: 0;
-    margin-top: 12px;
-    margin-bottom: 8px;
 }
 
 @media (min-width: 992px) {
