@@ -11,6 +11,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar_url = models.CharField(max_length=100, blank=True)
     favorite_songs = models.ManyToManyField(Song, related_name='+')
+    contribution_of_songs = models.PositiveSmallIntegerField(default=0)
+    contribution_of_lines = models.PositiveSmallIntegerField(default=0)
+    last_contribution_time = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         verbose_name = _('profile')

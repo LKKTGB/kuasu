@@ -21,3 +21,26 @@ def update_song_progress(sender, update_fields, instance, **kwargs):
 
     translation.song.progress = int(translated_count / total_count * 100)
     translation.song.save()
+
+
+@receiver(post_save, sender=Translation)
+def update_user_contribution(sender, update_fields, instance, **kwargs):
+    translation = instance
+    user = translation.contributor
+
+    user.profile.contribution_of_songs = (
+        Translation.objects
+        .filter(contributor=user)
+        .values('song')
+        .annotate(count=models.Count('song'))
+        .count()
+    )
+    user.profile.contribution_of_lines = (
+        Translation.objects
+        .filter(contributor=user)
+        .values('song', 'line_no')
+        .annotate(count=models.Count('line_no'))
+        .count()
+    )
+    user.profile.last_contribution_time = translation.created_at
+    user.profile.save()
