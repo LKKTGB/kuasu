@@ -69,6 +69,12 @@ msgstr "原文歌詞"
 msgid "song_readonly"
 msgstr "鎖定編修"
 
+msgid "song_progress"
+msgstr "編修進度"
+
+msgid "song_created_at"
+msgstr "建立時間"
+
 #, python-format
 msgid "line no %d"
 msgstr "第 %d 句"

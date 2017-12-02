@@ -51,7 +51,7 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
     LYRIC_LINE_NO_TMPL = _('line no %d')
     LYRIC_MAX_LENGTH = 100
 
-    list_display = ('original_title', 'performer')
+    list_display = ('original_title', 'performer', 'progress', 'created_at')
     search_fields = ('original_title', 'performer')
     form = SongAdminForm
     inlines = [

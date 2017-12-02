@@ -28,6 +28,7 @@ http://localhost:8000/login
 
 ### Import sample data to local db
 ```
+python samples/generate_sample_data.py [num_of_users] [num_of_songs]
 python manage.py loaddata samples/sample_data.json
 ```
 

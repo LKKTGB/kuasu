@@ -244,55 +244,26 @@ def song_translation_post(request, id):
     return HttpResponseRedirect(reverse('song_edit', kwargs={'id': id}))
 
 
-def get_top_song_contributors():
-    # FIXME: improve performance
-    contributors = (
-        User.objects
-        .annotate(count=models.Count('translation__song'))
-        .order_by('-count')[:10]
-    )
-    contributors = [{
-        'id': c.id,
-        'username': c.get_full_name(),
-        'avatar_url': c.profile.avatar_url,
-        'count': c.count
-    } for c in contributors]
-    contributors = [c for c in contributors if c['username']]
-    return contributors
-
-
-def get_top_line_contributors():
-    # FIXME: improve performance
-    contributor_song_line_count = (
-        Translation.objects
-        .values('contributor', 'song')
-        .annotate(count=models.Count('line_no'))
-    )
-
-    contributor_line_count = defaultdict(int)
-    for c in contributor_song_line_count:
-        contributor_line_count[c['contributor']] += c['count']
-
+def get_top10_contributors(type_):
+    assert type_ in ['lines', 'songs']
     contributors = []
-    for contributor, count in contributor_line_count.items():
-        if not contributor:
-            continue
-        user = User.objects.get(id=contributor)
+    for user in (
+            User.objects
+            .order_by('-profile__contribution_of_%s' % type_,
+                      '-profile__last_contribution_time')[:10]):
+        if user.profile.__dict__['contribution_of_%s' % type_] == 0:
+            break
         contributors.append({
             'id': user.id,
             'username': user.get_full_name(),
             'avatar_url': user.profile.avatar_url,
-            'count': count})
-    contributors = sorted(contributors, key=lambda c: c['count'], reverse=True)[:10]
+            'count': user.profile.__dict__['contribution_of_%s' % type_]})
     return contributors
 
 
 def get_contribution_rank(user_id, contribution_type):
     assert contribution_type in ['songs', 'lines']
-    contributors = {
-        'songs': get_top_song_contributors,
-        'lines': get_top_line_contributors
-    }[contribution_type]()
+    contributors = get_top10_contributors(contribution_type)
     try:
         rank = [u['id'] for u in contributors if u['count'] > 0].index(user_id) + 1
     except ValueError:
@@ -302,8 +273,8 @@ def get_contribution_rank(user_id, contribution_type):
 
 def chart(request):
     return render(request, 'thiamsu/chart.html', {
-        'top_song_contributors': get_top_song_contributors(),
-        'top_line_contributors': get_top_line_contributors()
+        'top_song_contributors': get_top10_contributors('songs'),
+        'top_line_contributors': get_top10_contributors('lines')
     })
 
 

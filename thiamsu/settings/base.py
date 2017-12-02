@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'grappelli',
+    # built-in
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,14 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # third-party
-    'user.apps.UserConfig',
-    'social_django',
+    'debug_toolbar',
     'embed_video',
+    'social_django',
     # local
-    'thiamsu.apps.ThiamsuConfig'
+    'thiamsu.apps.ThiamsuConfig',
+    'user.apps.UserConfig',
 ]
 
 MIDDLEWARE = [
+    # built-in
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,7 +56,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
+    # third-party
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
@@ -156,3 +160,8 @@ STATIC_URL = '/static/'
 
 # Pagination
 PAGINATION_MAX_ITMES_PER_PAGE = 10
+
+# Debug Toolbar
+INTERNAL_IPS = [
+    '127.0.0.1'
+]

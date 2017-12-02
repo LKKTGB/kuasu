@@ -36,9 +36,12 @@ class Song(models.Model):
     youtube_url = EmbedVideoField(_('song_youtube_url'))
     original_lyrics = models.TextField(_('song_original_lyrics'), default='')
     readonly = models.BooleanField(_('song_readonly'), default=False)
+    progress = models.PositiveSmallIntegerField(_('song_progress'), default=0)
 
     title_alias = models.CharField(max_length=100, blank=True)
     performer_alias = models.CharField(max_length=100, blank=True)
+
+    created_at = models.DateTimeField(_('song_created_at'), auto_now_add=True)
 
     class Meta:
         verbose_name = _('song')
@@ -119,22 +122,6 @@ class Song(models.Model):
         return 'https://img.youtube.com/vi/{id}/hqdefault.jpg'.format(
             id=self.youtube_id
         )
-
-    @property
-    def progress(self):
-        from thiamsu.models.translation import Translation
-
-        translated_lines = (
-            Translation.objects
-            .filter(song=self.id)
-            .values('song', 'lang')
-            .annotate(count=models.Count('line_no', distinct=True))
-        )
-
-        translated_count = sum([t['count'] for t in translated_lines])
-        total_count = len([line for line in self.original_lyrics.split('\n') if line.strip()])
-        total_count = total_count * len(translated_lines)
-        return int(translated_count / total_count * 100)
 
     def get_lyrics_with_translations(self):
         from thiamsu.models.translation import Translation
