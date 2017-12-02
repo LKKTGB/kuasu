@@ -7,7 +7,12 @@
         <div>
             <div class="fullname">{{ viewee.get_full_name }}</div>
             <div class="join-date">{{ viewee.date_joined|date:"Y/m/d" }} 加入</div>
-            <div class="ranking">編修歌詞第 ? 名</div>
+            {% if rank_or_contributions_by_songs > 0 %}
+            <div class="ranking">編修歌曲第 {{ rank_or_contributions_by_songs }} 名</div>
+            {% endif %}
+            {% if rank_or_contributions_by_lines > 0 %}
+            <div class="ranking">編修歌詞第 {{ rank_or_contributions_by_lines }} 名</div>
+            {% endif %}
         </div>
     </div>
 
