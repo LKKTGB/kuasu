@@ -40,6 +40,8 @@ class Song(models.Model):
     title_alias = models.CharField(max_length=100, blank=True)
     performer_alias = models.CharField(max_length=100, blank=True)
 
+    created_at = models.DateTimeField(_('song_created_at'), auto_now_add=True)
+
     class Meta:
         verbose_name = _('song')
         verbose_name_plural = _('songs')
