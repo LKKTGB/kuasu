@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'grappelli',
+    # built-in
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,11 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # third-party
-    'user.apps.UserConfig',
-    'social_django',
     'embed_video',
+    'social_django',
     # local
-    'thiamsu.apps.ThiamsuConfig'
+    'thiamsu.apps.ThiamsuConfig',
+    'user.apps.UserConfig',
 ]
 
 MIDDLEWARE = [
