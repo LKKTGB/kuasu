@@ -155,13 +155,30 @@ def song_detail(request, id):
         return ' '.join(['{username} ({count})'.format(**c) for c in contributors])
 
     is_favorite_song = request.user.profile.favorite_songs.filter(id=song.id).exists()
+
+    lyrics = song.get_lyrics_with_translations()
+    counters = {'tailo': 0, 'hanzi': 0, 'hanlo': 0}
+    for l in lyrics:
+        counters['hanlo'] += 1 if l.get('hanlo', None) is not None else 0
+        counters['tailo'] += 1 if l.get('tailo', None) is not None else 0
+        counters['hanzi'] += 1 if l.get('hanzi', None) is not None else 0
+
+    lyric_visiblity = {}
+    if counters['hanlo'] == len(lyrics):
+        lyric_visiblity['hanlo'] = True
+    elif counters['tailo'] == len(lyrics):
+        lyric_visiblity['tailo'] = True
+    elif counters['hanzi'] == len(lyrics):
+        lyric_visiblity['hanzi'] = True
+
     return render(request, 'thiamsu/song_detail.html', {
         'song': song,
         'contributors': {
             'tailo': format_contributors(get_full_name(get_contributors('tailo'))),
             'hanzi': format_contributors(get_full_name(get_contributors('hanzi')))
         },
-        'lyrics': song.get_lyrics_with_translations(),
+        'lyrics': lyrics,
+        'lyric_visiblity': lyric_visiblity,
         'new_words': song.get_new_words(),
         'readonly_form': SongReadonlyForm(initial={'readonly': song.readonly}),
         'is_favorite_song': is_favorite_song,

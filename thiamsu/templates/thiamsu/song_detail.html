@@ -1,207 +1,108 @@
 {% extends 'thiamsu/base.html' %}
 
 {% block content %}
-    <style>
-        .btn-action {
-            font-size: 20px;
-            height: max-content;
-        }
-        .contributors {
-            font-size: 18px;
-            color: #444444;
-            margin-bottom: .25rem;
-        }
-        .song-original-title {
-            font-size: 36px;
-            font-weight: bold;
-            text-align: left;
-            color: #444444;
-        }
-        .song-translated-titles {
-            margin-bottom: 1em;
-        }
-        .song-translated-titles > p {
-            font-size: 24px;
-            font-weight: 600;
-            text-align: left;
-            color: #444444;
-            margin: 0;
-        }
-        .song-authors {
-            margin-bottom: 1em;
-        }
-        .song-authors > p {
-            font-size: 20px;
-            text-align: left;
-            color: #666666;
-            margin: 0;
-        }
+    <div class="row song-detail">
 
-        .lyrics-types {
-            display: flex;
-        }
-        .lyrics-types > div {
-            font-size: 24px;
-            font-weight: 600;
-            color: #444444;
-            flex: 1 1 auto;
-            text-align: center;
-            background-color: #f5f5f5;
-	        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-	        border: solid 1px #cccccc;
-            border-top-left-radius: 6px;
-            border-top-right-radius: 6px;
-            padding: .5rem 1rem;
-        }
-        .lyrics-types > div:not(:first-child) {
-            border-top-left-radius: 0;
-            margin-right: -1px;
-        }
-        .lyrics-types > div:not(:last-child) {
-            border-top-right-radius: 0;
-            margin-left: -1px;
-        }
-        .translation-states {
-            border-left: solid 1px #cccccc;
-            border-right: solid 1px #cccccc;
-            border-bottom: solid 1px #cccccc;
-            margin-left: -1px;
-            margin-right: -1px;
-            background-color: white;
-        }
-        .translation-states > div {
-            font-size: 20px;
-        	color: #666666;
-            padding: .5rem 1rem;
-        }
+        <div class="left-panel">
+            <div class="song-actions toolbar">
+                {% if is_favorite_song %}
+                    <form action='/api/user/favorite_song/' method='post'>
+                        {% csrf_token %}
+                        {{ favorite_form }}
+                        <button class="btn btn-unfavorite" type="submit">取消收藏</button>
+                    </form>
+                {% else %}
+                    <form action='/api/user/favorite_song/' method='post'>
+                        {% csrf_token %}
+                        {{ favorite_form }}
+                        <button class="btn btn-favorite" type="submit">收藏</button>
+                    </form>
+                {% endif %}
 
-        i.translation-state {
-            height: 0.8rem;
-            width: 0.8rem;
-            border-radius: 50%;
-            margin-right: 0.25rem;
-        }
-
-        i.translation-state.approved {
-            background-color: #0070ae;
-        }
-        i.translation-state.auditing {
-            background-color: #ff7400;
-        }
-        i.translation-state.none {
-            background-color: #cccccc;
-        }
-    </style>
-
-    <div class="row">
-        <div class="col d-flex align-items-center justify-content-end mb-2">
-            {% if is_favorite_song %}
-                <form action='/api/user/favorite_song/' method='post'>
-                    {% csrf_token %}
-                    {{ favorite_form }}
-                    <input type="submit" value="取消收藏">
-                </form>
-            {% else %}
-                <form action='/api/user/favorite_song/' method='post'>
-                    {% csrf_token %}
-                    {{ favorite_form }}
-                    <input type="submit" value="收藏">
-                </form>
-            {% endif %}
-            <button class="btn btn-outline-secondary mr-2 btn-action">分享</button>
-            <form action='/song/{{ song.id }}/' method='post'>
-                {% csrf_token %}
-                {{ readonly_form }}
-                <input type="submit" value="送出">
-            </form>
-        </div>
-        <div class="col d-flex align-items-center justify-content-between mb-2">
-            <div>
-                <p class="contributors">全羅編修人：{{ contributors.tailo }}</p>
-                <p class="contributors">全漢編修人：{{ contributors.hanzi }}</p>
-            </div>
-            <button class="btn btn-success btn-action" onclick="location.href ='/song/{{ song.id }}/edit'">鬥編修</button>
-        </div>
-    </div>
-
-    <div class="row pl-4" style="padding-bottom: 4em;">
-        <div class="col">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item"
-                        src="https://www.youtube.com/embed/{{ song.youtube_id }}"
-                        frameborder="0" allowfullscreen></iframe>
+                {# TODO!! #}
+                <button class="btn">分享</button>
             </div>
 
-            <p class="song-original-title">{{ song.original_title }}</p>
-
-            <div class="song-translated-titles">
-                <p class="song-tailo-title">{{ song.tailo_title }}</p>
-                <p class="song-hanzi-title">{{ song.original_title }}<small>（會是全漢）</small></p>
+            <div class="player">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item"
+                            src="https://www.youtube.com/embed/{{ song.youtube_id }}"
+                            frameborder="0" allowfullscreen></iframe>
+                </div>
             </div>
 
-            <div class="song-authors">
-                <p class="song-performer">演唱人：{{ song.performer }}</p>
-                <p class="song-composer">作曲人：{{ song.composer }}</p>
-                <p class="song-lyricist">作詞人：{{ song.lyricist }}</p>
-            </div>
+            <div class="song-information">
+                <p class="original-title">{{ song.original_title }}</p>
 
-        </div>
-
-        <div class="col">
-            <div style="background-color: white;">
-                <div class="d-flex lyrics-types">
-                    <div>原文</div>
-                    <div>全羅</div>
-                    <div>全漢</div>
-                    <div>漢羅</div>
+                <div class="translated-titles">
+                    <p class="translated-title tailo">{{ song.hanlo_title }}</p>
+                    <p class="translated-title tailo">{{ song.tailo_title }}</p>
+                    <p class="translated-title hanzi">{{ song.hanzi_title }}</p>
                 </div>
 
-                <div class="d-flex justify-content-center translation-states">
-                    <div class="d-flex align-items-center"><i class="translation-state approved">&nbsp;</i>已審定</div>
-                    <div class="d-flex align-items-center"><i class="translation-state auditing">&nbsp;</i>審定中</div>
-                    <div class="d-flex align-items-center"><i class="translation-state none">&nbsp;</i>未編修</div>
+                <div class="authors">
+                    <p class="performer">演唱人：{{ song.performer }}</p>
+                    <p class="composer">作曲人：{{ song.composer }}</p>
+                    <p class="lyricist">作詞人：{{ song.lyricist }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="contribution toolbar">
+                <div class="contributors">
+                    <p>全羅編修人： {{ contributors.tailo }}</p>
+                    <p>全漢編修人： {{ contributors.hanzi }}</p>
+                </div>
+                <a href="#" class="btn btn-edit">鬥編修</a>
+            </div>
+
+            <div class="lyric-wrapper">
+
+                <input id="view-original-lyric" class="lyric-toggler" type="checkbox" checked disabled>
+                <input id="view-tailo-lyric" class="lyric-toggler" type="radio" name="lyric-visibility"
+                    {% if lyric_visiblity.tailo %}checked{% endif %}>
+                <input id="view-hanzi-lyric" class="lyric-toggler" type="radio" name="lyric-visibility"
+                    {% if lyric_visiblity.hanzi %}checked{% endif %}>
+                <input id="view-hanlo-lyric" class="lyric-toggler" type="radio" name="lyric-visibility"
+                    {% if lyric_visiblity.hanlo %}checked{% endif %}>
+
+                <div class="lyric-visiblities">
+                    <label class="show-original" for="view-original-lyric">原文</label>
+                    <label class="show-tailo" for="view-tailo-lyric">全羅</label>
+                    <label class="show-hanzi" for="view-hanzi-lyric">全漢</label>
+                    <label class="show-hanlo" for="view-hanlo-lyric">漢羅</label>
                 </div>
 
-                <div style="border-bottom-left-radius: 6px;
-                            border-bottom-right-radius: 6px;
-                            border: solid 1px #cccccc;
-                            margin: 0 -1px;
-                            border-top: 0;
-{#                            border-right: solid 1px #cccccc;#}
-">
-                    <ul style="max-height: 30rem;
-                               overflow: scroll;
-                               list-style-type: none;
-                               padding-top: 1rem;
-">
-                        {% for lyric in lyrics %}
-                            {% cycle 'approved' 'auditing' 'none' as translation_state silent %}
-                            <li class="lyric-line" style="font-size: 20px;">
-                                <p style="padding-left: 1.25rem; margin-bottom: 0;">{{ lyric.original }}</p>
-                                <p class="d-flex align-items-center" style="color: #666666;">
-                                    <i class="translation-state {{ translation_state }}">&nbsp;</i>
-                                    <span style="margin-left: 0.25em;">
-                                        {% if translation_state == 'none' %}
-                                            --
-                                        {% else %}
-                                            {{ lyric.hanlo }}
-                                        {% endif %}
-                                    </span>
-                                </p>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                <ul class="lyric">
+                {% for lyric in lyrics %}
+                    <li>
+                        <p class="lyric-line lyric-line-original show-original">{{ lyric.original }}</p>
+                        {% if lyric.original|length > 0 %}
+                            <p class="lyric-line lyric-line-translated show-tailo">{{ lyric.tailo|default_if_none:"-" }}</p>
+                            <p class="lyric-line lyric-line-translated show-hanzi">{{ lyric.hanzi|default_if_none:"-" }}</p>
+                            <p class="lyric-line lyric-line-translated show-hanlo">{{ lyric.hanlo|default_if_none:"-" }}</p>
+                        {% else %}
+                            <p>&nbsp;</p>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+                </ul>
 
             </div>
 
-            <div>
-                <ul>
+            {% if new_words|length > 0 %}
+            <div class="new-words-wrapper">
+                生難詞：
+                <ul class="new-words">
                     {% for word in new_words %}
-                    <a href={{ word.reference_url }}>{{ word.content }}</a>
+                    <li><a href="{{ word.reference_url }}" target="_blank">{{ word.content }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
+            {% endif %}
+
         </div>
+
     </div>
 {% endblock %}
