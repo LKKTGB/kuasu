@@ -693,7 +693,7 @@
 	color: #444444;
 }
 
-.contribution a.btn-edit {
+.contribution .btn-edit {
     width: 92px;
 	height: 48px;
     line-height: 32px;
@@ -704,6 +704,74 @@
 	letter-spacing: 1.2px;
 	color: #ffffff;
     font-family: HelveticaNeue;
+}
+
+.contribution .btn-edit:disabled {
+    opacity: 0.3;
+	border-radius: 4px;
+	background-color: #00ae7b;
+}
+
+/* Song Detail - Contribution Bar - Lock Form */
+
+.contribution .lock-form-hint {
+    font-size: 16px;
+	font-weight: 500;
+	line-height: 1.25;
+	letter-spacing: 1px;
+	color: #444444;
+    width: 70px;
+    margin-right: 12px;
+}
+
+.contribution #song-lock-form {
+    margin-right: 20px;
+}
+
+#song-lock-form #id_readonly,
+#song-lock-form label[for=id_readonly] {
+    display: none;
+}
+
+#song-lock-form #id_readonly ~ button {
+    width: 92px;
+    border-radius: 4px;
+    background-color: #ffffff;
+	border: solid 1px #cccccc;
+    height: 40px;
+    font-size: 13px;
+	letter-spacing: 1px;
+	color: #ffffff;
+    margin: 0px;
+    padding: 0px;
+}
+
+#song-lock-form #id_readonly ~ button:before,
+#song-lock-form #id_readonly ~ button:after {
+    width: 45px;
+    display: inline-block;
+    content: '';
+    line-height: 38px;
+}
+
+#song-lock-form #id_readonly ~ button:before {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+#song-lock-form #id_readonly ~ button:after {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+#song-lock-form #id_readonly:checked ~ button:before {
+	background-color: #00ae7b;
+    content: attr(data-on);
+}
+
+#song-lock-form #id_readonly:not(:checked) ~ button:after {
+	background-color: #00ae7b;
+    content: attr(data-off);
 }
 
 /* Song Detail - Lyrics */

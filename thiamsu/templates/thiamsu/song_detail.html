@@ -54,7 +54,24 @@
                     <p>全羅編修人： {{ contributors.tailo }}</p>
                     <p>全漢編修人： {{ contributors.hanzi }}</p>
                 </div>
-                <a href="#" class="btn btn-edit">鬥編修</a>
+
+                <div class="d-flex align-items-center">
+                    {% if user.is_staff or user.is_superuser %}
+                    <div class="lock-form-hint">編修鎖定</div>
+                    <form id="song-lock-form" action='/song/{{ song.id }}/' method='post'>
+                        {% csrf_token %}
+                        {{ readonly_form }}
+                        <button type="submit"
+                                class="btn btn-default"
+                                data-on="開啟"
+                                data-off="鎖定" />
+                    </form>
+                    {% endif %}
+
+                    <button type="button" class="btn btn-edit"
+                            {% if song.readonly %}disabled{% endif %}
+                    >鬥編修</button>
+                </div>
             </div>
 
             <div class="lyric-wrapper">
@@ -105,4 +122,15 @@
         </div>
 
     </div>
+
+    {% if user.is_staff or user.is_superuser %}
+    <script>
+        $('#song-lock-form').submit(function (e) {
+            $('#song-lock-form button[type=submit]').attr('disabled', 'disabled')
+            var cb = $('#id_readonly')[0];
+            cb.checked = !cb.checked;
+        })
+    </script>
+    {% endif %}
+
 {% endblock %}
