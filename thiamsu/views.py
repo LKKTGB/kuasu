@@ -26,7 +26,7 @@ def _sorted_songs(request, songs):
     elif sorting_type == 'tailo':
         songs = songs.order_by('tailo_title')
     else:  # progress
-        pass  # TODO
+        songs = songs.order_by('-progress')
 
     return songs
 
