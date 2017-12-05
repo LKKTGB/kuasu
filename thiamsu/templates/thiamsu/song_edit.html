@@ -1,0 +1,64 @@
+{% extends 'thiamsu/base.html' %}
+
+{% block content %}
+    <div class="row song-edit">
+
+        <div class="left-panel">
+            {% include 'thiamsu/_player_with_info.html' %}
+        </div>
+
+        <div class="right-panel">
+            <div class="toolbar d-flex align-items-center justify-content-end">
+                <div class="hint">
+                    <div class="hint-content">完成一句也可以送出喔！</div>
+                    <div class="right-triangle"></div>
+                </div>
+                <button type="button" id="translation-submit" class="btn btn-edit">送出</button>
+                <button type="button" class="btn btn-cancel" onclick="location.href='{% url 'song_detail' song.id %}'">取消</button>
+            </div>
+
+            <div class="lyric-translation">
+                <input id="view-tailo-translation" class="translation-toggler" type="radio"
+                       name="translation-language" value="tailo" checked>
+                <input id="view-hanzi-translation" class="translation-toggler" type="radio"
+                       name="translation-language" value="hanzi">
+
+                <div class="translation-visiblities">
+                    <label class="show-tailo" for="view-tailo-translation">全羅</label>
+                    <label class="show-hanzi" for="view-hanzi-translation">全漢</label>
+                </div>
+
+                <div class="example">
+                    <span class="label">舉例：</span class><span class="original">昨暝夢中 輕聲細說是誰人</span>
+                    <div class="translation">tsâng-mê bāng-tiong，khin-siann sè-sueh sī siánn lâng</div>
+                </div>
+
+                <div class="lyric-lines">
+                    <form id="tailo-translation-form" action='/song/{{ song.id }}/translation/' method='post'>
+                        {% csrf_token %}
+                        {{ forms.tailo }}
+                    </form>
+                    <form id="hanzi-translation-form" action='/song/{{ song.id }}/translation/' method='post'>
+                        {% csrf_token %}
+                        {{ forms.hanzi }}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+    $('#translation-submit').click(function () {
+        var lang = $('[name=translation-language]:checked').val();
+        var formId = '#' + lang + '-translation-form';
+        var form = $(formId).get(0);
+        if (form) {
+            form.submit();
+        }
+    })
+    $('.lyric-lines input[type=text]').focus(function () {
+        this.setSelectionRange(0, this.value.length);
+    })
+    </script>
+{% endblock %}

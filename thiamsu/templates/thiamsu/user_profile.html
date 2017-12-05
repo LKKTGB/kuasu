@@ -1,0 +1,66 @@
+{% extends 'thiamsu/song_list.html' %}
+{% load staticfiles %}
+
+{% block page_title %}{{ viewee.get_full_name }} - {{ block.super }}{% endblock %}
+
+{% block song-list-header %}
+    <div class="row user-profile">
+        <img src="{{ viewee.profile.avatar_url }}" class="avatar">
+        <div>
+            <div class="fullname">{{ viewee.get_full_name }}</div>
+            <div class="join-date">{{ viewee.date_joined|date:"Y/m/d" }} 加入</div>
+            <div class="ranking">
+                {% if rank_or_contributions_by_songs > 0 %}
+                    <span>編修歌曲第 {{ rank_or_contributions_by_songs }} 名</span>
+                {% endif %}
+                {% if rank_or_contributions_by_lines > 0 %}
+                    <span>編修歌詞第 {{ rank_or_contributions_by_lines }} 名</span>
+                {% endif %}
+                <span class="fb-share">
+                    <a
+                        href="https://www.facebook.com/sharer/sharer.php?u={{ full_url|urlencode }}"
+                        target="_blank"
+                        onclick="window.open(this.href, 'fbShare', 'width=600,height=600'); return false;"
+                    ><img src="{% static "thiamsu/img/ico-fb.png" %}"
+                         srcset="{% static "thiamsu/img/ico-fb@2x.png" %} 2x,
+                                 {% static "thiamsu/img/ico-fb@3x.png" %} 3x"></a>
+                    <span>分享到 Facebook</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row user-songs-navigation">
+        <a class="kind{% if kind == "favs" %} active{% endif %}"
+           href="?kind=favs">
+            {% if favorite_count > 0 %}
+                <span class="counter">{{ favorite_count }}</span>
+            {% endif %}
+            <span class="counter-description">已收藏</span>
+        </a>
+        <a class="kind{% if kind == "contribs" %} active{% endif %}"
+           href="?kind=contribs">
+            {% if contribution_count > 0 %}
+                <span class="counter">{{ contribution_count }}</span>
+            {% endif %}
+            <span class="counter-description">已貢獻</span>
+        </a>
+    </div>
+{% endblock %}
+
+{% block empty-content %}
+    {% if kind == "favs" %}
+        <img src="{% static "thiamsu/img/img-empty-fav.png" %}"
+             srcset="{% static "thiamsu/img/img-empty-fav@2x.png" %} 2x,
+                     {% static "thiamsu/img/img-empty-fav@3x.png" %} 3x">
+        <p>趕緊收khǹg你愛ê歌</p>
+    {% elif kind == "contribs" %}
+        <img src="{% static "thiamsu/img/img-empty-edit.png" %}"
+             srcset="{% static "thiamsu/img/img-empty-edit@2x.png" %} 2x,
+                     {% static "thiamsu/img/img-empty-edit@3x.png" %} 3x">
+        <p>趕緊來鬥編修</p>
+    {% endif %}
+{% endblock %}
+
+
+

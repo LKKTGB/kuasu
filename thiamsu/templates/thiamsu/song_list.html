@@ -1,0 +1,95 @@
+{% extends 'thiamsu/base.html' %}
+{% load pagination staticfiles list_sorting %}
+
+{% block content %}
+
+    {% block song-list-header %}
+        <div class="row context-header song-list-controls">
+            <div class="search-info">
+                {% if query %}
+                    <span class="search-keyword">{{ query }}</span>
+                    的搜尋結果：
+                {% endif %}
+            </div>
+
+            <div class="form-inline ordering-info" id="song-list-ordering">
+                <label>排序依</label>
+                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"><span>{% current_sorting_label %}</span></button>
+                <div class="dropdown-menu">
+                    {% all_sorting_types as sorting_types %}
+                    {% for st in sorting_types %}
+                        <a class="dropdown-item" href="{% sorting_url_of st %}">{% sorting_label_of st %}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    <div class="row song-list">
+        {% for song in songs %}
+            <div class="col-4 song">
+                {% url 'song_detail' id=song.id as song_url %}
+                <img src="{{ song.cover_url }}" class="preview">
+                <a href="{{ song_url }}" class="title-link"><div class="original-title">{{ song.original_title }}</div></a>
+                <a href="{{ song_url }}" class="title-link"><div class="tailo-title">{{ song.tailo_title }}</div></a>
+                <div class="performer">{{ song.performer }}</div>
+                {% with progress=song.progress|default:0|floatformat:0 %}
+                <div class="translation-progress{% if progress == "0" %} invisible{% endif %}">
+                    <div class="progress-bar" style="width: {{ progress }}%"></div>
+                    <div class="description">編修進度：{{ progress }}%</div>
+                </div>
+                {% endwith %}
+            </div>
+        {% empty %}
+            <div class="empty">
+                {% block empty-content %}
+                    <img src="{% static "thiamsu/img/img-empty.png" %}"
+                         srcset="{% static "thiamsu/img/img-empty@2x.png" %} 2x,
+                                 {% static "thiamsu/img/img-empty@3x.png" %} 3x">
+                    <p>真失禮，chhē無你beh查ê資料<br>請改做其它方式koh查看māi</p>
+                {% endblock %}
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if songs|length > 0 %}
+        <div class="row song-list-pagination">
+            <ul class="paginator">
+
+                {% if songs.has_previous %}
+                    <li class="prev-page">
+                        <a href="{% page_url_of songs.previous_page_number %}">上一頁</a>
+                    </li>
+                {% endif %}
+
+                {% if 1 < songs.leftmost_page_number %}
+                    <li class="page"><a href="{% page_url_of 1 %}">1</a></li>
+                    {% if 2 < songs.leftmost_page_number %}
+                        <li class="placeholder">&hellip;</li>
+                    {% endif %}
+                {% endif %}
+
+                {% for i in songs.visible_page_range %}
+                    <li class="page{% if songs.number == i %} current{% endif %}">
+                        <a href="{% page_url_of i %}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+
+                {% if songs.rightmost_page_number < songs.paginator.num_pages %}
+                    {% if songs.rightmost_page_number|add:"1" < songs.paginator.num_pages %}
+                        <li class="placeholder">&hellip;</li>
+                    {% endif %}
+                    <li class="page"><a href="{% page_url_of songs.paginator.num_pages %}">{{ songs.paginator.num_pages }}</a></li>
+                {% endif %}
+
+                {% if songs.has_next %}
+                    <li class="next-page">
+                        <a href="{% page_url_of songs.next_page_number %}">下一頁</a>
+                    </li>
+                {% endif %}
+
+            </ul>
+        </div>
+    {% endif %}
+
+{% endblock %}

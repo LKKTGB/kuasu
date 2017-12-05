@@ -1,0 +1,9 @@
+dj-database-url==0.4.2
+django-debug-toolbar==1.9.1
+django-dotenv==1.4.1
+django-embed-video==1.1.2
+django-grappelli==2.10.1
+Django==1.11.5
+psycopg2==2.7.3.2
+social-auth-app-django==1.2.0
+Unidecode==0.4.21
