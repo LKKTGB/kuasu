@@ -698,20 +698,24 @@
     margin-left: 12px;
 	font-size: 13px;
 	letter-spacing: 1px;
+    border-radius: 4px;
 	border: solid 1px #cccccc;
+	background-color: #ffffff;
+    color: #444444;
+}
+
+.song-actions a.btn {
+    line-height: 32px;
 }
 
 .song-actions .btn-favorite {
-    border-radius: 6px;
 	background-color: #ffffff;
-	color: #444444;
 }
 
 .song-actions .btn-unfavorite {
-    border-radius: 4px;
+	border: none;
 	background-color: #5fa490;
 	color: #ffffff;
-	border: none;
 }
 
 /* Song Detail - Contribution Bar */

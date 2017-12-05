@@ -173,6 +173,7 @@ def song_detail(request, id):
         lyric_visiblity['hanzi'] = True
 
     return render(request, 'thiamsu/song_detail.html', {
+        'full_url': request.build_absolute_uri(),
         'song': song,
         'contributors': {
             'tailo': format_contributors(get_full_name(get_contributors('tailo'))),

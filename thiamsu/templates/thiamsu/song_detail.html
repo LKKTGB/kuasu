@@ -26,8 +26,11 @@
                         >收藏</button>
                 {% endif %}
 
-                {# TODO!! #}
-                <button class="btn">分享</button>
+                <a class="btn"
+                   href="https://www.facebook.com/sharer/sharer.php?u={{ full_url|urlencode }}"
+                   target="_blank"
+                   onclick="window.open(this.href, 'fbShare', 'width=600,height=600'); return false;"
+                >分享</a>
             </div>
 
             {% include 'thiamsu/_player_with_info.html' %}
