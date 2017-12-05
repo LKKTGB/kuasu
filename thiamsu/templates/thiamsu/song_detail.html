@@ -1,33 +1,38 @@
 {% extends 'thiamsu/base.html' %}
 {% load static %}
 
+{% block page_title %}{{ song.original_title }} - {{ block.super }}{% endblock %}
+
 {% block content %}
     <div class="row song-detail">
 
         <div class="left-panel">
             <div class="song-actions toolbar">
                 {% if user.is_authenticated %}
-                {% if is_favorite_song %}
-                    <form action='/api/user/favorite_song/' method='post'>
-                        {% csrf_token %}
-                        {{ favorite_form }}
-                        <button class="btn btn-unfavorite" type="submit">取消收藏</button>
-                    </form>
-                {% else %}
-                    <form action='/api/user/favorite_song/' method='post'>
-                        {% csrf_token %}
-                        {{ favorite_form }}
-                        <button class="btn btn-favorite" type="submit">收藏</button>
-                    </form>
-                {% endif %}
+                    {% if is_favorite_song %}
+                        <form action='/api/user/favorite_song/' method='post'>
+                            {% csrf_token %}
+                            {{ favorite_form }}
+                            <button class="btn btn-unfavorite" type="submit">取消收藏</button>
+                        </form>
+                    {% else %}
+                        <form action='/api/user/favorite_song/' method='post'>
+                            {% csrf_token %}
+                            {{ favorite_form }}
+                            <button class="btn btn-favorite" type="submit">收藏</button>
+                        </form>
+                    {% endif %}
                 {% else %}
                         <button class="btn btn-favorite" type="submit"
                                 data-toggle="modal" data-target="#login-to-favorite"
                         >收藏</button>
                 {% endif %}
 
-                {# TODO!! #}
-                <button class="btn">分享</button>
+                <a class="btn"
+                   href="https://www.facebook.com/sharer/sharer.php?u={{ full_url|urlencode }}"
+                   target="_blank"
+                   onclick="window.open(this.href, 'fbShare', 'width=600,height=600'); return false;"
+                >分享</a>
             </div>
 
             {% include 'thiamsu/_player_with_info.html' %}
@@ -113,7 +118,6 @@
         </div>
 
     </div>
-
 
     {% if user.is_authenticated %}
         {% if user.is_staff or user.is_superuser %}
