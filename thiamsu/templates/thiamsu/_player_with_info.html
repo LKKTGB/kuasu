@@ -1,0 +1,23 @@
+<div class="player">
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item"
+                src="https://www.youtube.com/embed/{{ song.youtube_id }}"
+                frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+
+<div class="song-information">
+    <p class="original-title">{{ song.original_title }}</p>
+
+    <div class="translated-titles">
+        <p class="translated-title tailo">{{ song.hanlo_title }}</p>
+        <p class="translated-title tailo">{{ song.tailo_title }}</p>
+        <p class="translated-title hanzi">{{ song.hanzi_title }}</p>
+    </div>
+
+    <div class="authors">
+        <p class="performer">演唱人：{{ song.performer }}</p>
+        <p class="composer">作曲人：{{ song.composer }}</p>
+        <p class="lyricist">作詞人：{{ song.lyricist }}</p>
+    </div>
+</div>

@@ -23,29 +23,7 @@
                 <button class="btn">分享</button>
             </div>
 
-            <div class="player">
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item"
-                            src="https://www.youtube.com/embed/{{ song.youtube_id }}"
-                            frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-
-            <div class="song-information">
-                <p class="original-title">{{ song.original_title }}</p>
-
-                <div class="translated-titles">
-                    <p class="translated-title tailo">{{ song.hanlo_title }}</p>
-                    <p class="translated-title tailo">{{ song.tailo_title }}</p>
-                    <p class="translated-title hanzi">{{ song.hanzi_title }}</p>
-                </div>
-
-                <div class="authors">
-                    <p class="performer">演唱人：{{ song.performer }}</p>
-                    <p class="composer">作曲人：{{ song.composer }}</p>
-                    <p class="lyricist">作詞人：{{ song.lyricist }}</p>
-                </div>
-            </div>
+            {% include 'thiamsu/_player_with_info.html' %}
         </div>
 
         <div class="right-panel">
@@ -62,7 +40,7 @@
                         {% csrf_token %}
                         {{ readonly_form }}
                         <button type="submit"
-                                class="btn btn-default"
+                                class="btn"
                                 data-on="開啟"
                                 data-off="鎖定" />
                     </form>
@@ -70,6 +48,7 @@
 
                     <button type="button" class="btn btn-edit"
                             {% if song.readonly %}disabled{% endif %}
+                            onclick="location.href='{% url 'song_edit' song.id %}'" {# TODO!! #}
                     >鬥編修</button>
                 </div>
             </div>
