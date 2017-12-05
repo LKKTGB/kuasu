@@ -7,19 +7,19 @@
         <div class="left-panel">
             <div class="song-actions toolbar">
                 {% if user.is_authenticated %}
-                {% if is_favorite_song %}
-                    <form action='/api/user/favorite_song/' method='post'>
-                        {% csrf_token %}
-                        {{ favorite_form }}
-                        <button class="btn btn-unfavorite" type="submit">取消收藏</button>
-                    </form>
-                {% else %}
-                    <form action='/api/user/favorite_song/' method='post'>
-                        {% csrf_token %}
-                        {{ favorite_form }}
-                        <button class="btn btn-favorite" type="submit">收藏</button>
-                    </form>
-                {% endif %}
+                    {% if is_favorite_song %}
+                        <form action='/api/user/favorite_song/' method='post'>
+                            {% csrf_token %}
+                            {{ favorite_form }}
+                            <button class="btn btn-unfavorite" type="submit">取消收藏</button>
+                        </form>
+                    {% else %}
+                        <form action='/api/user/favorite_song/' method='post'>
+                            {% csrf_token %}
+                            {{ favorite_form }}
+                            <button class="btn btn-favorite" type="submit">收藏</button>
+                        </form>
+                    {% endif %}
                 {% else %}
                         <button class="btn btn-favorite" type="submit"
                                 data-toggle="modal" data-target="#login-to-favorite"
@@ -113,7 +113,6 @@
         </div>
 
     </div>
-
 
     {% if user.is_authenticated %}
         {% if user.is_staff or user.is_superuser %}
