@@ -1,171 +1,64 @@
 {% extends 'thiamsu/base.html' %}
 
 {% block content %}
-    <style>
-        .btn-action {
-            font-size: 20px;
-            height: max-content;
-        }
-        .contributors {
-            font-size: 18px;
-            color: #444444;
-            margin-bottom: .25rem;
-        }
-        .song-original-title {
-            font-size: 36px;
-            font-weight: bold;
-            text-align: left;
-            color: #444444;
-        }
-        .song-translated-titles {
-            margin-bottom: 1em;
-        }
-        .song-translated-titles > p {
-            font-size: 24px;
-            font-weight: 600;
-            text-align: left;
-            color: #444444;
-            margin: 0;
-        }
-        .song-authors {
-            margin-bottom: 1em;
-        }
-        .song-authors > p {
-            font-size: 20px;
-            text-align: left;
-            color: #666666;
-            margin: 0;
-        }
+    <div class="row song-edit">
 
-        .lyrics-types {
-            display: flex;
-        }
-        .lyrics-types > div {
-            font-size: 24px;
-            font-weight: 600;
-            color: #444444;
-            flex: 1 1 auto;
-            text-align: center;
-            background-color: #f5f5f5;
-	        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-	        border: solid 1px #cccccc;
-            border-top-left-radius: 6px;
-            border-top-right-radius: 6px;
-            padding: .5rem 1rem;
-        }
-        .lyrics-types > div:not(:first-child) {
-            border-top-left-radius: 0;
-            margin-right: -1px;
-        }
-        .lyrics-types > div:not(:last-child) {
-            border-top-right-radius: 0;
-            margin-left: -1px;
-        }
-        .translation-states {
-            border-left: solid 1px #cccccc;
-            border-right: solid 1px #cccccc;
-            border-bottom: solid 1px #cccccc;
-            margin-left: -1px;
-            margin-right: -1px;
-            background-color: white;
-        }
-        .translation-states > div {
-            font-size: 20px;
-        	color: #666666;
-            padding: .5rem 1rem;
-        }
-
-        i.translation-state {
-            height: 0.8rem;
-            width: 0.8rem;
-            border-radius: 50%;
-            margin-right: 0.25rem;
-        }
-
-        i.translation-state.approved {
-            background-color: #0070ae;
-        }
-        i.translation-state.auditing {
-            background-color: #ff7400;
-        }
-        i.translation-state.none {
-            background-color: #cccccc;
-        }
-    </style>
-
-    <div class="row">
-        <div class="col d-flex align-items-center justify-content-end mb-2">
-            <button class="btn btn-outline-secondary mr-2 btn-action">收藏</button>
-            <button class="btn btn-outline-secondary mr-2 btn-action">分享</button>
+        <div class="left-panel">
+            {% include 'thiamsu/_player_with_info.html' %}
         </div>
-        <div class="col d-flex align-items-center justify-content-between mb-2">
-            <div>
-                <p class="contributors">全羅編修人：Mary (10), 王大明 (3)</p>
-                <p class="contributors">全漢編修人：Amy (7)</p>
+
+        <div class="right-panel">
+            <div class="toolbar d-flex align-items-center justify-content-end">
+                <div class="hint">
+                    <div class="hint-content">完成一句也可以送出喔！</div>
+                    <div class="right-triangle"></div>
+                </div>
+                <button type="button" id="translation-submit" class="btn btn-edit">送出</button>
+                <button type="button" class="btn btn-cancel" onclick="location.href='{% url 'song_detail' song.id %}'">取消</button>
             </div>
-            <button class="btn btn-success btn-action">鬥編修</button>
+
+            <div class="lyric-translation">
+                <input id="view-tailo-translation" class="translation-toggler" type="radio"
+                       name="translation-language" value="tailo" checked>
+                <input id="view-hanzi-translation" class="translation-toggler" type="radio"
+                       name="translation-language" value="hanzi">
+
+                <div class="translation-visiblities">
+                    <label class="show-tailo" for="view-tailo-translation">全羅</label>
+                    <label class="show-hanzi" for="view-hanzi-translation">全漢</label>
+                </div>
+
+                <div class="example">
+                    <span class="label">舉例：</span class><span class="original">昨暝夢中 輕聲細說是誰人</span>
+                    <div class="translation">tsâng-mê bāng-tiong，khin-siann sè-sueh sī siánn lâng</div>
+                </div>
+
+                <div class="lyric-lines">
+                    <form id="tailo-translation-form" action='/song/{{ song.id }}/translation/' method='post'>
+                        {% csrf_token %}
+                        {{ forms.tailo }}
+                    </form>
+                    <form id="hanzi-translation-form" action='/song/{{ song.id }}/translation/' method='post'>
+                        {% csrf_token %}
+                        {{ forms.hanzi }}
+                    </form>
+                </div>
+            </div>
         </div>
+
     </div>
 
-    <div class="row pl-4" style="padding-bottom: 4em;">
-        <div class="col">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item"
-                        src="https://www.youtube.com/embed/{{ song.youtube_id }}"
-                        frameborder="0" allowfullscreen></iframe>
-            </div>
-
-            <p class="song-original-title">{{ song.original_title }}</p>
-
-            <div class="song-translated-titles">
-                <p class="song-tailo-title">{{ song.tailo_title }}</p>
-                <p class="song-hanzi-title">{{ song.original_title }}<small>（會是全漢）</small></p>
-            </div>
-
-            <div class="song-authors">
-                <p class="song-performer">演唱人：{{ song.performer }}</p>
-                <p class="song-composer">作曲人：{{ song.composer }}</p>
-                <p class="song-lyricist">作詞人：{{ song.lyricist }}</p>
-            </div>
-
-        </div>
-
-        <div class="col">
-            <div style="background-color: white;">
-                <div class="d-flex lyrics-types">
-                    <div>原文</div>
-                    <div>全羅</div>
-                    <div>全漢</div>
-                    <div>漢羅</div>
-                </div>
-
-                <div class="d-flex justify-content-center translation-states">
-                    <div class="d-flex align-items-center"><i class="translation-state approved">&nbsp;</i>已審定</div>
-                    <div class="d-flex align-items-center"><i class="translation-state auditing">&nbsp;</i>審定中</div>
-                    <div class="d-flex align-items-center"><i class="translation-state none">&nbsp;</i>未編修</div>
-                </div>
-
-                <div style="border-bottom-left-radius: 6px;
-                            border-bottom-right-radius: 6px;
-                            border: solid 1px #cccccc;
-                            margin: 0 -1px;
-                            border-top: 0;
-{#                            border-right: solid 1px #cccccc;#}
-">
-                    <ul style="max-height: 30rem;
-                               overflow: scroll;
-                               list-style-type: none;
-                               padding-top: 1rem;
-">
-                        <form action='/song/{{ song.id }}/translation/' method='post'>
-                            {% csrf_token %}
-                            {{ forms.hanzi }}
-                            <input type="submit" value="送出">
-                        </form>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </div>
+    <script>
+    $('#translation-submit').click(function () {
+        var lang = $('[name=translation-language]:checked').val();
+        var formId = '#' + lang + '-translation-form';
+        var form = $(formId).get(0);
+        if (form) {
+            form.submit();
+        }
+    })
+    $('.lyric-lines input[type=text]').focus(function () {
+        this.setSelectionRange(0, this.value.length);
+    })
+    </script>
 {% endblock %}

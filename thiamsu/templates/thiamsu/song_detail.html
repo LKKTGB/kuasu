@@ -40,7 +40,7 @@
                         {% csrf_token %}
                         {{ readonly_form }}
                         <button type="submit"
-                                class="btn btn-default"
+                                class="btn"
                                 data-on="開啟"
                                 data-off="鎖定" />
                     </form>
@@ -48,6 +48,7 @@
 
                     <button type="button" class="btn btn-edit"
                             {% if song.readonly %}disabled{% endif %}
+                            onclick="location.href='{% url 'song_edit' song.id %}'" {# TODO!! #}
                     >鬥編修</button>
                 </div>
             </div>
