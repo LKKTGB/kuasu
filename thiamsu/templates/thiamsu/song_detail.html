@@ -1,10 +1,12 @@
 {% extends 'thiamsu/base.html' %}
+{% load static %}
 
 {% block content %}
     <div class="row song-detail">
 
         <div class="left-panel">
             <div class="song-actions toolbar">
+                {% if user.is_authenticated %}
                 {% if is_favorite_song %}
                     <form action='/api/user/favorite_song/' method='post'>
                         {% csrf_token %}
@@ -17,6 +19,11 @@
                         {{ favorite_form }}
                         <button class="btn btn-favorite" type="submit">收藏</button>
                     </form>
+                {% endif %}
+                {% else %}
+                        <button class="btn btn-favorite" type="submit"
+                                data-toggle="modal" data-target="#login-to-favorite"
+                        >收藏</button>
                 {% endif %}
 
                 {# TODO!! #}
@@ -48,7 +55,12 @@
 
                     <button type="button" class="btn btn-edit"
                             {% if song.readonly %}disabled{% endif %}
-                            onclick="location.href='{% url 'song_edit' song.id %}'" {# TODO!! #}
+                            {% if user.is_authenticated %}
+                                onclick="location.href='{% url 'song_edit' song.id %}'"
+                            {% else %}
+                                data-toggle="modal"
+                                data-target="#login-to-edit"
+                            {% endif %}
                     >鬥編修</button>
                 </div>
             </div>
@@ -102,14 +114,46 @@
 
     </div>
 
-    {% if user.is_staff or user.is_superuser %}
-    <script>
-        $('#song-lock-form').submit(function (e) {
-            $('#song-lock-form button[type=submit]').attr('disabled', 'disabled')
-            var cb = $('#id_readonly')[0];
-            cb.checked = !cb.checked;
-        })
-    </script>
-    {% endif %}
 
+    {% if user.is_authenticated %}
+        {% if user.is_staff or user.is_superuser %}
+        <script>
+            $('#song-lock-form').submit(function (e) {
+                $('#song-lock-form button[type=submit]').attr('disabled', 'disabled')
+                var cb = $('#id_readonly')[0];
+                cb.checked = !cb.checked;
+            })
+        </script>
+        {% endif %}
+    {% else %}
+        <div class="modal fade modal-simple" id="login-to-favorite">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <img src="{% static "thiamsu/img/img-fav.png" %}"
+                             srcset="{% static "thiamsu/img/img-fav@2x.png" %} 2x,
+                                     {% static "thiamsu/img/img-fav@3x.png" %} 3x">
+                        <h5>立即註冊即可將歌曲加入收藏</h5>
+                        <a href="{% url 'social:begin' 'facebook' %}" role="button" class="btn btn-facebook-login">使用 Facebook 註冊/登入</button>
+                        <a class="dismiss" href="#" data-dismiss="modal">下次再說</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade modal-simple" id="login-to-edit">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <img src="{% static "thiamsu/img/img-edit-lyrics.png" %}"
+                             srcset="{% static "thiamsu/img/img-edit-lyrics@2x.png" %} 2x,
+                                     {% static "thiamsu/img/img-edit-lyrics@3x.png" %} 3x">
+                        <h5>立即註冊即可一起編修歌詞</h5>
+                        <a href="{% url 'social:begin' 'facebook' %}" role="button" class="btn btn-facebook-login">使用 Facebook 註冊/登入</button>
+                        <a class="dismiss" href="#" data-dismiss="modal">下次再說</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

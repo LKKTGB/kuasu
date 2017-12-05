@@ -130,11 +130,17 @@
 
 .theme-thiamsu .modal.modal-simple .modal-body {
 	text-align: center;
-    padding-top: 24px;
+    padding-top: 0px;
     padding-bottom: 30px;
 }
 
+.theme-thiamsu .modal.modal-simple .modal-body img {
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
 .theme-thiamsu .modal.modal-simple .modal-body h5 {
+    margin-top: 24px;
     margin-bottom: 24px;
 }
 
