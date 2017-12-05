@@ -329,6 +329,7 @@ def user_profile(request, id):
     songs = _paginated_songs(request, songs)
 
     return render(request, 'thiamsu/user_profile.html', {
+        'full_url': request.build_absolute_uri(),
         'viewee': viewee,
         'kind': kind,
         'favorite_count': len(favorites),
