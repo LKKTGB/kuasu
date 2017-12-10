@@ -51,7 +51,7 @@
                     <div class="chart-entry-wrapper">
                         <div class="rank">{{ forloop.counter }}.</div>
                         <a href="{% url "user_profile" contributer.id %}"><img src="{{ contributer.avatar_url }}" class="avatar"></a>
-                        <p class="username">{{ contributer.username }}</p>
+                        <a  class="username" href="{% url "user_profile" contributer.id %}"><p>{{ contributer.username }}</p></a>
                         <p class="score-wrapper"><span class="score">{{ contributer.count }}</span> 首</p>
                     </div>
                 </li>
