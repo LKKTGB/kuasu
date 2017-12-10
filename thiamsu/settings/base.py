@@ -159,7 +159,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Pagination
-PAGINATION_MAX_ITMES_PER_PAGE = 10
+PAGINATION_MAX_ITMES_PER_PAGE = 12
 
 # Debug Toolbar
 INTERNAL_IPS = [
