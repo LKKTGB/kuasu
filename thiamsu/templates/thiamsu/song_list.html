@@ -36,7 +36,10 @@
                 {% with progress=song.progress|default:0|floatformat:0 %}
                 <div class="translation-progress{% if progress == "0" %} invisible{% endif %}">
                     <div class="progress-bar" style="width: {{ progress }}%"></div>
-                    <div class="description">編修進度：{{ progress }}%</div>
+                    <div class="description">
+                        <span>編修進度：</span>
+                        <span>{{ progress }}%</span>
+                    </div>
                 </div>
                 {% endwith %}
             </div>
