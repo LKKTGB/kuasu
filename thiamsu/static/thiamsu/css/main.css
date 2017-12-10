@@ -435,10 +435,17 @@
     font-size: 13px;
 }
 
+.song-list-controls .ordering-info .btn.dropdown-toggle:after {
+    font-size: 13px;
+    vertical-align: 5px;
+}
+
 .song-list-controls .ordering-info .btn > span {
     width: 75px;
     display: inline-block;
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .song-list-controls .ordering-info .dropdown-menu {
