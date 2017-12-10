@@ -7,10 +7,17 @@
 }
 
 .theme-thiamsu .row {
-    padding-left: 70px;
-    padding-right: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
     margin-left: 0;
     margin-right: 0;
+}
+
+@media (min-width: 992px) {
+    .theme-thiamsu .row {
+        padding-left: 70px;
+        padding-right: 70px;
+    }
 }
 
 /* Global (Customized Theme) - Modal Dialog */
