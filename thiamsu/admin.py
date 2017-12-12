@@ -57,13 +57,12 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
     inlines = [
         NewWordInline,
     ]
-    exclude = ('title_alias', 'performer_alias')
 
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
-            self.exclude = ()
+            self.exclude = ('progress', 'title_alias', 'performer_alias')
         else:
-            self.exclude = ('original_lyrics',)
+            self.exclude = ('progress', 'title_alias', 'performer_alias', 'original_lyrics')
 
         # reset declared_fields
         self.form.declared_fields = OrderedDict()

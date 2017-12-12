@@ -7,10 +7,17 @@
 }
 
 .theme-thiamsu .row {
-    padding-left: 70px;
-    padding-right: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
     margin-left: 0;
     margin-right: 0;
+}
+
+@media (min-width: 992px) {
+    .theme-thiamsu .row {
+        padding-left: 70px;
+        padding-right: 70px;
+    }
 }
 
 /* Global (Customized Theme) - Modal Dialog */
@@ -435,10 +442,17 @@
     font-size: 13px;
 }
 
+.song-list-controls .ordering-info .btn.dropdown-toggle:after {
+    font-size: 13px;
+    vertical-align: 5px;
+}
+
 .song-list-controls .ordering-info .btn > span {
     width: 75px;
     display: inline-block;
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .song-list-controls .ordering-info .dropdown-menu {
@@ -495,6 +509,7 @@
     position: relative;
     margin-top: 4px;
     background-color: #5fa490;
+    overflow: hidden;
 }
 
 /* Song List - Song - Translation Progress */
@@ -514,6 +529,10 @@
 	font-weight: 500;
 	letter-spacing: 0.6px;
 	color: #ffffff;
+
+    display: flex;
+    flex-wrap: wrap-reverse;
+    line-height: 22px;
 }
 
 /* Song List - Pagination */
@@ -1252,6 +1271,8 @@
 .chart-entry .username {
     font-size: 13px;
 	letter-spacing: 1px;
+    color: #444444;
+    z-index: 1;
 }
 
 .chart-entry .score-wrapper {
@@ -1302,6 +1323,7 @@
     font-size: 24px;
     font-weight: bold;
     letter-spacing: 0.8px;
+	color: #ffffff;
 }
 
 .chart-entry:first-child .score-wrapper {
