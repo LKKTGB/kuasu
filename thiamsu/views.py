@@ -155,7 +155,7 @@ def song_detail(request, id):
         return ' '.join(['{username} ({count})'.format(**c) for c in contributors])
 
     is_favorite_song = request.user.is_authenticated and \
-                       request.user.profile.favorite_songs.filter(id=song.id).exists()
+        request.user.profile.favorite_songs.filter(id=song.id).exists()
 
     lyrics = song.get_lyrics_with_translations()
     counters = {'tailo': 0, 'hanzi': 0, 'hanlo': 0}
@@ -260,7 +260,7 @@ def song_translation_post(request, id):
             )
             new_translation.save()
 
-    return HttpResponseRedirect(reverse('song_edit', kwargs={'id': id}))
+    return HttpResponseRedirect(reverse('song_detail', kwargs={'id': id}))
 
 
 def get_top10_contributors(type_):
