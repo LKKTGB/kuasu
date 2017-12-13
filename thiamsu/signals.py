@@ -20,6 +20,7 @@ def update_song_progress(sender, update_fields, instance, **kwargs):
     total_count = total_count * len(Translation.LANG_CHOICES)
 
     translation.song.progress = int(translated_count / total_count * 100)
+    translation.song.progress = min(100, max(0, translation.song.progress))
     translation.song.save()
 
 
