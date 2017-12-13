@@ -60,12 +60,7 @@
 
                     <button type="button" class="btn btn-edit"
                             {% if song.readonly %}disabled{% endif %}
-                            {% if user.is_authenticated %}
-                                onclick="location.href='{% url 'song_edit' song.id %}'"
-                            {% else %}
-                                data-toggle="modal"
-                                data-target="#login-to-edit"
-                            {% endif %}
+                            onclick="location.href='{% url 'song_edit' song.id %}'"
                     >鬥編修</button>
                 </div>
             </div>

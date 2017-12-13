@@ -196,7 +196,7 @@ def song_edit(request, id):
         song = Song.objects.get(id=id)
     except ObjectDoesNotExist:
         return redirect('/')
-    if song.readonly or not request.user.is_authenticated():
+    if song.readonly:
         return redirect('/song/%s' % id)
 
     lyrics = song.get_lyrics_with_translations()

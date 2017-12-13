@@ -27,6 +27,8 @@ def update_song_progress(sender, update_fields, instance, **kwargs):
 def update_user_contribution(sender, update_fields, instance, **kwargs):
     translation = instance
     user = translation.contributor
+    if user is None:
+        return
 
     user.profile.contribution_of_songs = (
         Translation.objects
