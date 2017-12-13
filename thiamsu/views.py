@@ -155,7 +155,7 @@ def song_detail(request, id):
         return ' '.join(['{username} ({count})'.format(**c) for c in contributors])
 
     is_favorite_song = request.user.is_authenticated and \
-                       request.user.profile.favorite_songs.filter(id=song.id).exists()
+        request.user.profile.favorite_songs.filter(id=song.id).exists()
 
     lyrics = song.get_lyrics_with_translations()
     counters = {'tailo': 0, 'hanzi': 0, 'hanlo': 0}
