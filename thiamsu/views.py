@@ -260,7 +260,7 @@ def song_translation_post(request, id):
             )
             new_translation.save()
 
-    return HttpResponseRedirect(reverse('song_edit', kwargs={'id': id}))
+    return HttpResponseRedirect(reverse('song_detail', kwargs={'id': id}))
 
 
 def get_top10_contributors(type_):
