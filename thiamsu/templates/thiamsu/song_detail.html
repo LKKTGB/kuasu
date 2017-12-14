@@ -60,12 +60,7 @@
 
                     <button type="button" class="btn btn-edit"
                             {% if song.readonly %}disabled{% endif %}
-                            {% if user.is_authenticated %}
-                                onclick="location.href='{% url 'song_edit' song.id %}'"
-                            {% else %}
-                                data-toggle="modal"
-                                data-target="#login-to-edit"
-                            {% endif %}
+                            onclick="location.href='{% url 'song_edit' song.id %}'"
                     >鬥編修</button>
                 </div>
             </div>
@@ -77,14 +72,14 @@
                     {% if lyric_visiblity.tailo %}checked{% endif %}>
                 <input id="view-hanzi-lyric" class="lyric-toggler" type="checkbox" name="lyric-visibility"
                     {% if lyric_visiblity.hanzi %}checked{% endif %}>
-                <input id="view-hanlo-lyric" class="lyric-toggler" type="checkbox" name="lyric-visibility"
-                    {% if lyric_visiblity.hanlo %}checked{% endif %}>
+                <!-- <input id="view-hanlo-lyric" class="lyric-toggler" type="checkbox" name="lyric-visibility"
+                    {% if lyric_visiblity.hanlo %}checked{% endif %}> -->
 
                 <div class="lyric-visiblities">
                     <label class="show-original" for="view-original-lyric">原文</label>
                     <label class="show-tailo" for="view-tailo-lyric">全羅</label>
                     <label class="show-hanzi" for="view-hanzi-lyric">全漢</label>
-                    <label class="show-hanlo" for="view-hanlo-lyric">漢羅</label>
+                    <!-- <label class="show-hanlo" for="view-hanlo-lyric">漢羅</label> -->
                 </div>
 
                 <ul class="lyric">
@@ -94,7 +89,7 @@
                         {% if lyric.original|length > 0 %}
                             <p class="lyric-line lyric-line-translated show-tailo">{{ lyric.tailo|default_if_none:"-" }}</p>
                             <p class="lyric-line lyric-line-translated show-hanzi">{{ lyric.hanzi|default_if_none:"-" }}</p>
-                            <p class="lyric-line lyric-line-translated show-hanlo">{{ lyric.hanlo|default_if_none:"-" }}</p>
+                            <!-- <p class="lyric-line lyric-line-translated show-hanlo">{{ lyric.hanlo|default_if_none:"-" }}</p> -->
                         {% else %}
                             <p>&nbsp;</p>
                         {% endif %}

@@ -17,9 +17,10 @@ def update_song_progress(sender, update_fields, instance, **kwargs):
     )
     translated_count = sum([t['count'] for t in translated_lines])
     total_count = len([line for line in translation.song.original_lyrics.split('\n') if line.strip()])
-    total_count = total_count * len(translated_lines)
+    total_count = total_count * len(Translation.LANG_CHOICES)
 
     translation.song.progress = int(translated_count / total_count * 100)
+    translation.song.progress = min(100, max(0, translation.song.progress))
     translation.song.save()
 
 
@@ -27,6 +28,8 @@ def update_song_progress(sender, update_fields, instance, **kwargs):
 def update_user_contribution(sender, update_fields, instance, **kwargs):
     translation = instance
     user = translation.contributor
+    if user is None:
+        return
 
     user.profile.contribution_of_songs = (
         Translation.objects
