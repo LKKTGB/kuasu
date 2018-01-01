@@ -34,6 +34,7 @@ def revert_migration(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('thiamsu', '0009_headline'),
         ('user', '0002_profile_favorite_songs'),
     ]
 
