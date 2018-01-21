@@ -1,7 +1,7 @@
 from urllib.parse import urlparse, parse_qs
 import re
 
-from thiamsu import constants
+from thiamsu.models.hanzi_hanlo_mapping import HanziHanloMapping
 
 
 def is_valid_youtube_id(youtube_id):
@@ -39,9 +39,12 @@ def get_youtube_id_from_url(url):
 def translate_hanzi_to_hanlo(hanzi):
     if not hanzi:
         return hanzi
+
     hanlo = hanzi
-    for word in sorted(constants.HANZI_TO_TAILO.keys(), key=lambda k: len(k), reverse=True):
-        hanlo = hanlo.replace(word, ' %s ' % constants.HANZI_TO_TAILO[word])
+    hanzi_hanlo_mapping = HanziHanloMapping.dump()
+
+    for word in sorted(hanzi_hanlo_mapping.keys(), key=lambda k: len(k), reverse=True):
+        hanlo = hanlo.replace(word, ' %s ' % hanzi_hanlo_mapping[word])
     hanlo = re.sub('\s\s+', ' ', hanlo)
     hanlo = hanlo.replace(' --', '--')
     return hanlo

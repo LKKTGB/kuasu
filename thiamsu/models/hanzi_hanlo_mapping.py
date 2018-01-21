@@ -1,4 +1,5 @@
 # third-party
+from django.core.cache import cache
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -13,3 +14,10 @@ class HanziHanloMapping(models.Model):
     class Meta:
         verbose_name = _('hanzi_hanlo_mapping')
         verbose_name_plural = _('hanzi_hanlo_mappings')
+
+    @classmethod
+    def dump(cls, force=False):
+        if force or 'hanzi_hanlo_mapping' not in cache:
+            mapping = {obj.hanzi: obj.hanlo for obj in cls.objects.all()}
+            cache.set('hanzi_hanlo_mapping', mapping)
+        return cache.get('hanzi_hanlo_mapping')

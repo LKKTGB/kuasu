@@ -2,7 +2,13 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from thiamsu.models.hanzi_hanlo_mapping import HanziHanloMapping
 from thiamsu.models.translation import Translation
+
+
+@receiver(post_save, sender=HanziHanloMapping)
+def update_hanzi_hanlo_mapping_cache(sender, update_fields, instance, **kwargs):
+    HanziHanloMapping.dump(force=True)
 
 
 @receiver(post_save, sender=Translation)
