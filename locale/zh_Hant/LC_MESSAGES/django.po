@@ -107,6 +107,19 @@ msgstr "編修人"
 msgid "translation_created_at"
 msgstr "編修時間"
 
+#, thiamsu model HanziHanloMapping
+msgid "hanzi_hanlo_mapping"
+msgstr "全漢、漢羅轉換"
+
+msgid "hanzi_hanlo_mappings"
+msgstr "全漢、漢羅轉換列表"
+
+msgid "hanzi_hanlo_mapping_hanzi"
+msgstr "全漢"
+
+msgid "hanzi_hanlo_mapping_hanlo"
+msgstr "漢羅"
+
 #, thiamsu model NewWord
 msgid "new_word"
 msgstr "生難詞"
