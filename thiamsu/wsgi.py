@@ -11,6 +11,11 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "thiamsu.settings")
+try:
+    import dotenv
+    dotenv.read_dotenv()
+except ImportError:
+    pass
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'website.settings.development')
 
 application = get_wsgi_application()
