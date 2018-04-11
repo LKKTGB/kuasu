@@ -8,7 +8,9 @@ DEBUG = False
 
 GA_TRACKING_ID = 'UA-114678735-2'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'kuasu.tgb.org.tw'
+]
 
 # WhiteNoise
 MIDDLEWARE.extend([
