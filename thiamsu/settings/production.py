@@ -4,6 +4,8 @@ import dj_database_url
 '''
 Settings for production environment deployed on Heroku
 '''
+DEBUG = False
+
 GA_TRACKING_ID = 'UA-114678735-2'
 
 ALLOWED_HOSTS = ['*']
