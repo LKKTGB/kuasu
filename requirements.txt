@@ -9,3 +9,4 @@ psycopg2==2.7.3.2
 social-auth-app-django==2.1.0
 social-auth-core==1.7.0
 Unidecode==0.4.21
+whitenoise==3.3.1
