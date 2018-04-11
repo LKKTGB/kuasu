@@ -2,6 +2,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% if ga_tracking_id %}
+        {% include "ga.html" %}
+    {% endif %}
+
     <meta charset="UTF-8">
     <title>{% block page_title %}歌詞好正{% endblock %}</title>
 
