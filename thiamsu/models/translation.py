@@ -34,3 +34,7 @@ class Translation(models.Model):
     class Meta:
         verbose_name = _('translation')
         verbose_name_plural = _('translations')
+
+    @staticmethod
+    def autocomplete_search_fields():
+        return ('song__original_title__icontains',)
