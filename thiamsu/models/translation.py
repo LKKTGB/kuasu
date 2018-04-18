@@ -11,6 +11,7 @@ class Translation(models.Model):
     LANG_CHOICES = (
         ('tailo', _('translation_lang_tailo')),
         ('hanzi', _('translation_lang_hanzi')),
+        ('hanlo', _('translation_lang_hanlo')),
     )
 
     song = models.ForeignKey(Song, verbose_name=_('song'))
