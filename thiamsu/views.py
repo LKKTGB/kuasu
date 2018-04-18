@@ -16,6 +16,7 @@ from thiamsu.models.headline import Headline
 from thiamsu.models.song import Song
 from thiamsu.models.translation import Translation
 from thiamsu.paginator import Paginator
+from thiamsu.utils import translate_hanzi_to_hanlo
 
 
 def _sorted_songs(request, songs):
@@ -121,6 +122,10 @@ def update_song(request, id):
     if form.is_valid():
         song.readonly = form.cleaned_data['readonly']
         song.save()
+
+        if song.readonly:
+            song.create_hanlo_lyrics()
+
         return redirect('/song/%s' % id)
     else:
         return redirect('/')

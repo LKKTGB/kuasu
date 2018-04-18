@@ -150,6 +150,7 @@ class Song(models.Model):
     def get_lyrics_with_translations(self):
         hanzi_lyrics = self.get_translations('hanzi')
         tailo_lyrics = self.get_translations('tailo')
+        hanlo_lyrics = self.get_translations('hanlo')
 
         lyrics_with_translations = []
         for i, lyric in enumerate(self.original_lyrics.split('\n')):
@@ -157,10 +158,29 @@ class Song(models.Model):
                 'original': lyric,
                 'hanzi': hanzi_lyrics.get(i),
                 'tailo': tailo_lyrics.get(i),
-                'hanlo': translate_hanzi_to_hanlo(hanzi_lyrics.get(i))
+                'hanlo': hanlo_lyrics.get(i)
             })
         return lyrics_with_translations
 
     def get_new_words(self):
         from thiamsu.models.new_word import NewWord
         return NewWord.objects.filter(song=self)
+
+    def create_hanlo_lyrics(self):
+        from thiamsu.models.translation import Translation
+
+        hanzi_lyrics = self.get_translations('hanzi')
+        hanlo_lyrics = self.get_translations('hanlo')
+        for line_no, hanzi_lyric in hanzi_lyrics.items():
+            if hanlo_lyrics.get(line_no):
+                continue
+
+            new_translation = Translation(
+                song=self,
+                line_no=line_no,
+                lang='hanlo',
+                content=translate_hanzi_to_hanlo(hanzi_lyric),
+                contributor=None
+            )
+            new_translation.save()
+            print(line_no, 'translated')
