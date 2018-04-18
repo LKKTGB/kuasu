@@ -123,33 +123,33 @@ class Song(models.Model):
             id=self.youtube_id
         )
 
-    def get_lyrics_with_translations(self):
+    def get_translations(self, lang):
         from thiamsu.models.translation import Translation
 
-        def query_translations(lang):
-            latest_translation_times = (
-                Translation.objects
-                .filter(song=self.id)
-                .filter(lang=lang)
-                .values('line_no')
-                .annotate(models.Max('created_at'))
-                .order_by()
-            )
+        latest_translation_times = (
+            Translation.objects
+            .filter(song=self.id)
+            .filter(lang=lang)
+            .values('line_no')
+            .annotate(models.Max('created_at'))
+            .order_by()
+        )
 
-            q_statement = models.Q()
-            for pair in latest_translation_times:
-                q_statement |= (models.Q(line_no__exact=pair['line_no']) &
-                                models.Q(created_at__exact=pair['created_at__max']))
-            translations = (
-                Translation.objects
-                .filter(song=self.id)
-                .filter(lang=lang)
-                .filter(q_statement)
-            )
-            return {t.line_no: t.content for t in translations}
+        q_statement = models.Q()
+        for pair in latest_translation_times:
+            q_statement |= (models.Q(line_no__exact=pair['line_no']) &
+                            models.Q(created_at__exact=pair['created_at__max']))
+        translations = (
+            Translation.objects
+            .filter(song=self.id)
+            .filter(lang=lang)
+            .filter(q_statement)
+        )
+        return {t.line_no: t.content for t in translations}
 
-        hanzi_lyrics = query_translations('hanzi')
-        tailo_lyrics = query_translations('tailo')
+    def get_lyrics_with_translations(self):
+        hanzi_lyrics = self.get_translations('hanzi')
+        tailo_lyrics = self.get_translations('tailo')
 
         lyrics_with_translations = []
         for i, lyric in enumerate(self.original_lyrics.split('\n')):
