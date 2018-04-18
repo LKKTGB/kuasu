@@ -126,7 +126,7 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
 
 
 class TranslationAdmin(admin.ModelAdmin):
-    list_display = ('song', 'lang', 'content', 'original_lyric', 'created_at')
+    list_display = ('song', 'line_no', 'content', 'original_lyric', 'lang', 'created_at')
 
     search_fields = ('song__original_title', )
 
