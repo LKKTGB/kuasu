@@ -11,6 +11,7 @@ class Translation(models.Model):
     LANG_CHOICES = (
         ('tailo', _('translation_lang_tailo')),
         ('hanzi', _('translation_lang_hanzi')),
+        ('hanlo', _('translation_lang_hanlo')),
     )
 
     song = models.ForeignKey(Song, verbose_name=_('song'))
@@ -33,3 +34,7 @@ class Translation(models.Model):
     class Meta:
         verbose_name = _('translation')
         verbose_name_plural = _('translations')
+
+    @staticmethod
+    def autocomplete_search_fields():
+        return ('song__original_title__icontains',)

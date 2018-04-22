@@ -126,7 +126,13 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
 
 
 class TranslationAdmin(admin.ModelAdmin):
-    list_display = ('song', 'lang', 'content', 'original_lyric', 'created_at')
+    list_display = ('song', 'line_no', 'content', 'original_lyric', 'lang', 'created_at')
+
+    search_fields = ('song__original_title', )
+
+    change_list_template = "admin/change_list_filter_sidebar.html"
+    change_list_filter_template = "admin/filter_listing.html"
+    list_filter = ('lang',)
 
 
 admin.site.unregister(Association)

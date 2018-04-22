@@ -98,6 +98,9 @@ msgstr "全羅"
 msgid "translation_lang_hanzi"
 msgstr "全漢"
 
+msgid "translation_lang_hanlo"
+msgstr "漢羅"
+
 msgid "translation_content"
 msgstr "編修內容"
 
