@@ -27,7 +27,7 @@ msgstr ""
 
 #, thiamsu app
 msgid "app_thiamsu"
-msgstr "歌詞好正"
+msgstr "歌詞正字"
 
 #, thiamsu model Song
 msgid "song"
