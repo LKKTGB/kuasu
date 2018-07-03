@@ -9,7 +9,7 @@ from thiamsu.models.song import Song
 class NewWord(models.Model):
     song = models.ForeignKey(Song, verbose_name=_('song'))
     content = models.CharField(_('new_word_content'), max_length=100)
-    reference_url = models.CharField(_('new_word_reference_url'), max_length=100)
+    reference_url = models.CharField(_('new_word_reference_url'), max_length=1000)
 
     created_at = models.DateTimeField(_('new_word_created_at'), auto_now_add=True)
 
