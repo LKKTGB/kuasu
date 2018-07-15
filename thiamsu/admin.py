@@ -54,7 +54,7 @@ class AdminVideoTextInputMixin(AdminVideoMixin):
 class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
     LYRIC_FIELD_LABEL_PREFIX = _('song_original_lyrics')
     LYRIC_FIELD_NAME_PREFIX = 'original_lyrics_line_'
-    LYRIC_LINE_NO_TMPL = _('line no %d')
+    LYRIC_FIELD_LABEL_LINE_NO_TMPL = _('line no %d')
     LYRIC_MAX_LENGTH = 100
 
     list_display = ('original_title', 'performer', 'progress', 'created_at')
@@ -81,8 +81,8 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
 
         # change song
         for i, lyric in enumerate(obj.original_lyrics.split(os.linesep), start=1):
-            label = self.LYRIC_FIELD_LABEL_PREFIX + (self.LYRIC_LINE_NO_TMPL % i)
-            name = self.LYRIC_FIELD_NAME_PREFIX + (self.LYRIC_LINE_NO_TMPL % i)
+            label = self.LYRIC_FIELD_LABEL_PREFIX + (self.LYRIC_FIELD_LABEL_LINE_NO_TMPL % i)
+            name = self.LYRIC_FIELD_NAME_PREFIX + (self.LYRIC_FIELD_LABEL_LINE_NO_TMPL % i)
             lyric = lyric.strip()
 
             # append to fields if not added
