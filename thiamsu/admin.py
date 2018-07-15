@@ -53,8 +53,8 @@ class AdminVideoTextInputMixin(AdminVideoMixin):
 
 class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
     LYRIC_FIELD_LABEL_PREFIX = _('song_original_lyrics')
-    LYRIC_FIELD_NAME_PREFIX = 'original_lyrics_line_'
     LYRIC_FIELD_LABEL_LINE_NO_TMPL = _('line no %d')
+    LYRIC_FIELD_NAME_PREFIX = 'original_lyrics_line_'
     LYRIC_FIELD_NAME_LINE_NO_TMPL = '%04d'
     LYRIC_MAX_LENGTH = 100
 
