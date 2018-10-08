@@ -6,6 +6,10 @@ Settings for production environment deployed on Heroku
 '''
 DEBUG = False
 
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 GA_TRACKING_ID = 'UA-114678735-2'
 
 ALLOWED_HOSTS = [
