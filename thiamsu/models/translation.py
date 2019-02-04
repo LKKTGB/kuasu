@@ -14,7 +14,7 @@ class Translation(models.Model):
         ('hanlo', _('translation_lang_hanlo')),
     )
 
-    song = models.ForeignKey(Song, verbose_name=_('song'))
+    song = models.ForeignKey(Song, verbose_name=_('song'), on_delete=models.CASCADE)
     line_no = models.PositiveSmallIntegerField(_('translation_line_no'))
     lang = models.CharField(
         _('translation_lang'),
@@ -22,7 +22,8 @@ class Translation(models.Model):
         choices=LANG_CHOICES)
     content = models.CharField(_('translation_content'), max_length=1000)
     contributor = models.ForeignKey(User, blank=True, null=True,
-                                    verbose_name=_('translation_contributor'))
+                                    verbose_name=_('translation_contributor'),
+                                    on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(_('translation_created_at'), auto_now_add=True)
 

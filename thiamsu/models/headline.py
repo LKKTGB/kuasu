@@ -7,7 +7,7 @@ from thiamsu.models.song import Song
 
 
 class Headline(models.Model):
-    song = models.ForeignKey(Song, verbose_name=_('song'))
+    song = models.ForeignKey(Song, verbose_name=_('song'), on_delete=models.CASCADE)
     start_time = models.DateTimeField(_('headline_start_time'))
     end_time = models.DateTimeField(_('headline_end_time'))
 
