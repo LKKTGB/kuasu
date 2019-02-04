@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^chart/$', views.chart, name='chart'),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
+    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^api/user/favorite_song/$', views.api_user_favorite_song, name='api_user_favorite_song'),
 ]

@@ -5,11 +5,11 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import EmptyPage, PageNotAnInteger
-from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from thiamsu.forms import SongReadonlyForm, TranslationFormSet, UserFavoriteSongForm
 from thiamsu.models.headline import Headline
@@ -261,7 +261,7 @@ def song_translation_post(request, id):
                 line_no=form.cleaned_data['line_no'],
                 lang=form.cleaned_data['lang'],
                 content=form.cleaned_data['content'],
-                contributor=request.user if request.user.is_authenticated() else None
+                contributor=request.user if request.user.is_authenticated else None
             )
             new_translation.save()
 
