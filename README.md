@@ -63,3 +63,10 @@ heroku logs --tail
 heroku run python manage.py migrate
 heroku run python manage.py createsuperuser
 ```
+
+## Contributors
+* @badboy99tw
+* @wancw
+* Kate
+* Sharon
+* Vic
