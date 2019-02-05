@@ -7,13 +7,11 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('user', '0003_group_advance_user'),
-    ]
+    dependencies = [("user", "0003_group_advance_user")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='profile',
-            options={'verbose_name': 'profile', 'verbose_name_plural': 'profiles'},
-        ),
+            name="profile",
+            options={"verbose_name": "profile", "verbose_name_plural": "profiles"},
+        )
     ]

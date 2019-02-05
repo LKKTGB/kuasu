@@ -5,20 +5,29 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('thiamsu', '0018_new_word_url_max_length'),
-    ]
+    dependencies = [("thiamsu", "0018_new_word_url_max_length")]
 
     operations = [
         migrations.CreateModel(
-            name='PrivacyPolicy',
+            name="PrivacyPolicy",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=100, verbose_name='privacy_policy_title')),
-                ('body', models.TextField(verbose_name='privacy_policy_content')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        max_length=100, verbose_name="privacy_policy_title"
+                    ),
+                ),
+                ("body", models.TextField(verbose_name="privacy_policy_content")),
             ],
-            options={
-                'verbose_name': 'privacy_policy_verbose_name',
-            },
-        ),
+            options={"verbose_name": "privacy_policy_verbose_name"},
+        )
     ]

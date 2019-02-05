@@ -7,19 +7,17 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('thiamsu', '0012_auto_20171126_1353'),
-    ]
+    dependencies = [("thiamsu", "0012_auto_20171126_1353")]
 
     operations = [
         migrations.AddField(
-            model_name='song',
-            name='performer_alias',
+            model_name="song",
+            name="performer_alias",
             field=models.CharField(blank=True, max_length=100),
         ),
         migrations.AddField(
-            model_name='song',
-            name='title_alias',
+            model_name="song",
+            name="title_alias",
             field=models.CharField(blank=True, max_length=100),
         ),
     ]

@@ -7,14 +7,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('thiamsu', '0014_song_created_at'),
-    ]
+    dependencies = [("thiamsu", "0014_song_created_at")]
 
     operations = [
         migrations.AddField(
-            model_name='song',
-            name='progress',
-            field=models.PositiveSmallIntegerField(default=0, verbose_name='song_progress'),
-        ),
+            model_name="song",
+            name="progress",
+            field=models.PositiveSmallIntegerField(
+                default=0, verbose_name="song_progress"
+            ),
+        )
     ]

@@ -7,15 +7,15 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('thiamsu', '0007_auto_20171112_2017'),
-    ]
+    dependencies = [("thiamsu", "0007_auto_20171112_2017")]
 
     operations = [
         migrations.AddField(
-            model_name='song',
-            name='hanlo_performer',
-            field=models.CharField(default='hanlo_performer', help_text='演唱人（台文）', max_length=100),
+            model_name="song",
+            name="hanlo_performer",
+            field=models.CharField(
+                default="hanlo_performer", help_text="演唱人（台文）", max_length=100
+            ),
             preserve_default=False,
-        ),
+        )
     ]

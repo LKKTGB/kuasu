@@ -1,11 +1,11 @@
-from collections import OrderedDict
 import os
+from collections import OrderedDict
 
 from django import forms
 from django.contrib import admin
 from django.contrib.admin.widgets import AdminTextInputWidget
 from django.utils.translation import ugettext_lazy as _
-from embed_video.admin import AdminVideoWidget, AdminVideoMixin
+from embed_video.admin import AdminVideoMixin, AdminVideoWidget
 from embed_video.fields import EmbedVideoField
 from social_django.models import Association, Nonce, UserSocialAuth
 from solo.admin import SingletonModelAdmin
@@ -20,25 +20,23 @@ from thiamsu.models.translation import Translation
 
 
 class HanziHanloMappingAdmin(admin.ModelAdmin):
-    list_display = ('hanzi', 'hanlo')
-    search_fields = ('hanzi',)
+    list_display = ("hanzi", "hanlo")
+    search_fields = ("hanzi",)
 
 
 class HeadlineAdmin(admin.ModelAdmin):
-    list_display = ('song', 'start_time', 'end_time')
+    list_display = ("song", "start_time", "end_time")
 
-    raw_id_fields = ('song',)
-    autocomplete_lookup_fields = {
-        'fk': ['song'],
-    }
+    raw_id_fields = ("song",)
+    autocomplete_lookup_fields = {"fk": ["song"]}
 
 
 class NewWordInline(admin.StackedInline):
     model = NewWord
 
     extra = 0
-    classes = ('grp-collapse grp-open',)
-    inline_classes = ('grp-collapse grp-open',)
+    classes = ("grp-collapse grp-open",)
+    inline_classes = ("grp-collapse grp-open",)
 
 
 class AdminVideoTextInputWidget(AdminTextInputWidget, AdminVideoWidget):
@@ -54,33 +52,32 @@ class AdminVideoTextInputMixin(AdminVideoMixin):
 
 
 class PrivacyPolicyAdmin(SingletonModelAdmin):
-
     class Media:
-        js = [
-            'thiamsu/js/tinymce/tinymce.min.js',
-            'thiamsu/js/tinymce_settings.js',
-        ]
+        js = ["thiamsu/js/tinymce/tinymce.min.js", "thiamsu/js/tinymce_settings.js"]
 
 
 class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
-    LYRIC_FIELD_LABEL_PREFIX = _('song_original_lyrics')
-    LYRIC_FIELD_LABEL_LINE_NO_TMPL = _('line no %d')
-    LYRIC_FIELD_NAME_PREFIX = 'original_lyrics_line_'
-    LYRIC_FIELD_NAME_LINE_NO_TMPL = '%04d'
+    LYRIC_FIELD_LABEL_PREFIX = _("song_original_lyrics")
+    LYRIC_FIELD_LABEL_LINE_NO_TMPL = _("line no %d")
+    LYRIC_FIELD_NAME_PREFIX = "original_lyrics_line_"
+    LYRIC_FIELD_NAME_LINE_NO_TMPL = "%04d"
     LYRIC_MAX_LENGTH = 100
 
-    list_display = ('original_title', 'performer', 'progress', 'created_at')
-    search_fields = ('original_title', 'performer')
+    list_display = ("original_title", "performer", "progress", "created_at")
+    search_fields = ("original_title", "performer")
     form = SongAdminForm
-    inlines = [
-        NewWordInline,
-    ]
+    inlines = [NewWordInline]
 
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
-            self.exclude = ('progress', 'title_alias', 'performer_alias')
+            self.exclude = ("progress", "title_alias", "performer_alias")
         else:
-            self.exclude = ('progress', 'title_alias', 'performer_alias', 'original_lyrics')
+            self.exclude = (
+                "progress",
+                "title_alias",
+                "performer_alias",
+                "original_lyrics",
+            )
 
         # reset declared_fields
         self.form.declared_fields = OrderedDict()
@@ -93,8 +90,12 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
 
         # change song
         for i, lyric in enumerate(obj.original_lyrics.split(os.linesep), start=1):
-            label = self.LYRIC_FIELD_LABEL_PREFIX + (self.LYRIC_FIELD_LABEL_LINE_NO_TMPL % i)
-            name = self.LYRIC_FIELD_NAME_PREFIX + (self.LYRIC_FIELD_NAME_LINE_NO_TMPL % i)
+            label = self.LYRIC_FIELD_LABEL_PREFIX + (
+                self.LYRIC_FIELD_LABEL_LINE_NO_TMPL % i
+            )
+            name = self.LYRIC_FIELD_NAME_PREFIX + (
+                self.LYRIC_FIELD_NAME_LINE_NO_TMPL % i
+            )
             lyric = lyric.strip()
 
             # append to fields if not added
@@ -104,9 +105,12 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
             # add to form declared fields if not added
             if name not in self.form.declared_fields:
                 self.form.declared_fields[name] = forms.CharField(
-                    label=label, max_length=self.LYRIC_MAX_LENGTH, initial=lyric,
+                    label=label,
+                    max_length=self.LYRIC_MAX_LENGTH,
+                    initial=lyric,
                     required=bool(lyric),
-                    widget=AdminVideoTextInputWidget)
+                    widget=AdminVideoTextInputWidget,
+                )
 
             # update field value if added
             else:
@@ -114,7 +118,7 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
 
             # disable blank line
             if not self.form.declared_fields[name].initial:
-                self.form.declared_fields[name].initial = ''
+                self.form.declared_fields[name].initial = ""
                 self.form.declared_fields[name].disabled = True
 
         return fields
@@ -127,8 +131,14 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
             return False
 
         if lyrics_changed(form):
-            lyric_fields = [f for f in form.cleaned_data if f.startswith(self.LYRIC_FIELD_NAME_PREFIX)]
-            lyrics = os.linesep.join([form.cleaned_data[f] for f in sorted(lyric_fields)])
+            lyric_fields = [
+                f
+                for f in form.cleaned_data
+                if f.startswith(self.LYRIC_FIELD_NAME_PREFIX)
+            ]
+            lyrics = os.linesep.join(
+                [form.cleaned_data[f] for f in sorted(lyric_fields)]
+            )
             obj.original_lyrics = lyrics
         obj.save()
 
@@ -138,13 +148,20 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
 
 
 class TranslationAdmin(admin.ModelAdmin):
-    list_display = ('song', 'line_no', 'content', 'original_lyric', 'lang', 'created_at')
+    list_display = (
+        "song",
+        "line_no",
+        "content",
+        "original_lyric",
+        "lang",
+        "created_at",
+    )
 
-    search_fields = ('song__original_title', )
+    search_fields = ("song__original_title",)
 
     change_list_template = "admin/change_list_filter_sidebar.html"
     change_list_filter_template = "admin/filter_listing.html"
-    list_filter = ('lang',)
+    list_filter = ("lang",)
 
 
 admin.site.unregister(Association)

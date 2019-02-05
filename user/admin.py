@@ -1,35 +1,34 @@
+from user.models.profile import Profile
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import Group
-from django.contrib.auth.models import User
+from django.contrib.auth.models import Group, User
 from django.utils.translation import ugettext_lazy as _
-
-from user.models.profile import Profile
 
 
 class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
-    fk_name = 'user'
+    fk_name = "user"
 
-    fields = ('avatar', )
-    readonly_fields = ('avatar',)
+    fields = ("avatar",)
+    readonly_fields = ("avatar",)
 
-    classes = ('grp-collapse grp-open',)
-    inline_classes = ('grp-collapse grp-open',)
+    classes = ("grp-collapse grp-open",)
+    inline_classes = ("grp-collapse grp-open",)
 
 
 class CustomUserAdmin(UserAdmin):
-    list_display = ('username', 'first_name', 'last_name', 'is_staff', 'is_superuser')
+    list_display = ("username", "first_name", "last_name", "is_staff", "is_superuser")
 
     fieldsets = (
-        (None, {'fields': ('username', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name')}),
-        (_('Permissions'), {'fields': ('is_staff', 'is_superuser')}),
+        (None, {"fields": ("username", "password")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name")}),
+        (_("Permissions"), {"fields": ("is_staff", "is_superuser")}),
     )
-    readonly_fields = ('username', 'first_name', 'last_name')
+    readonly_fields = ("username", "first_name", "last_name")
 
-    inlines = (ProfileInline, )
+    inlines = (ProfileInline,)
 
     def get_inline_instances(self, request, obj=None):
         if not obj:

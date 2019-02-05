@@ -7,15 +7,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('thiamsu', '0007_auto_20171112_2017'),
-        ('user', '0001_initial'),
-    ]
+    dependencies = [("thiamsu", "0007_auto_20171112_2017"), ("user", "0001_initial")]
 
     operations = [
         migrations.AddField(
-            model_name='profile',
-            name='favorite_songs',
-            field=models.ManyToManyField(related_name='_profile_favorite_songs_+', to='thiamsu.Song'),
-        ),
+            model_name="profile",
+            name="favorite_songs",
+            field=models.ManyToManyField(
+                related_name="_profile_favorite_songs_+", to="thiamsu.Song"
+            ),
+        )
     ]

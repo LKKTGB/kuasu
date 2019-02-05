@@ -9,20 +9,30 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Song',
+            name="Song",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('original_title', models.CharField(help_text='原文歌名', max_length=100)),
-                ('hanzi_title', models.CharField(help_text='全漢歌名', max_length=100)),
-                ('tailo_title', models.CharField(help_text='全羅歌名', max_length=100)),
-                ('hanlo_title', models.CharField(help_text='漢羅歌名', max_length=100)),
-                ('singer', models.CharField(help_text='演唱人', max_length=100)),
-                ('youtube_url', models.CharField(help_text='Youtube 網址', max_length=100)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("original_title", models.CharField(help_text="原文歌名", max_length=100)),
+                ("hanzi_title", models.CharField(help_text="全漢歌名", max_length=100)),
+                ("tailo_title", models.CharField(help_text="全羅歌名", max_length=100)),
+                ("hanlo_title", models.CharField(help_text="漢羅歌名", max_length=100)),
+                ("singer", models.CharField(help_text="演唱人", max_length=100)),
+                (
+                    "youtube_url",
+                    models.CharField(help_text="Youtube 網址", max_length=100),
+                ),
             ],
-        ),
+        )
     ]

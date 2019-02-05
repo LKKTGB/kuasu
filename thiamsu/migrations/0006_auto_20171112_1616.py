@@ -7,19 +7,21 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('thiamsu', '0005_auto_20171111_1852'),
-    ]
+    dependencies = [("thiamsu", "0005_auto_20171111_1852")]
 
     operations = [
         migrations.AlterField(
-            model_name='approvedtranslation',
-            name='lang',
-            field=models.CharField(choices=[('tailo', '全羅'), ('hanzi', '全漢')], max_length=5),
+            model_name="approvedtranslation",
+            name="lang",
+            field=models.CharField(
+                choices=[("tailo", "全羅"), ("hanzi", "全漢")], max_length=5
+            ),
         ),
         migrations.AlterField(
-            model_name='translation',
-            name='lang',
-            field=models.CharField(choices=[('tailo', '全羅'), ('hanzi', '全漢')], max_length=5),
+            model_name="translation",
+            name="lang",
+            field=models.CharField(
+                choices=[("tailo", "全羅"), ("hanzi", "全漢")], max_length=5
+            ),
         ),
     ]
