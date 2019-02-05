@@ -1,4 +1,3 @@
-from collections import OrderedDict, defaultdict
 from datetime import datetime
 
 from django.conf import settings
@@ -6,7 +5,6 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import EmptyPage, PageNotAnInteger
 from django.db import models
-from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -17,7 +15,6 @@ from thiamsu.models.privacy_policy import PrivacyPolicy
 from thiamsu.models.song import Song
 from thiamsu.models.translation import Translation
 from thiamsu.paginator import Paginator
-from thiamsu.utils import translate_hanzi_to_hanlo
 
 
 def _sorted_songs(request, songs):

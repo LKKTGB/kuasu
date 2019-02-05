@@ -7,4 +7,5 @@ class ThiamsuConfig(AppConfig):
     verbose_name = _("app_thiamsu")
 
     def ready(self):
+        # pylint: disable=unused-import
         from thiamsu import signals

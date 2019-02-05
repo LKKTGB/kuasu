@@ -1,6 +1,5 @@
 from django.core.paginator import Page as DjangoPage
 from django.core.paginator import Paginator as DjangoPaginator
-from django.utils.functional import cached_property
 
 
 class Paginator(DjangoPaginator):
