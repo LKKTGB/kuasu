@@ -18,14 +18,14 @@
             </div>
 
             <div class="lyric-translation">
-                <input id="view-tailo-translation" class="translation-toggler" type="radio"
-                       name="translation-language" value="tailo" checked>
                 <input id="view-hanzi-translation" class="translation-toggler" type="radio"
                        name="translation-language" value="hanzi">
+                <input id="view-tailo-translation" class="translation-toggler" type="radio"
+                       name="translation-language" value="tailo" checked>
 
                 <div class="translation-visiblities">
-                    <label class="show-tailo" for="view-tailo-translation">全羅</label>
                     <label class="show-hanzi" for="view-hanzi-translation">全漢</label>
+                    <label class="show-tailo" for="view-tailo-translation">全羅</label>
                 </div>
 
                 <div class="example">
@@ -34,13 +34,13 @@
                 </div>
 
                 <div class="lyric-lines">
-                    <form id="tailo-translation-form" action='/song/{{ song.id }}/translation/' method='post'>
-                        {% csrf_token %}
-                        {{ forms.tailo }}
-                    </form>
                     <form id="hanzi-translation-form" action='/song/{{ song.id }}/translation/' method='post'>
                         {% csrf_token %}
                         {{ forms.hanzi }}
+                    </form>
+                    <form id="tailo-translation-form" action='/song/{{ song.id }}/translation/' method='post'>
+                        {% csrf_token %}
+                        {{ forms.tailo }}
                     </form>
                 </div>
             </div>
