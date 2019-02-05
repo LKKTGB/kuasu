@@ -13,6 +13,7 @@ from django.urls import reverse
 
 from thiamsu.forms import SongReadonlyForm, TranslationFormSet, UserFavoriteSongForm
 from thiamsu.models.headline import Headline
+from thiamsu.models.privacy_policy import PrivacyPolicy
 from thiamsu.models.song import Song
 from thiamsu.models.translation import Translation
 from thiamsu.paginator import Paginator
@@ -342,4 +343,11 @@ def user_profile(request, id):
         'songs': songs,
         'rank_or_contributions_by_songs': get_contribution_rank(int(id), 'songs'),
         'rank_or_contributions_by_lines': get_contribution_rank(int(id), 'lines')
+    })
+
+
+def privacy_policy(request):
+    policy = PrivacyPolicy.get_solo()
+    return render(request, 'thiamsu/privacy_policy.html', {
+        'privacy_policy': policy
     })
