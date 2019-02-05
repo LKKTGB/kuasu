@@ -1,0 +1,9 @@
+[MASTER]
+ignore=thiamsu/settings, thiamsu/migrations, user/migrations
+load-plugins=pylint_django
+
+[FORMAT]
+max-line-length=120
+
+[MESSAGES CONTROL]
+disable=bad-continuation, empty-docstring, missing-docstring
