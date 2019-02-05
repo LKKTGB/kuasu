@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'embed_video',
     'social_django',
+    'solo',
     # local
     'thiamsu.apps.ThiamsuConfig',
     'user.apps.UserConfig',

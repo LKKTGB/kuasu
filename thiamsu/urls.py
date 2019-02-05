@@ -22,6 +22,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
+    url(r'^policies/privacy', views.privacy_policy, name='policy_privacy'),
     url(r'^search/$', views.search, name='search'),
     url(r'^song/(?P<id>[0-9]*)/$', views.song_detail, name='song_detail'),
     url(r'^song/(?P<id>[0-9]*)/edit/$', views.song_edit, name='song_edit'),

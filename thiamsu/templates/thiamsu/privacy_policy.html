@@ -1,0 +1,13 @@
+{% extends 'thiamsu/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="row policy">
+    <h1 class="policy-title">
+        {{ privacy_policy.title }}
+    </h1>
+    <div class="policy-body">
+        {{ privacy_policy.body|safe }}
+    </div>
+</div>
+{% endblock %}
