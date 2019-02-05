@@ -8,11 +8,13 @@ from django.utils.translation import ugettext_lazy as _
 from embed_video.admin import AdminVideoWidget, AdminVideoMixin
 from embed_video.fields import EmbedVideoField
 from social_django.models import Association, Nonce, UserSocialAuth
+from solo.admin import SingletonModelAdmin
 
 from thiamsu.forms import SongAdminForm
 from thiamsu.models.hanzi_hanlo_mapping import HanziHanloMapping
 from thiamsu.models.headline import Headline
 from thiamsu.models.new_word import NewWord
+from thiamsu.models.privacy_policy import PrivacyPolicy
 from thiamsu.models.song import Song
 from thiamsu.models.translation import Translation
 
@@ -49,6 +51,15 @@ class AdminVideoTextInputMixin(AdminVideoMixin):
             return db_field.formfield(widget=AdminVideoTextInputWidget)
 
         return super(AdminVideoMixin, self).formfield_for_dbfield(db_field, **kwargs)
+
+
+class PrivacyPolicyAdmin(SingletonModelAdmin):
+
+    class Media:
+        js = [
+            'thiamsu/js/tinymce/tinymce.min.js',
+            'thiamsu/js/tinymce_settings.js',
+        ]
 
 
 class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
@@ -141,5 +152,6 @@ admin.site.unregister(Nonce)
 admin.site.unregister(UserSocialAuth)
 admin.site.register(HanziHanloMapping, HanziHanloMappingAdmin)
 admin.site.register(Headline, HeadlineAdmin)
+admin.site.register(PrivacyPolicy, PrivacyPolicyAdmin)
 admin.site.register(Song, SongAdmin)
 admin.site.register(Translation, TranslationAdmin)

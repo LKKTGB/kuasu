@@ -139,6 +139,16 @@ msgstr "參考網址"
 msgid "new_word_created_at"
 msgstr "加入時間"
 
+#, thiamsu model PrivacyPolicy
+msgid "privacy_policy_title"
+msgstr "標題"
+
+msgid "privacy_policy_content"
+msgstr "內容"
+
+msgid "privacy_policy_verbose_name"
+msgstr "隱私權政策"
+
 #, thiamsu model Headline
 msgid "headline"
 msgstr "最新消息"
