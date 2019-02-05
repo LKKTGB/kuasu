@@ -8,11 +8,13 @@ from thiamsu.models.translation import Translation
 
 @receiver(post_save, sender=HanziHanloMapping)
 def update_hanzi_hanlo_mapping_cache(sender, update_fields, instance, **kwargs):
+    # pylint: disable=unused-argument
     HanziHanloMapping.dump(force=True)
 
 
 @receiver(post_save, sender=Translation)
 def update_song_progress(sender, update_fields, instance, **kwargs):
+    # pylint: disable=unused-argument
     translation = instance
 
     translated_lines = (
@@ -33,6 +35,7 @@ def update_song_progress(sender, update_fields, instance, **kwargs):
 
 @receiver(post_save, sender=Translation)
 def update_user_contribution(sender, update_fields, instance, **kwargs):
+    # pylint: disable=unused-argument
     translation = instance
     user = translation.contributor
     if user is None:
