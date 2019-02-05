@@ -7,28 +7,14 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('thiamsu', '0010_auto_20171124_1825'),
-    ]
+    dependencies = [("thiamsu", "0010_auto_20171124_1825")]
 
     operations = [
         migrations.AlterUniqueTogether(
-            name='approvedtranslation',
-            unique_together=set([]),
+            name="approvedtranslation", unique_together=set([])
         ),
-        migrations.RemoveField(
-            model_name='approvedtranslation',
-            name='reviewer',
-        ),
-        migrations.RemoveField(
-            model_name='approvedtranslation',
-            name='song',
-        ),
-        migrations.RemoveField(
-            model_name='approvedtranslation',
-            name='translation',
-        ),
-        migrations.DeleteModel(
-            name='ApprovedTranslation',
-        ),
+        migrations.RemoveField(model_name="approvedtranslation", name="reviewer"),
+        migrations.RemoveField(model_name="approvedtranslation", name="song"),
+        migrations.RemoveField(model_name="approvedtranslation", name="translation"),
+        migrations.DeleteModel(name="ApprovedTranslation"),
     ]

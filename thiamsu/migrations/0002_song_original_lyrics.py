@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('thiamsu', '0001_initial'),
-    ]
+    dependencies = [("thiamsu", "0001_initial")]
 
     operations = [
         migrations.AddField(
-            model_name='song',
-            name='original_lyrics',
-            field=models.TextField(default='', help_text='原文歌詞'),
-        ),
+            model_name="song",
+            name="original_lyrics",
+            field=models.TextField(default="", help_text="原文歌詞"),
+        )
     ]

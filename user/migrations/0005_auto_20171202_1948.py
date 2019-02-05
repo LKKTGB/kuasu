@@ -7,24 +7,22 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('user', '0004_auto_20171126_1350'),
-    ]
+    dependencies = [("user", "0004_auto_20171126_1350")]
 
     operations = [
         migrations.AddField(
-            model_name='profile',
-            name='contribution_of_lines',
+            model_name="profile",
+            name="contribution_of_lines",
             field=models.PositiveSmallIntegerField(default=0),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='contribution_of_songs',
+            model_name="profile",
+            name="contribution_of_songs",
             field=models.PositiveSmallIntegerField(default=0),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='last_contribution_time',
+            model_name="profile",
+            name="last_contribution_time",
             field=models.DateTimeField(blank=True, null=True),
         ),
     ]

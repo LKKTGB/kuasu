@@ -7,16 +7,15 @@ from thiamsu.utils import get_youtube_id_from_url
 
 
 class SongAdminForm(forms.ModelForm):
-
     def clean_youtube_url(self):
-        youtube_id = get_youtube_id_from_url(self.cleaned_data['youtube_url'])
+        youtube_id = get_youtube_id_from_url(self.cleaned_data["youtube_url"])
         if not youtube_id:
             raise forms.ValidationError(
-                'Invalid URL: %(url)s',
-                code='invalid youtube url',
-                params={'url': self.cleaned_data['youtube_url']},
+                "Invalid URL: %(url)s",
+                code="invalid youtube url",
+                params={"url": self.cleaned_data["youtube_url"]},
             )
-        return self.cleaned_data['youtube_url']
+        return self.cleaned_data["youtube_url"]
 
 
 class TranslationForm(forms.Form):
@@ -26,8 +25,8 @@ class TranslationForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['line_no'].widget.attrs['readonly'] = True
-        self.fields['lang'].widget.attrs['readonly'] = True
+        self.fields["line_no"].widget.attrs["readonly"] = True
+        self.fields["lang"].widget.attrs["readonly"] = True
 
 
 class BaseTranslationFormSet(BaseFormSet):
@@ -38,10 +37,12 @@ class BaseTranslationFormSet(BaseFormSet):
         if not original_lyrics or len(original_lyrics) != len(self.forms):
             return
         for i, form in enumerate(self.forms):
-            form.fields['content'].label = original_lyrics[i]
+            form.fields["content"].label = original_lyrics[i]
 
 
-TranslationFormSet = formset_factory(TranslationForm, formset=BaseTranslationFormSet, extra=0)
+TranslationFormSet = formset_factory(
+    TranslationForm, formset=BaseTranslationFormSet, extra=0
+)
 
 
 class SongReadonlyForm(forms.Form):
@@ -49,10 +50,10 @@ class SongReadonlyForm(forms.Form):
 
 
 class UserFavoriteSongForm(forms.Form):
-    method = forms.ChoiceField(choices=[(m, m) for m in ('POST', 'DELETE')])
+    method = forms.ChoiceField(choices=[(m, m) for m in ("POST", "DELETE")])
     song_id = forms.IntegerField()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['method'].widget = HiddenInput()
-        self.fields['song_id'].widget = HiddenInput()
+        self.fields["method"].widget = HiddenInput()
+        self.fields["song_id"].widget = HiddenInput()

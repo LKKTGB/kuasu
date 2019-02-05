@@ -7,37 +7,35 @@ from django.db import migrations
 
 
 def apply_migration(apps, schema_editor):
-    permissions = Permission.objects.filter(codename__in=[
-        'add_headline',
-        'change_headline',
-        'delete_headline',
-        'add_newword',
-        'change_newword',
-        'delete_newword',
-        'add_song',
-        'change_song',
-        'delete_song',
-    ])
+    permissions = Permission.objects.filter(
+        codename__in=[
+            "add_headline",
+            "change_headline",
+            "delete_headline",
+            "add_newword",
+            "change_newword",
+            "delete_newword",
+            "add_song",
+            "change_song",
+            "delete_song",
+        ]
+    )
 
-    Group = apps.get_model('auth', 'Group')
-    advance_group, created = Group.objects.get_or_create(name='advance_user')
+    Group = apps.get_model("auth", "Group")
+    advance_group, created = Group.objects.get_or_create(name="advance_user")
     advance_group.permissions.add(*[p.id for p in permissions])
 
 
 def revert_migration(apps, schema_editor):
-    Group = apps.get_model('auth', 'Group')
-    Group.objects.filter(
-        name__in=['advance_user']
-    ).delete()
+    Group = apps.get_model("auth", "Group")
+    Group.objects.filter(name__in=["advance_user"]).delete()
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('thiamsu', '0009_headline'),
-        ('user', '0002_profile_favorite_songs'),
+        ("thiamsu", "0009_headline"),
+        ("user", "0002_profile_favorite_songs"),
     ]
 
-    operations = [
-        migrations.RunPython(apply_migration, revert_migration)
-    ]
+    operations = [migrations.RunPython(apply_migration, revert_migration)]

@@ -7,21 +7,39 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('thiamsu', '0015_song_progress'),
-    ]
+    dependencies = [("thiamsu", "0015_song_progress")]
 
     operations = [
         migrations.CreateModel(
-            name='HanziHanloMapping',
+            name="HanziHanloMapping",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('hanzi', models.CharField(max_length=100, unique=True, verbose_name='hanzi_hanlo_mapping_hanzi')),
-                ('hanlo', models.CharField(max_length=100, verbose_name='hanzi_hanlo_mapping_hanlo')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "hanzi",
+                    models.CharField(
+                        max_length=100,
+                        unique=True,
+                        verbose_name="hanzi_hanlo_mapping_hanzi",
+                    ),
+                ),
+                (
+                    "hanlo",
+                    models.CharField(
+                        max_length=100, verbose_name="hanzi_hanlo_mapping_hanlo"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'hanzi_hanlo_mapping',
-                'verbose_name_plural': 'hanzi_hanlo_mappings',
+                "verbose_name": "hanzi_hanlo_mapping",
+                "verbose_name_plural": "hanzi_hanlo_mappings",
             },
-        ),
+        )
     ]

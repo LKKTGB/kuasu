@@ -7,14 +7,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('thiamsu', '0017_translation_lang_hanlo'),
-    ]
+    dependencies = [("thiamsu", "0017_translation_lang_hanlo")]
 
     operations = [
         migrations.AlterField(
-            model_name='newword',
-            name='reference_url',
-            field=models.CharField(max_length=1000, verbose_name='new_word_reference_url'),
-        ),
+            model_name="newword",
+            name="reference_url",
+            field=models.CharField(
+                max_length=1000, verbose_name="new_word_reference_url"
+            ),
+        )
     ]

@@ -7,14 +7,20 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('thiamsu', '0016_hanzihanlomapping'),
-    ]
+    dependencies = [("thiamsu", "0016_hanzihanlomapping")]
 
     operations = [
         migrations.AlterField(
-            model_name='translation',
-            name='lang',
-            field=models.CharField(choices=[('tailo', 'translation_lang_tailo'), ('hanzi', 'translation_lang_hanzi'), ('hanlo', 'translation_lang_hanlo')], max_length=5, verbose_name='translation_lang'),
-        ),
+            model_name="translation",
+            name="lang",
+            field=models.CharField(
+                choices=[
+                    ("tailo", "translation_lang_tailo"),
+                    ("hanzi", "translation_lang_hanzi"),
+                    ("hanlo", "translation_lang_hanlo"),
+                ],
+                max_length=5,
+                verbose_name="translation_lang",
+            ),
+        )
     ]
