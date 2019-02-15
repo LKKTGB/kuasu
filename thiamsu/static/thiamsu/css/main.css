@@ -1506,3 +1506,13 @@
     background-color: #333333;
     color: #fff;
 }
+
+.footer .footer-title {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.footer .footer-info {
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
