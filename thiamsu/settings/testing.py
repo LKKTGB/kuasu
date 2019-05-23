@@ -6,7 +6,7 @@ from thiamsu.settings.base import *
 Settings for testing environment deployed on Heroku
 """
 
-ALLOWED_HOSTS = ["thiamsu-testing.herokuapp.com"]
+ALLOWED_HOSTS = ["thiamsu-testing.herokuapp.com", "kuasu-testing.azurewebsites.net"]
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES["default"].update(db_from_env)

@@ -13,7 +13,7 @@ CSRF_COOKIE_SECURE = True
 
 GA_TRACKING_ID = "UA-114678735-2"
 
-ALLOWED_HOSTS = ["kuasu.tgb.org.tw"]
+ALLOWED_HOSTS = ["kuasu.tgb.org.tw", "kuasu-production.azurewebsites.net"]
 
 # WhiteNoise
 MIDDLEWARE.extend(["whitenoise.middleware.WhiteNoiseMiddleware"])
