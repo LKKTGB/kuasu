@@ -6,6 +6,11 @@ from thiamsu.settings.base import *
 Settings for testing environment deployed on Azure App Service
 """
 
+# security
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+
 ALLOWED_HOSTS = ["thiamsu-testing.herokuapp.com", "kuasu-testing.azurewebsites.net"]
 
 # WhiteNoise
