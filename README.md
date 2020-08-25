@@ -1,17 +1,20 @@
 # 歌詞正字
 
-## Install
+台語歌詞共同編修平台，為非營利及非商業性使用，僅供學習及促進台語用字一致化之教育功能。
 
-* Python 3.7
+## Getting Started
+
+### Requirements
+
+* Python 3.7.x
+
+### Install Dependencies
 
 ```
-pip install -r requirements.txt
-python manage.py migrate
+pip install -r requirements-dev.txt
 ```
 
-## Develop
-
-### Setup Env
+### Setup Local Environment Variables (Optional)
 
 Add .env file to project root with following variables
 ```
@@ -19,52 +22,30 @@ SOCIAL_AUTH_FACEBOOK_KEY=<App ID from Facebook app thiamsu-development>
 SOCIAL_AUTH_FACEBOOK_SECRET=<App Secret from Facebook app thiamsu-development>
 ```
 
-### Run server
+### Setup Database
+
+Migrate
+
 ```
-python manage.py runserver
+python manage.py migrate
 ```
 
-Then you can login at
-```
-http://localhost:8000/login
-```
+Load sample data
 
-### Import sample data to local db
 ```
 python samples/generate_sample_data.py [num_of_users] [num_of_songs]
 python manage.py loaddata samples/sample_data.json
 ```
 
-## Deploy
+Create super user for dev
 
-* setup
-```shell
-brew install heroku
 ```
-
-### Testing (Heroku)
-```
-heroku login
-heroku git:remote -a thiamsu-testing
-git push heroku-testing <local_branch>:master
+python manage.py createsuperuser
 ```
 
-### Staging (Heroku)
+### Run server
 ```
-heroku login
-heroku git:remote -a thiamsu-staging
-git push heroku-staging <local_branch>:master
-heroku run python manage.py compilemessages
-```
-
-### Heroku Notes
-* other useful commands
-```
-heroku ps
-heroku ps:scale web=1
-heroku logs --tail
-heroku run python manage.py migrate
-heroku run python manage.py createsuperuser
+python manage.py runserver
 ```
 
 ## Contributors
