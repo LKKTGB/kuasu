@@ -1,3 +1,5 @@
+import os
+
 import dj_database_url
 
 from thiamsu.settings.base import *
@@ -5,6 +7,8 @@ from thiamsu.settings.base import *
 """
 Settings for production environment deployed on Heroku
 """
+SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+
 DEBUG = False
 
 # security
