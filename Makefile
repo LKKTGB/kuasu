@@ -1,4 +1,4 @@
-env ?= testing
+env ?= stage
 
 azure/deploy:
 	git archive -o kuasu.zip HEAD && \
