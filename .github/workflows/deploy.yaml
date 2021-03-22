@@ -1,0 +1,19 @@
+name: Deploy Python package to Azure Web App
+on: push
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy
+        run: make azure/deploy env=prod
+
+      - name: Logout
+        run: az logout
