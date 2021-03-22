@@ -1,5 +1,13 @@
 name: Deploy Python package to Azure Web App
-on: push
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build-and-deploy:
@@ -12,8 +20,13 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy
+      - name: Deploy to prod for Tags
+        if: contains(github.ref, 'refs/tags/')
         run: make azure/deploy env=prod
+
+      - name: Deploy to stage for Branch main or PR
+        if: github.ref == 'refs/heads/main'
+        run: make azure/deploy env=stage
 
       - name: Logout
         run: az logout
