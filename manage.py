@@ -10,7 +10,7 @@ except ImportError:
     pass
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "thiamsu.settings.development")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "thiamsu.settings.dev")
     print("Import Django settings from %s" % os.environ["DJANGO_SETTINGS_MODULE"])
     try:
         from django.core.management import execute_from_command_line
