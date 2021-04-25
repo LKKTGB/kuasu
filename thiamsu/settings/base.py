@@ -136,6 +136,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 LANGUAGE_CODE = "zh-hant"
 
