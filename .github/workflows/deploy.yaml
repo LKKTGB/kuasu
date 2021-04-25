@@ -25,7 +25,7 @@ jobs:
         run: make azure/deploy env=prod
 
       - name: Deploy to stage for Branch main or PR
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
         run: make azure/deploy env=stage
 
       - name: Logout
