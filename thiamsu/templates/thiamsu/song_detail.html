@@ -6,7 +6,7 @@
 {% block content %}
     <div class="row song-detail">
 
-        <div class="left-panel">
+        <div class="col-12 col-lg-5">
             <div class="song-actions toolbar">
                 {% if user.is_authenticated %}
                     {% if is_favorite_song %}
@@ -38,7 +38,7 @@
             {% include 'thiamsu/_player_with_info.html' %}
         </div>
 
-        <div class="right-panel">
+        <div class="col-12 col-lg-7">
             <div class="contribution toolbar">
                 <div class="contributors">
                     <p>全漢編修人： {{ contributors.hanzi }}</p>
