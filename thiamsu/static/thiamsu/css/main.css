@@ -905,9 +905,14 @@
     margin: 0;
     padding: 20px 30px 10px;
 
-    max-height: 440px;
-    overflow-y: scroll;
     overflow-x: hidden;
+}
+
+@media (min-width: 992px) {
+    .lyric {
+        max-height: 440px;
+        overflow-y: scroll;
+    }
 }
 
 /* Gradient Mask */
