@@ -57,71 +57,58 @@ class PrivacyPolicyAdmin(SingletonModelAdmin):
 
 
 class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
-    LYRIC_FIELD_LABEL_PREFIX = _("song_original_lyrics")
-    LYRIC_FIELD_LABEL_LINE_NO_TMPL = _("line no %d")
     LYRIC_FIELD_NAME_PREFIX = "original_lyrics_line_"
-    LYRIC_FIELD_NAME_LINE_NO_TMPL = "%04d"
-    LYRIC_MAX_LENGTH = 100
 
     list_display = ("original_title", "performer", "progress", "created_at")
     search_fields = ("original_title", "performer")
     form = SongAdminForm
     inlines = [NewWordInline]
 
-    def get_form(self, request, obj=None, **kwargs):
-        if obj is None:
+    def generate_separated_lyric_fields(self, obj):
+        fields = OrderedDict()
+        for i, lyric in enumerate(obj.original_lyrics.split(os.linesep), start=1):
+            label = f"{_('song_original_lyrics')}{_('line no %d') % i}"
+            name = f"{self.LYRIC_FIELD_NAME_PREFIX}{i:04d}"
+            lyric = lyric.strip()
+
+            fields[name] = forms.CharField(
+                label=label,
+                max_length=100,
+                initial=lyric,
+                required=bool(lyric),
+                widget=AdminVideoTextInputWidget,
+            )
+
+            # disable blank line
+            if not fields[name].initial:
+                fields[name].initial = ""
+                fields[name].disabled = True
+
+        return fields
+
+    def get_form(self, request, obj=None, change=False, **kwargs):
+        '''
+        Note:
+
+        get_form will be called twice in the followed order
+        1. get_fields: the argument "change" is always "False".
+        2. form rendering: the value of argument "change" depends on it's an add_view or change_view.
+
+        So, we check object existence to decide to add separated lyric fields or not.
+        '''
+        if not obj: # object does not exist, reset declared_fields
             self.exclude = ("progress", "title_alias", "performer_alias")
-        else:
+            self.form.declared_fields = OrderedDict()
+        else: # object exists, add separated lyric fields
             self.exclude = (
                 "progress",
                 "title_alias",
                 "performer_alias",
                 "original_lyrics",
             )
-
-        # reset declared_fields
-        self.form.declared_fields = OrderedDict()
+            lyrics_fields = self.generate_separated_lyric_fields(obj)
+            self.form.declared_fields.update(lyrics_fields)
         return super().get_form(request, obj, **kwargs)
-
-    def get_fields(self, request, obj=None):
-        fields = super().get_fields(request, obj)
-        if obj is None:  # add song
-            return fields
-
-        # change song
-        for i, lyric in enumerate(obj.original_lyrics.split(os.linesep), start=1):
-            label = self.LYRIC_FIELD_LABEL_PREFIX + (
-                self.LYRIC_FIELD_LABEL_LINE_NO_TMPL % i
-            )
-            name = self.LYRIC_FIELD_NAME_PREFIX + (
-                self.LYRIC_FIELD_NAME_LINE_NO_TMPL % i
-            )
-            lyric = lyric.strip()
-
-            # append to fields if not added
-            if name not in fields:
-                fields.append(name)
-
-            # add to form declared fields if not added
-            if name not in self.form.declared_fields:
-                self.form.declared_fields[name] = forms.CharField(
-                    label=label,
-                    max_length=self.LYRIC_MAX_LENGTH,
-                    initial=lyric,
-                    required=bool(lyric),
-                    widget=AdminVideoTextInputWidget,
-                )
-
-            # update field value if added
-            else:
-                self.form.declared_fields[name].initial = lyric
-
-            # disable blank line
-            if not self.form.declared_fields[name].initial:
-                self.form.declared_fields[name].initial = ""
-                self.form.declared_fields[name].disabled = True
-
-        return fields
 
     def save_changed_original_lyrics(self, request, obj, form, change):
         def lyrics_changed(form):
