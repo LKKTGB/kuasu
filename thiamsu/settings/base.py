@@ -26,8 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
-
 # Application definition
 
 INSTALLED_APPS = [
