@@ -361,3 +361,7 @@ def user_profile(request, id):
 def privacy_policy(request):
     policy = PrivacyPolicy.get_solo()
     return render(request, "thiamsu/privacy_policy.html", {"privacy_policy": policy})
+
+
+def account_deletion(request):
+    return render(request, "thiamsu/account_deletion.html")

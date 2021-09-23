@@ -22,6 +22,7 @@ from . import views
 
 urlpatterns = [
     url(r"^$", views.home, name="home"),
+    url(r"^form/account_deletion", views.account_deletion, name="account_deletion"),
     url(r"^policies/privacy", views.privacy_policy, name="policy_privacy"),
     url(r"^search/$", views.search, name="search"),
     url(r"^song/(?P<id>[0-9]*)/$", views.song_detail, name="song_detail"),
