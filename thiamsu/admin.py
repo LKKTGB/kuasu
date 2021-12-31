@@ -87,7 +87,7 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
         return fields
 
     def get_form(self, request, obj=None, change=False, **kwargs):
-        '''
+        """
         Note:
 
         get_form will be called twice in the followed order
@@ -95,11 +95,11 @@ class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
         2. form rendering: the value of argument "change" depends on it's an add_view or change_view.
 
         So, we check object existence to decide to add separated lyric fields or not.
-        '''
-        if not obj: # object does not exist, reset declared_fields
+        """
+        if not obj:  # object does not exist, reset declared_fields
             self.exclude = ("progress", "title_alias", "performer_alias")
             self.form.declared_fields = OrderedDict()
-        else: # object exists, add separated lyric fields
+        else:  # object exists, add separated lyric fields
             self.exclude = (
                 "progress",
                 "title_alias",
