@@ -4,7 +4,7 @@ from collections import OrderedDict
 from django import forms
 from django.contrib import admin
 from django.contrib.admin.widgets import AdminTextInputWidget
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from embed_video.admin import AdminVideoMixin, AdminVideoWidget
 from embed_video.fields import EmbedVideoField
 from social_django.models import Association, Nonce, UserSocialAuth
