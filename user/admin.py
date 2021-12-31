@@ -1,9 +1,9 @@
-from user.models.profile import Profile
-
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group, User
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
+
+from user.models.profile import Profile
 
 
 class ProfileInline(admin.StackedInline):
