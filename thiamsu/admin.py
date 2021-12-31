@@ -51,11 +51,6 @@ class AdminVideoTextInputMixin(AdminVideoMixin):
         return super(AdminVideoMixin, self).formfield_for_dbfield(db_field, **kwargs)
 
 
-class PrivacyPolicyAdmin(SingletonModelAdmin):
-    class Media:
-        js = ["thiamsu/js/tinymce/tinymce.min.js", "thiamsu/js/tinymce_settings.js"]
-
-
 class SongAdmin(AdminVideoTextInputMixin, admin.ModelAdmin):
     LYRIC_FIELD_NAME_PREFIX = "original_lyrics_line_"
 
@@ -156,6 +151,6 @@ admin.site.unregister(Nonce)
 admin.site.unregister(UserSocialAuth)
 admin.site.register(HanziHanloMapping, HanziHanloMappingAdmin)
 admin.site.register(Headline, HeadlineAdmin)
-admin.site.register(PrivacyPolicy, PrivacyPolicyAdmin)
+admin.site.register(PrivacyPolicy, SingletonModelAdmin)
 admin.site.register(Song, SongAdmin)
 admin.site.register(Translation, TranslationAdmin)
