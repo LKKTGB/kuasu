@@ -29,4 +29,4 @@ jobs:
         run: make azure/deploy env=stage
 
       - name: Logout
-        run: az logout
+        run: make azure/logout

@@ -6,6 +6,8 @@ azure/deploy:
 	rm kuasu.zip
 azure/login:
 	az login
+azure/logout:
+	az logout
 azure/view:
 	open https://kuasu-$(env).azurewebsites.net
 fmt:
