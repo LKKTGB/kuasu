@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.urls import include, re_path
+from django.urls import include, path, re_path
 
 from . import views
 
@@ -43,6 +43,7 @@ urlpatterns = [
         views.api_user_favorite_song,
         name="api_user_favorite_song",
     ),
+    path("tinymce/", include("tinymce.urls")),
 ]
 
 if settings.DEBUG:
