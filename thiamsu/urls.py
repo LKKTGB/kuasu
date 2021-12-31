@@ -14,31 +14,31 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.urls import include, re_path
 
 from . import views
 
 urlpatterns = [
-    url(r"^$", views.home, name="home"),
-    url(r"^form/account_deletion", views.account_deletion, name="account_deletion"),
-    url(r"^policies/privacy", views.privacy_policy, name="policy_privacy"),
-    url(r"^search/$", views.search, name="search"),
-    url(r"^song/(?P<id>[0-9]*)/$", views.song_detail, name="song_detail"),
-    url(r"^song/(?P<id>[0-9]*)/edit/$", views.song_edit, name="song_edit"),
-    url(
+    re_path(r"^$", views.home, name="home"),
+    re_path(r"^form/account_deletion", views.account_deletion, name="account_deletion"),
+    re_path(r"^policies/privacy", views.privacy_policy, name="policy_privacy"),
+    re_path(r"^search/$", views.search, name="search"),
+    re_path(r"^song/(?P<id>[0-9]*)/$", views.song_detail, name="song_detail"),
+    re_path(r"^song/(?P<id>[0-9]*)/edit/$", views.song_edit, name="song_edit"),
+    re_path(
         r"^song/(?P<id>[0-9]*)/translation/$",
         views.song_translation_post,
         name="song_translation_post",
     ),
-    url(r"^user/(?P<id>[0-9]+)/$", views.user_profile, name="user_profile"),
-    url(r"^chart/$", views.chart, name="chart"),
-    url(r"^grappelli/", include("grappelli.urls")),
-    url(r"^admin/", admin.site.urls),
-    url(r"^logout/$", auth_views.LogoutView.as_view(), name="logout"),
-    url(r"^oauth/", include("social_django.urls", namespace="social")),
-    url(
+    re_path(r"^user/(?P<id>[0-9]+)/$", views.user_profile, name="user_profile"),
+    re_path(r"^chart/$", views.chart, name="chart"),
+    re_path(r"^grappelli/", include("grappelli.urls")),
+    re_path(r"^admin/", admin.site.urls),
+    re_path(r"^logout/$", auth_views.LogoutView.as_view(), name="logout"),
+    re_path(r"^oauth/", include("social_django.urls", namespace="social")),
+    re_path(
         r"^api/user/favorite_song/$",
         views.api_user_favorite_song,
         name="api_user_favorite_song",
@@ -48,4 +48,4 @@ urlpatterns = [
 if settings.DEBUG:
     import debug_toolbar
 
-    urlpatterns = [url(r"^__debug__/", include(debug_toolbar.urls))] + urlpatterns
+    urlpatterns = [re_path(r"^__debug__/", include(debug_toolbar.urls))] + urlpatterns
