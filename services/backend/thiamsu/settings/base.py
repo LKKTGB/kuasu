@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # third-party
     "debug_toolbar",
     "embed_video",
+    "rest_framework",
     "social_django",
     "solo",
     "tinymce",
@@ -183,4 +184,13 @@ TINYMCE_DEFAULT_CONFIG = {
         "//fonts.googleapis.com/css?family=Lato:300,300i,400,400i",
         "//www.tinymce.com/css/codepen.min.css",
     ],
+}
+
+# Django REST framework
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ]
 }

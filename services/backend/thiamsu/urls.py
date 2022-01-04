@@ -19,6 +19,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import include, path, re_path
 
 from . import views
+from .apis import SongList
 
 urlpatterns = [
     re_path(r"^$", views.home, name="home"),
@@ -43,6 +44,7 @@ urlpatterns = [
         views.api_user_favorite_song,
         name="api_user_favorite_song",
     ),
+    path("api/song/", SongList.as_view()),
     path("tinymce/", include("tinymce.urls")),
 ]
 
