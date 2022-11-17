@@ -16,6 +16,7 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-18.04
+    environment: Azure
     steps:
       - uses: actions/checkout@v2
 
