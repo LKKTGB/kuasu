@@ -16,7 +16,7 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
-GA_TRACKING_ID = "UA-114678735-2"
+GA_TRACKING_ID = "G-HKJK1VPKGG"
 
 ALLOWED_HOSTS = ["kuasu.tgb.org.tw", "kuasu-production.azurewebsites.net"]
 
